@@ -1,12 +1,21 @@
+# ─────────────────────────────────────────────────────────────
+#  services.py – Lógica de negocio del torneo
+#  Funciones reutilizables tanto por la CLI como por la GUI.
+#  No contiene input() ni tkinter, solo procesamiento de datos.
+# ─────────────────────────────────────────────────────────────
+
 from . import data_store
 from .data_store import tablagral, paises_mundial
 from .validators import validar_fecha_manual
 
 
 # ──────────────────────────────────────────────
-#  PURE LOGIC (used by both CLI and GUI)
+#  LÓGICA PURA (usada por CLI y GUI)
 # ──────────────────────────────────────────────
 
+
+# Genera los pares de enfrentamiento de un grupo
+# (todos contra todos, ida solamente)
 def generar_pares_grupo(lista_equipos):
     pares = []
     for i in range(len(lista_equipos)):
@@ -15,6 +24,9 @@ def generar_pares_grupo(lista_equipos):
     return pares
 
 
+# Calcula la tabla de posiciones de un grupo.
+# Recorre los partidos, suma puntos (3 por victoria, 1 por empate)
+# y ordena por puntos de mayor a menor con ordenamiento burbuja
 def calcular_tabla_grupo(k):
     temp = []
     for nombre in tablagral:
@@ -33,6 +45,7 @@ def calcular_tabla_grupo(k):
                         e.puntos += 1
             temp.append(e)
 
+    # Ordenamiento burbuja descendente por puntos
     for x in range(len(temp)):
         for i in range(x + 1, len(temp)):
             if temp[x].puntos < temp[i].puntos:
@@ -42,9 +55,12 @@ def calcular_tabla_grupo(k):
 
 
 # ──────────────────────────────────────────────
-#  CLI-ONLY HELPERS (backward compat)
+#  HELPERS SOLO PARA CLI (compatibilidad hacia atrás)
+#  Estas funciones usan input()/print() directamente
 # ──────────────────────────────────────────────
 
+
+# Asigna tarjetas a jugadores de un equipo por consola
 def asignar_tarjetas(nombre_equipo, tipo_tarjeta):
     equipo = tablagral[nombre_equipo]
     cant = int(input(f"\u00bfCu\u00e1ntas tarjetas {tipo_tarjeta} para {nombre_equipo}?: "))
@@ -66,9 +82,12 @@ def asignar_tarjetas(nombre_equipo, tipo_tarjeta):
 
 
 # ──────────────────────────────────────────────
-#  CLI WRAPPERS (backward compat)
+#  FUNCIONES DE FLUJO (compatibles con CLI original)
 # ──────────────────────────────────────────────
 
+
+# Inicia la configuración del torneo: guarda nombre y fechas,
+# devuelve los datos necesarios para la asignación de grupos
 def configuracion(nombre, f_inicio, f_fin):
     data_store.nombre_torneo = nombre
     data_store.fecha_inicio_obj = validar_fecha_manual(f_inicio)
@@ -89,6 +108,7 @@ def configuracion(nombre, f_inicio, f_fin):
     }
 
 
+# Carga fecha y hora de cada partido de un grupo por consola
 def fechapartido(lista, grupo):
     pares = generar_pares_grupo(lista)
     for e1, e2 in pares:
@@ -105,6 +125,7 @@ def fechapartido(lista, grupo):
         tablagral[e2].partidos.append({"rival": e1, "fecha": f, "hora": h, "goles": None})
 
 
+# Carga resultados (goles y tarjetas) de un grupo por consola
 def registro():
     mostrados = []
     k = input("\u00bfGrupo? (A-L): ").upper()
@@ -133,6 +154,7 @@ def registro():
     print("\n\u00a1Resultados guardados!")
 
 
+# Muestra la tabla de posiciones de un grupo por consola
 def emision():
     k = input("Grupo a emitir: ").upper()
     tabla = calcular_tabla_grupo(k)

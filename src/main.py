@@ -1,3 +1,10 @@
+# ─────────────────────────────────────────────────────────────
+#  main.py – Punto de entrada unificado del paquete src/
+#  Permite ejecutar tanto la GUI como la CLI según el argumento:
+#    python src/main.py        → abre la interfaz gráfica
+#    python src/main.py --cli  → abre el menú por consola
+# ─────────────────────────────────────────────────────────────
+
 import sys
 
 
