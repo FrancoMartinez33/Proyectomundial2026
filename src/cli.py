@@ -1,15 +1,29 @@
 # ─────────────────────────────────────────────────────────────
 #  cli.py – Interfaz de línea de comandos (consola)
-#  Muestra el menú interactivo con las opciones clásicas
-#  y delega la lógica en services.py.
+#  Muestra un menú interactivo con las opciones del sistema
+#  y delega la lógica de negocio en services.py.
+#  Responsabilidad: proporcionar una alternativa a la GUI
+#  usando únicamente la terminal para interactuar con el usuario.
 # ─────────────────────────────────────────────────────────────
 
 from . import data_store
 from .services import configuracion, registro, emision
 
 
-# Bucle principal del menú por consola
 def menu(contador):
+    """
+    Bucle principal del menú por consola.
+    Muestra las opciones disponibles y ejecuta la acción
+    seleccionada por el usuario.
+
+    La opción 1 (Configuración) se oculta automáticamente
+    una vez que se ha guardado la configuración del torneo
+    (data_store.config_guardada = True).
+
+    Parámetros:
+        contador (int): valor legacy para control de flujo
+                        (iniciar con 0).
+    """
     while True:
         print(f"\n--- {data_store.nombre_torneo if data_store.nombre_torneo else 'SISTEMA MUNDIAL'} ---")
         print("1. Configuraci\u00f3n del torneo")
@@ -19,11 +33,11 @@ def menu(contador):
         print("5. Simulador")
 
         n = input("Opci\u00f3n: ")
-        opciones = {"1": configuracion, "2": registro, "3": emision, "4": "salir", "5": "sim"}
+        opciones = {"2": registro, "3": emision, "4": "salir", "5": "sim"}
 
-        # Bloquea la opción 1 después de ejecutarla una vez
-        if contador == 1 and "1" in opciones:
-            del opciones["1"]
+        # Si la configuración aún no fue guardada, se habilita la opción 1
+        if not data_store.config_guardada:
+            opciones["1"] = configuracion
 
         if n == "4":
             break
@@ -31,6 +45,8 @@ def menu(contador):
         if n in opciones:
             if n == "1":
                 contador = opciones[n]()
+                if contador not in (None, False):
+                    data_store.config_guardada = True
             else:
                 if n == "2":
                     registro()

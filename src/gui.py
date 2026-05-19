@@ -11,7 +11,12 @@ from datetime import datetime
 # Módulos propios del paquete src/
 from . import data_store 
 from .models import Equipo
-from .services import configuracion, generar_pares_grupo, calcular_tabla_grupo
+from .services import (configuracion, generar_pares_grupo, calcular_tabla_grupo,
+                       randomizar_grupos, generar_informe_equipo, guardar_informe_txt,
+                       generar_reporte_completo, partidos_en_fecha, resultados_equipo,
+                       proximo_partido_equipo, todas_tablas, clasificados_terceros,
+                       generar_ronda32, procesar_resultados_ronda, obtener_estado_eliminatorias,
+                       reiniciar_eliminatorias, obtener_maximo_avance)
 
 
 # ─────────────────────────────────────────────────────────────
@@ -22,17 +27,16 @@ from .services import configuracion, generar_pares_grupo, calcular_tabla_grupo
 class CalendarPopup:
     MESES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
              "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
-    DIAS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"]
+    DIAS = ["Lun", "Mar", "Mi\u00e9", "Jue", "Vie", "S\u00e1b", "Dom"]
 
     def __init__(self, parent, callback):
         self.parent = parent
-        self.callback = callback  # función que recibe "DD/MM/AAAA"
+        self.callback = callback
         hoy = datetime.now()
         self.anio = hoy.year
         self.mes = hoy.month
         self.win = None
 
-    # Construye y muestra la ventana del calendario
     def _abrir(self):
         self.win = tk.Toplevel(self.parent)
         self.win.title("Seleccionar fecha")
@@ -42,21 +46,19 @@ class CalendarPopup:
         self.win.transient(self.parent)
         self.win.grab_set()
 
-        # Barra de navegación: botón ◀, etiqueta mes/año, botón ▶
         nav = tk.Frame(self.win, bg=C["bg"])
         nav.pack(pady=(10, 5))
 
-        tk.Button(nav, text="◀", command=self._mes_prev,
+        tk.Button(nav, text="\u25c0", command=self._mes_prev,
                   bg=C["gray"], fg=C["fg"], bd=0, width=3,
                   font=("Arial", 10, "bold"), cursor="hand2").pack(side="left", padx=5)
         self.lbl_mes = tk.Label(nav, text="", fg=C["cyan"], bg=C["bg"],
                                 font=("Arial", 11, "bold"), width=20)
         self.lbl_mes.pack(side="left")
-        tk.Button(nav, text="▶", command=self._mes_next,
+        tk.Button(nav, text="\u25b6", command=self._mes_next,
                   bg=C["gray"], fg=C["fg"], bd=0, width=3,
                   font=("Arial", 10, "bold"), cursor="hand2").pack(side="left", padx=5)
 
-        # Encabezados de los días de la semana
         dias_f = tk.Frame(self.win, bg=C["bg"])
         dias_f.pack(padx=10)
         for i, d in enumerate(self.DIAS):
@@ -64,12 +66,10 @@ class CalendarPopup:
             tk.Label(dias_f, text=d, fg=color, bg=C["bg"],
                      font=("Arial", 9, "bold"), width=4).grid(row=0, column=i, pady=4)
 
-        # Grilla de números de día (se redibuja al cambiar de mes)
         self.grid_frame = tk.Frame(self.win, bg=C["bg"])
         self.grid_frame.pack(padx=10, pady=(0, 10))
         self._dibujar_mes()
 
-    # Dibuja todos los botones de día del mes actual
     def _dibujar_mes(self):
         for w in self.grid_frame.winfo_children():
             w.destroy()
@@ -88,7 +88,6 @@ class CalendarPopup:
                     btn.grid(row=r, column=c, padx=1, pady=1)
                     btn.config(command=lambda d=dia: self._seleccionar(d))
 
-    # Retrocede un mes
     def _mes_prev(self):
         if self.mes == 1:
             self.mes = 12
@@ -97,7 +96,6 @@ class CalendarPopup:
             self.mes -= 1
         self._dibujar_mes()
 
-    # Avanza un mes
     def _mes_next(self):
         if self.mes == 12:
             self.mes = 1
@@ -106,7 +104,6 @@ class CalendarPopup:
             self.mes += 1
         self._dibujar_mes()
 
-    # Al hacer clic en un día, ejecuta el callback con la fecha formateada y cierra
     def _seleccionar(self, dia):
         self.callback(f"{dia:02d}/{self.mes:02d}/{self.anio}")
         self.win.destroy()
@@ -114,37 +111,31 @@ class CalendarPopup:
 
 # ─────────────────────────────────────────────────────────────
 #  DateEntry – Campo de fecha con botón que abre el calendario
-#  Muestra "DD/MM/AAAA" hasta que se selecciona una fecha
 # ─────────────────────────────────────────────────────────────
 
 class DateEntry(tk.Frame):
     def __init__(self, parent, label, **kw):
         super().__init__(parent, **kw)
         self.configure(bg=C["bg"])
-        # Etiqueta del campo (ej: "Fecha inicio")
         tk.Label(self, text=label, fg=C["fg"], bg=C["bg"],
                  font=("Arial", 10)).pack(anchor="w")
-        # Fila con label de fecha + botón calendario
         row = tk.Frame(self, bg=C["bg"])
         row.pack(fill="x")
         self.lbl_fecha = tk.Label(row, text="DD/MM/AAAA", fg=C["disabled"],
                                   bg=C["input_bg"], font=("Arial", 10),
                                   anchor="w", padx=8, pady=4, relief="flat")
         self.lbl_fecha.pack(side="left", fill="x", expand=True)
-        tk.Button(row, text="📅", command=self._abrir_calendario,
+        tk.Button(row, text="\U0001f4c5", command=self._abrir_calendario,
                   bg=C["gray"], fg=C["fg"], bd=0, width=3,
                   font=("Arial", 10), cursor="hand2").pack(side="right", padx=(4, 0))
 
-    # Abre el popup del calendario
     def _abrir_calendario(self):
         cp = CalendarPopup(self, self._set_fecha)
         cp._abrir()
 
-    # Recibe la fecha desde CalendarPopup y la muestra
     def _set_fecha(self, fecha):
         self.lbl_fecha.config(text=fecha, fg="white")
 
-    # Devuelve la fecha seleccionada o cadena vacía si no se eligió
     def get(self):
         txt = self.lbl_fecha.cget("text")
         return txt if txt != "DD/MM/AAAA" else ""
@@ -181,14 +172,9 @@ def centrar_ventana(win, ancho, alto):
 
 # ─────────────────────────────────────────────────────────────
 #  InterfazMundial – Clase principal de la aplicación
-#  Administra todas las ventanas y la navegación entre ellas
 # ─────────────────────────────────────────────────────────────
 
 class InterfazMundial:
-
-    # ── Inicialización ────────────────────────────
-    # Configura la ventana raíz a pantalla completa vertical
-    # y construye los componentes fijos (header, logo, menú)
 
     def __init__(self, root):
         self.root = root
@@ -197,19 +183,16 @@ class InterfazMundial:
         pantalla_h = self.root.winfo_screenheight()
         self.root.geometry(f"500x{pantalla_h}+{(self.root.winfo_screenwidth()-500)//2}+0")
 
-        # Estado de la aplicación
         self.torneo_configurado = False
-        self.disponibles = set()      # países aún no asignados a grupos
-        self.asignaciones = {}        # { grupo: [lista de países] }
-        self.datos_config = None      # resultado de la configuración inicial
-        self.btn_registro = None
+        self.disponibles = set()
+        self.asignaciones = {}
+        self.datos_config = None
 
         self.crear_zona_titulos()
         self.crear_identidad_visual()
         self.crear_menu_principal()
 
     # ── HEADER ──────────────────────────────────
-    # Barra superior con nombre de la materia, título y reloj en vivo
 
     def crear_zona_titulos(self):
         header = tk.Frame(self.root, bg=C["bg"],
@@ -225,14 +208,12 @@ class InterfazMundial:
         self.lbl_reloj.pack(pady=(2, 8))
         self.actualizar_reloj()
 
-    # Actualiza el reloj cada 1 segundo
     def actualizar_reloj(self):
         self.lbl_reloj.config(
             text=datetime.now().strftime("Fecha: %d/%m/%Y   |   Hora: %H:%M:%S"))
         self.root.after(1000, self.actualizar_reloj)
 
     # ── LOGO ────────────────────────────────────
-    # Logo visual "26" + "FIFA WORLD CUP"
 
     def crear_identidad_visual(self):
         frame = tk.Frame(self.root, bg=C["bg"])
@@ -243,11 +224,8 @@ class InterfazMundial:
                  font=("Arial", 9, "bold")).pack()
 
     # ── MENÚ PRINCIPAL ───────────────────────────
-    # Botones de navegación centrados verticalmente
-    # con espaciadores expandibles arriba y abajo
 
     def _estilo_boton(self, **kw):
-        # Base de estilo reutilizable para todos los botones
         base = {"fg": C["fg"], "bg": C["gray"],
                 "activebackground": C["cyan"], "activeforeground": "#000000",
                 "font": ("Arial", 11, "bold"), "width": 32, "bd": 0,
@@ -259,45 +237,47 @@ class InterfazMundial:
         frame = tk.Frame(self.root, bg=C["bg"])
         frame.pack(fill="both", expand=True, padx=25)
 
-        tk.Label(frame, text="MENÚ PRINCIPAL", fg=C["fg"], bg=C["bg"],
+        tk.Label(frame, text="MEN\u00da PRINCIPAL", fg=C["fg"], bg=C["bg"],
                  font=("Arial", 12, "bold")).pack(pady=(10, 5))
 
         botones_frame = tk.Frame(frame, bg=C["bg"])
         botones_frame.pack(fill="both", expand=True)
 
-        # Espaciador superior: empuja los botones hacia el centro
         espaciador_top = tk.Frame(botones_frame, bg=C["bg"])
         espaciador_top.pack(fill="both", expand=True)
 
         buttons = [
-            ("1. Configuración del Torneo", self.abrir_configuracion, None),
+            ("1. Configuraci\u00f3n del Torneo", self.abrir_configuracion, None),
             ("2. Registro de Resultados", self.abrir_resultados, "disabled"),
-            ("3. Emisión de Informes", self.abrir_informes, None),
-            ("4. Salir", self.root.quit, "red_hover"),
+            ("3. Emisi\u00f3n de Informes", self.abrir_informes, None),
+            ("4. Clasificaci\u00f3n de Terceros", self.abrir_terceros, None),
+            ("5. Fase Eliminatoria", self.abrir_eliminatorias, None),
+            ("6. Salir", self.root.quit, "red_hover"),
         ]
         self.menu_buttons = {}
         for text, cmd, extra in buttons:
             kw = {}
             if extra == "disabled":
-                # Botón deshabilitado hasta configurar torneo
                 kw = {"bg": C["disabled"], "fg": "#888888", "state": "disabled"}
             elif extra == "red_hover":
-                # Botón de salir con hover rojo
                 kw = {"activebackground": "#FF3333"}
             btn = tk.Button(botones_frame, text=text, command=cmd, **self._estilo_boton(**kw))
             btn.pack(pady=5, anchor="center")
             self.menu_buttons[text] = btn
 
-        # Espaciador inferior: equilibra el espacio vertical
         espaciador_bottom = tk.Frame(botones_frame, bg=C["bg"])
         espaciador_bottom.pack(fill="both", expand=True)
 
     # ── CONFIGURACIÓN DEL TORNEO ─────────────────
-    # Ventana con nombre del torneo y dos fechas (con calendario)
 
     def abrir_configuracion(self):
+        if data_store.config_guardada:
+            messagebox.showwarning(
+                "Acceso Denegado",
+                "La configuraci\u00f3n del torneo ya fue finalizada.\nNo se puede modificar.")
+            return
         win = tk.Toplevel(self.root)
-        win.title("Configuración del Torneo")
+        win.title("Configuraci\u00f3n del Torneo")
         centrar_ventana(win, 440, 400)
         win.configure(bg=C["bg"])
         win.transient(self.root)
@@ -306,23 +286,20 @@ class InterfazMundial:
         card = tk.Frame(win, bg=C["card"], padx=20, pady=20)
         card.pack(pady=15, padx=20, fill="both", expand=True)
 
-        tk.Label(card, text="CONFIGURACIÓN DEL TORNEO", fg=C["cyan"], bg=C["card"],
+        tk.Label(card, text="CONFIGURACI\u00d3N DEL TORNEO", fg=C["cyan"], bg=C["card"],
                  font=("Arial", 12, "bold")).pack(pady=(0, 18))
 
-        # Campo: Nombre del torneo
         e_nombre = tk.Entry(card, bg=C["input_bg"], fg="white",
                             insertbackground="white", relief="flat", font=("Arial", 10))
         tk.Label(card, text="Nombre del torneo", fg=C["fg"], bg=C["card"],
                  font=("Arial", 10)).pack(anchor="w")
         e_nombre.pack(fill="x", pady=(2, 12))
 
-        # Campos de fecha con calendario visual
         e_inicio = DateEntry(card, "Fecha inicio (DD/MM/AAAA)")
         e_inicio.pack(fill="x", pady=(0, 10))
         e_fin = DateEntry(card, "Fecha fin (DD/MM/AAAA)")
         e_fin.pack(fill="x", pady=(0, 18))
 
-        # Guarda la configuración y pasa a asignación de grupos
         def guardar():
             nombre = e_nombre.get().strip()
             inicio = e_inicio.get()
@@ -347,26 +324,24 @@ class InterfazMundial:
                   command=guardar, **self._estilo_boton(width=28)).pack()
 
     # ── ASIGNACIÓN DE EQUIPOS A GRUPOS ───────────
-    # Interfaz de dos listas: países disponibles (izq) y grupo (der)
 
     def abrir_asignacion_grupos(self):
         win = tk.Toplevel(self.root)
-        win.title("Asignación de Equipos a Grupos")
+        win.title("Asignaci\u00f3n de Equipos a Grupos")
         centrar_ventana(win, 780, 580)
         win.configure(bg=C["bg"])
         win.transient(self.root)
         win.grab_set()
 
-        tk.Label(win, text="ASIGNACIÓN DE EQUIPOS A GRUPOS", fg=C["cyan"], bg=C["bg"],
+        tk.Label(win, text="ASIGNACI\u00d3N DE EQUIPOS A GRUPOS", fg=C["cyan"], bg=C["bg"],
                  font=("Arial", 12, "bold")).pack(pady=(15, 2))
-        tk.Label(win, text="Seleccioná un país disponible y agregalo a un grupo (4 por grupo)",
+        tk.Label(win, text="Seleccion\u00e1 un pa\u00eds disponible y agregalo a un grupo (4 por grupo)",
                  fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(0, 8))
 
         main = tk.Frame(win, bg=C["bg"])
         main.pack(fill="both", expand=True, padx=15, pady=5)
 
-        # ── Panel izquierdo: lista de países sin asignar
-        left = tk.LabelFrame(main, text="PAÍSES DISPONIBLES",
+        left = tk.LabelFrame(main, text="PA\u00cdSES DISPONIBLES",
                              fg=C["cyan"], bg=C["card"], font=("Arial", 10, "bold"),
                              padx=5, pady=5)
         left.pack(side="left", fill="both", expand=True, padx=(0, 10))
@@ -382,7 +357,6 @@ class InterfazMundial:
         self.lbox_disp.config(yscrollcommand=sd.set)
         self._refrescar_disp()
 
-        # ── Panel derecho: selector de grupo + asignaciones
         right = tk.Frame(main, bg=C["bg"])
         right.pack(side="right", fill="both", expand=True)
 
@@ -396,54 +370,50 @@ class InterfazMundial:
         self.cb_grupo.bind("<<ComboboxSelected>>", self._refrescar_asig)
         self.cb_grupo.set("A")
 
-        # Lista de equipos ya asignados al grupo seleccionado
         self.lbox_asig = tk.Listbox(right, bg=C["input_bg"], fg="white",
                                      selectbackground=C["green"],
                                      selectforeground="#000000",
                                      relief="flat", font=("Consolas", 10), height=6)
         self.lbox_asig.pack(fill="both", expand=True)
 
-        # Botones Agregar / Quitar
         btn_row = tk.Frame(right, bg=C["bg"])
         btn_row.pack(fill="x", pady=10)
-        tk.Button(btn_row, text="→ Agregar", command=self._agregar,
+        tk.Button(btn_row, text="\u2192 Agregar", command=self._agregar,
                   **self._estilo_boton(width=13, bg=C["cyan"], fg="#000000")).pack(side="left", padx=3)
-        tk.Button(btn_row, text="Quitar ←", command=self._quitar,
+        tk.Button(btn_row, text="Quitar \u2190", command=self._quitar,
                   **self._estilo_boton(width=13)).pack(side="right", padx=3)
 
         self._refrescar_asig()
 
-        # ── Barra de estado: contador asignados/pendientes
+        tk.Button(right, text="\U0001f3b2 Randomizar", command=self._randomizar,
+                  **self._estilo_boton(width=13, bg=C["green"], fg="#000000")).pack(pady=(0, 6))
+
         self.lbl_status = tk.Label(win, text="", fg=C["green"], bg=C["bg"], font=("Consolas", 9))
         self.lbl_status.pack(pady=(0, 5))
         self._actualizar_status()
 
-        # Botón final: crea los objetos Equipo y los partidos
-        tk.Button(win, text="FINALIZAR CONFIGURACIÓN",
+        tk.Button(win, text="FINALIZAR CONFIGURACI\u00d3N",
                   command=lambda: self._finalizar(win),
                   bg=C["cyan"], fg="#000000",
                   **{k: v for k, v in self._estilo_boton(width=30).items()
                      if k not in ("bg", "fg")}).pack(pady=8)
 
-    # Refresca la lista de países disponibles desde el conjunto
     def _refrescar_disp(self):
         self.lbox_disp.delete(0, "end")
         for p in sorted(self.disponibles):
             self.lbox_disp.insert("end", p)
 
-    # Refresca la lista de asignados del grupo seleccionado
     def _refrescar_asig(self, event=None):
         self.lbox_asig.delete(0, "end")
         grupo = self.cb_grupo.get()
         for i, p in enumerate(self.asignaciones.get(grupo, []), 1):
             self.lbox_asig.insert("end", f"{i}. {p}")
 
-    # Mueve un país de disponibles al grupo seleccionado
     def _agregar(self):
         grupo = self.cb_grupo.get()
         sel = self.lbox_disp.curselection()
         if not sel:
-            messagebox.showwarning("Seleccionar país", "Seleccioná un país de la lista.")
+            messagebox.showwarning("Seleccionar pa\u00eds", "Seleccion\u00e1 un pa\u00eds de la lista.")
             return
         if len(self.asignaciones[grupo]) >= 4:
             messagebox.showwarning("Grupo completo",
@@ -456,7 +426,6 @@ class InterfazMundial:
         self._refrescar_asig()
         self._actualizar_status()
 
-    # Devuelve un país del grupo a la lista de disponibles
     def _quitar(self):
         grupo = self.cb_grupo.get()
         sel = self.lbox_asig.curselection()
@@ -470,14 +439,24 @@ class InterfazMundial:
         self._refrescar_asig()
         self._actualizar_status()
 
-    # Actualiza el texto del label de estado
     def _actualizar_status(self):
         total = sum(len(v) for v in self.asignaciones.values())
         self.lbl_status.config(text=f"Asignados: {total}/48  |  Pendientes: {len(self.disponibles)}")
 
-    # Finaliza la configuración: valida, crea objetos Equipo y genera partidos
+    def _randomizar(self):
+        if not self.disponibles:
+            messagebox.showinfo("Info", "Todos los pa\u00edses ya est\u00e1n asignados.")
+            return
+        self.asignaciones, self.disponibles = randomizar_grupos(
+            self.disponibles, self.asignaciones)
+        self._refrescar_disp()
+        self._refrescar_asig()
+        self._actualizar_status()
+        total = sum(len(v) for v in self.asignaciones.values())
+        if total == 48:
+            messagebox.showinfo("Completado", "Todos los grupos tienen 4 equipos asignados.")
+
     def _finalizar(self, win):
-        # Validar que cada grupo tenga exactamente 4 equipos
         for g, eqs in self.asignaciones.items():
             if len(eqs) != 4:
                 messagebox.showerror("Error",
@@ -485,16 +464,15 @@ class InterfazMundial:
                                      parent=win)
                 return
 
-        # Crear objetos Equipo en data_store.tablagral
         for g, eqs in self.asignaciones.items():
             for i, nom in enumerate(eqs, 1):
                 abrev = "".join(c for c in nom.upper() if c.isalpha())[:3]
+                pref = data_store.prefijos_telefonicos.get(nom, "")
                 data_store.tablagral[nom] = Equipo(
-                    nombre=nom, abreviatura=abrev, prefijo="",
+                    nombre=nom, abreviatura=abrev, prefijo=pref,
                     grupo=g, id_identificador=f"{g}{i}"
                 )
 
-        # Generar los enfrentamientos de cada grupo
         for g, eqs in self.asignaciones.items():
             for e1, e2 in generar_pares_grupo(eqs):
                 data_store.tablagral[e1].partidos.append(
@@ -502,24 +480,28 @@ class InterfazMundial:
                 data_store.tablagral[e2].partidos.append(
                     {"rival": e1, "fecha": "", "hora": "", "goles": None})
 
-        # Habilitar el botón de registro de resultados
+        data_store.config_guardada = True
         self.torneo_configurado = True
+        self.menu_buttons["1. Configuraci\u00f3n del Torneo"].config(
+            state="disabled", bg=C["disabled"], fg="#888888")
         self.menu_buttons["2. Registro de Resultados"].config(
             state="normal", bg=C["gray"], fg=C["fg"])
+        self.menu_buttons["4. Clasificaci\u00f3n de Terceros"].config(
+            state="normal", bg=C["gray"], fg=C["fg"])
+        self.menu_buttons["5. Fase Eliminatoria"].config(
+            state="normal", bg=C["gray"], fg=C["fg"])
         messagebox.showinfo(
-            "Éxito",
+            "\u00c9xito",
             f"Torneo '{data_store.nombre_torneo}' configurado.\n48 equipos en 12 grupos, partidos generados.",
             parent=win)
         win.destroy()
 
     # ── REGISTRO DE RESULTADOS ────────────────────
-    # Ventana con scroll que muestra los partidos de un grupo
-    # y permite ingresar goles y tarjetas
 
     def abrir_resultados(self):
         if not self.torneo_configurado:
             messagebox.showwarning("Acceso Denegado",
-                                   "Primero completá la Configuración del Torneo.")
+                                   "Primero complet\u00e1 la Configuraci\u00f3n del Torneo.")
             return
 
         win = tk.Toplevel(self.root)
@@ -531,10 +513,9 @@ class InterfazMundial:
 
         tk.Label(win, text="REGISTRO DE RESULTADOS", fg=C["cyan"], bg=C["bg"],
                  font=("Arial", 12, "bold")).pack(pady=(18, 2))
-        tk.Label(win, text="Seleccioná un grupo y cargá los goles de cada partido",
+        tk.Label(win, text="Seleccion\u00e1 un grupo y carg\u00e1 los goles de cada partido",
                  fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(0, 12))
 
-        # Selector de grupo
         top = tk.Frame(win, bg=C["bg"])
         top.pack(fill="x", padx=20)
         tk.Label(top, text="Grupo:", fg=C["fg"], bg=C["bg"],
@@ -543,7 +524,6 @@ class InterfazMundial:
                            state="readonly", width=4, font=("Arial", 10))
         cb.pack(side="left")
 
-        # Área scrolleable con Canvas para los partidos
         scroll_canvas = tk.Canvas(win, bg=C["bg"], highlightthickness=0)
         scroll_bar = tk.Scrollbar(win, orient="vertical", command=scroll_canvas.yview)
         scroll_frame = tk.Frame(scroll_canvas, bg=C["bg"])
@@ -558,7 +538,6 @@ class InterfazMundial:
         match_widgets = {}
         editando = {}
 
-        # Construye las tarjetas de partido para el grupo seleccionado
         def mostrar_partidos(event=None):
             for w in scroll_frame.winfo_children():
                 w.destroy()
@@ -578,14 +557,12 @@ class InterfazMundial:
                     mostrados.add(par)
                     editando[par] = False
 
-                    # Tarjeta visual por partido
                     card = tk.Frame(scroll_frame, bg=C["card"], padx=12, pady=8)
                     card.pack(fill="x", pady=4)
 
                     row = tk.Frame(card, bg=C["card"])
                     row.pack(fill="x")
 
-                    # Nombres de los equipos
                     tk.Label(row, text=e.nombre, fg=C["fg"], bg=C["card"],
                              font=("Arial", 10, "bold"), width=18, anchor="w").pack(side="left")
                     tk.Label(row, text="vs", fg=C["cyan"], bg=C["card"],
@@ -593,7 +570,6 @@ class InterfazMundial:
                     tk.Label(row, text=p["rival"], fg=C["fg"], bg=C["card"],
                              font=("Arial", 10, "bold"), width=18, anchor="w").pack(side="left")
 
-                    # Campos de goles: "Goles: [  ] - [  ]"
                     tk.Label(row, text="Goles:", fg=C["green"], bg=C["card"],
                              font=("Arial", 9)).pack(side="left", padx=(12, 4))
 
@@ -610,14 +586,12 @@ class InterfazMundial:
                                      font=("Arial", 10), width=4, justify="center")
                     e_vis.pack(side="left", padx=1)
 
-                    # Si ya tenía goles cargados, mostrarlos
                     if p["goles"] is not None:
                         e_loc.insert(0, str(p["goles"][0]))
                         e_vis.insert(0, str(p["goles"][1]))
 
                     match_widgets[par] = (e_loc, e_vis, e.nombre, p["rival"])
 
-                    # Botón para abrir la ventana de tarjetas
                     tk.Button(row, text="Tarjetas", font=("Arial", 8),
                               command=lambda t1=e.nombre, t2=p["rival"]:
                                   self._asignar_tarjetas_gui(t1, t2),
@@ -632,11 +606,10 @@ class InterfazMundial:
         cb.set("A")
         mostrar_partidos()
 
-        # Guarda los resultados ingresados en los objetos del data_store
         def guardar_res():
             k = cb.get()
             if not k:
-                messagebox.showwarning("Seleccionar grupo", "Seleccioná un grupo.", parent=win)
+                messagebox.showwarning("Seleccionar grupo", "Seleccion\u00e1 un grupo.", parent=win)
                 return
             ok = True
             for (e1n, e2n), (loc, vis, loc_n, vis_n) in match_widgets.items():
@@ -648,7 +621,7 @@ class InterfazMundial:
                     g1n, g2n = int(g1), int(g2)
                 except ValueError:
                     messagebox.showerror("Error",
-                                         f"Goles inválidos en {loc_n} vs {vis_n}. Usá números.",
+                                         f"Goles inv\u00e1lidos en {loc_n} vs {vis_n}. Us\u00e1 n\u00fameros.",
                                          parent=win)
                     ok = False
                     break
@@ -670,8 +643,6 @@ class InterfazMundial:
                      if k not in ("bg", "fg")}).pack()
 
     # ── VENTANA DE TARJETAS ──────────────────────
-    # Permite asignar tarjetas amarillas/rojas a jugadores
-    # de ambos equipos de un partido
 
     def _asignar_tarjetas_gui(self, local, visit):
         win = tk.Toplevel(self.root)
@@ -690,7 +661,6 @@ class InterfazMundial:
         lbl_feedback = tk.Label(main, text="", fg=C["green"], bg=C["bg"], font=("Arial", 9))
         lbl_feedback.pack(pady=5)
 
-        # Crea una sección por equipo con campo: Jugador, Tipo, botón +
         def seccion(team_name):
             frame = tk.LabelFrame(main, text=team_name, fg=C["green"],
                                   bg=C["card"], font=("Arial", 10, "bold"),
@@ -714,11 +684,10 @@ class InterfazMundial:
             cb_tipo.pack(side="left", padx=5)
             cb_tipo.set("Amarilla")
 
-            # Agrega la tarjeta al jugador en el data_store
             def agregar():
                 jug = e_jug.get().strip()
                 if not jug:
-                    messagebox.showwarning("Nombre", "Escribí el nombre del jugador.", parent=win)
+                    messagebox.showwarning("Nombre", "Escrib\u00ed el nombre del jugador.", parent=win)
                     return
                 tipo = "AM" if cb_tipo.get() == "Amarilla" else "RJ"
                 obj = data_store.tablagral[team_name]
@@ -730,7 +699,7 @@ class InterfazMundial:
                 else:
                     obj.rj += 1
                 e_jug.delete(0, "end")
-                lbl_feedback.config(text=f"{jug} ({cb_tipo.get()}) → {team_name}")
+                lbl_feedback.config(text=f"{jug} ({cb_tipo.get()}) \u2192 {team_name}")
 
             tk.Button(row, text="+", command=agregar,
                       bg=C["cyan"], fg="#000000", bd=0,
@@ -742,82 +711,567 @@ class InterfazMundial:
         tk.Button(win, text="Cerrar", command=win.destroy,
                   **self._estilo_boton(width=20)).pack(pady=(10, 12))
 
-    # ── EMISIÓN DE INFORMES ──────────────────────
-    # Ventana con tabla de posiciones (Treeview) filtrada por grupo
+    # ── EMISIÓN DE INFORMES (5 TABS) ─────────────
 
     def abrir_informes(self):
         win = tk.Toplevel(self.root)
-        win.title("Emisión de Informes")
-        centrar_ventana(win, 780, 560)
+        win.title("Emisi\u00f3n de Informes")
+        centrar_ventana(win, 850, 620)
         win.configure(bg=C["bg"])
         win.transient(self.root)
         win.grab_set()
 
-        tk.Label(win, text="EMISIÓN DE INFORMES", fg=C["cyan"], bg=C["bg"],
-                 font=("Arial", 12, "bold")).pack(pady=(18, 2))
-        tk.Label(win, text="Seleccioná un grupo para ver la tabla de posiciones",
-                 fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(0, 12))
+        tk.Label(win, text="EMISI\u00d3N DE INFORMES", fg=C["cyan"], bg=C["bg"],
+                 font=("Arial", 12, "bold")).pack(pady=(10, 2))
 
-        # Selector de grupo
-        top = tk.Frame(win, bg=C["bg"])
-        top.pack(fill="x", padx=20)
-        tk.Label(top, text="Grupo:", fg=C["fg"], bg=C["bg"],
+        # Estilo oscuro para el Notebook
+        style = ttk.Style()
+        style.theme_use("clam")
+        style.configure("TNotebook", background=C["bg"], borderwidth=0)
+        style.configure("TNotebook.Tab", background=C["gray"], foreground="white",
+                        padding=[12, 4], font=("Arial", 9, "bold"))
+        style.map("TNotebook.Tab", background=[("selected", C["cyan"])],
+                  foreground=[("selected", "#000000")])
+        style.configure("Treeview", background=C["input_bg"], foreground="white",
+                        fieldbackground=C["input_bg"], rowheight=26)
+        style.configure("Treeview.Heading", background=C["gray"], foreground="white", relief="flat")
+        style.map("Treeview", background=[("selected", C["cyan"])],
+                  foreground=[("selected", "#000000")])
+
+        notebook = ttk.Notebook(win)
+        notebook.pack(fill="both", expand=True, padx=15, pady=(5, 15))
+
+        # ── TAB 1: Partidos en una fecha ──────────
+        tab1 = tk.Frame(notebook, bg=C["bg"])
+        notebook.add(tab1, text=" Partidos en fecha ")
+
+        tk.Label(tab1, text="Consultar partidos en una fecha espec\u00edfica",
+                 fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(10, 5))
+
+        fecha_row = tk.Frame(tab1, bg=C["bg"])
+        fecha_row.pack(pady=5)
+        tk.Label(fecha_row, text="Fecha (DD/MM/AAAA):", fg=C["fg"], bg=C["bg"],
+                 font=("Arial", 10)).pack(side="left", padx=(0, 5))
+        e_fecha = tk.Entry(fecha_row, bg=C["input_bg"], fg="white",
+                          insertbackground="white", relief="flat", font=("Arial", 10), width=14)
+        e_fecha.pack(side="left", padx=5)
+
+        tree1_frame = tk.Frame(tab1, bg=C["bg"])
+        tree1_frame.pack(fill="both", expand=True, padx=20, pady=10)
+
+        cols1 = ("Local", "Visitante", "Grupo", "Hora", "Resultado")
+        tree1 = ttk.Treeview(tree1_frame, columns=cols1, show="headings", height=10)
+        for c in cols1:
+            tree1.heading(c, text=c)
+            tree1.column(c, width=120, anchor="center")
+        tree1.column("Local", width=180, anchor="w")
+        tree1.column("Visitante", width=180, anchor="w")
+
+        sv1 = tk.Scrollbar(tree1_frame, orient="vertical", command=tree1.yview)
+        tree1.configure(yscrollcommand=sv1.set)
+        tree1.pack(side="left", fill="both", expand=True)
+        sv1.pack(side="right", fill="y")
+
+        def buscar_partidos():
+            for i in tree1.get_children():
+                tree1.delete(i)
+            fecha = e_fecha.get().strip()
+            if not fecha:
+                messagebox.showwarning("Fecha", "Ingres\u00e1 una fecha (DD/MM/AAAA).", parent=win)
+                return
+            resultados = partidos_en_fecha(fecha)
+            if not resultados:
+                tk.Label(tab1, text="No se encontraron partidos en esa fecha.",
+                         fg=C["disabled"], bg=C["bg"]).pack()
+                return
+            for r in resultados:
+                tree1.insert("", "end", values=(r["local"], r["visitante"],
+                                                r["grupo"], r["hora"], r["resultado"]))
+
+        tk.Button(tab1, text="Buscar", command=buscar_partidos,
+                  **self._estilo_boton(width=15, bg=C["cyan"], fg="#000000")).pack(pady=(0, 5))
+
+        # ── TAB 2: Tabla de un grupo ──────────────
+        tab2 = tk.Frame(notebook, bg=C["bg"])
+        notebook.add(tab2, text=" Tabla de grupo ")
+
+        top2 = tk.Frame(tab2, bg=C["bg"])
+        top2.pack(fill="x", padx=20, pady=(10, 5))
+        tk.Label(top2, text="Grupo:", fg=C["fg"], bg=C["bg"],
                  font=("Arial", 10, "bold")).pack(side="left", padx=(0, 10))
-        cb = ttk.Combobox(top, values=list("ABCDEFGHIJKL"),
-                           state="readonly", width=4, font=("Arial", 10))
-        cb.pack(side="left")
+        cb2 = ttk.Combobox(top2, values=list("ABCDEFGHIJKL"),
+                            state="readonly", width=4, font=("Arial", 10))
+        cb2.pack(side="left")
 
-        # Treeview con las columnas de la tabla
+        tree2_frame = tk.Frame(tab2, bg=C["bg"])
+        tree2_frame.pack(fill="both", expand=True, padx=20, pady=10)
+
+        cols2 = ("ID", "Equipo", "PJ", "PTS", "DG", "GF", "GC", "AM", "RJ")
+        tree2 = ttk.Treeview(tree2_frame, columns=cols2, show="headings", height=10)
+        for c in cols2:
+            tree2.heading(c, text=c)
+            tree2.column(c, width=70, anchor="center")
+        tree2.column("Equipo", width=180, anchor="w")
+        tree2.column("ID", width=40)
+
+        sv2 = tk.Scrollbar(tree2_frame, orient="vertical", command=tree2.yview)
+        tree2.configure(yscrollcommand=sv2.set)
+        tree2.pack(side="left", fill="both", expand=True)
+        sv2.pack(side="right", fill="y")
+
+        def actualizar_tabla(event=None):
+            for i in tree2.get_children():
+                tree2.delete(i)
+            k = cb2.get()
+            if not k:
+                return
+            for e in calcular_tabla_grupo(k):
+                tree2.insert("", "end", values=(
+                    e.id or "", e.nombre, e.pj, e.puntos, e.gf - e.gc,
+                    e.gf, e.gc, e.am, e.rj))
+
+        cb2.bind("<<ComboboxSelected>>", actualizar_tabla)
+        cb2.set("A")
+        actualizar_tabla()
+
+        # ── TAB 3: Resultados de un equipo ────────
+        tab3 = tk.Frame(notebook, bg=C["bg"])
+        notebook.add(tab3, text=" Resultados de equipo ")
+
+        tk.Label(tab3, text="Ver informaci\u00f3n detallada de un equipo",
+                 fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(10, 5))
+
+        top3 = tk.Frame(tab3, bg=C["bg"])
+        top3.pack(fill="x", padx=20)
+        tk.Label(top3, text="Equipo:", fg=C["fg"], bg=C["bg"],
+                 font=("Arial", 10, "bold")).pack(side="left", padx=(0, 5))
+        cb3 = ttk.Combobox(top3, values=sorted(data_store.tablagral.keys()),
+                           state="readonly", width=25, font=("Arial", 10))
+        cb3.pack(side="left")
+
+        text3 = tk.Text(tab3, bg=C["input_bg"], fg="white", font=("Consolas", 9),
+                        relief="flat", wrap="none", padx=10, pady=10)
+        text3.pack(fill="both", expand=True, padx=20, pady=10)
+
+        sv3 = tk.Scrollbar(text3, orient="vertical", command=text3.yview)
+        text3.configure(yscrollcommand=sv3.set)
+        sv3.pack(side="right", fill="y")
+
+        def mostrar_resultados():
+            text3.delete("1.0", "end")
+            team = cb3.get()
+            if not team:
+                messagebox.showwarning("Equipo", "Seleccion\u00e1 un equipo.", parent=win)
+                return
+            res = resultados_equipo(team)
+            if not res:
+                text3.insert("end", "Equipo no encontrado.")
+                return
+            lineas = []
+            lineas.append("=" * 50)
+            lineas.append(f"EQUIPO: {res['nombre']} ({res['abreviatura']})")
+            lineas.append(f"Grupo: {res['grupo']}  |  ID: {res['id']}")
+            lineas.append("=" * 50)
+            lineas.append(f"\nEstad\u00edsticas:")
+            lineas.append(f"  PJ: {res['pj']}  PTS: {res['puntos']}  DG: {res['dg']:+d}")
+            lineas.append(f"  GF: {res['gf']}  GC: {res['gc']}  AM: {res['am']}  RJ: {res['rj']}")
+            lineas.append(f"\nPartidos:")
+            for p in res['partidos']:
+                lineas.append(f"  vs {p['rival']:<18}  {p['resultado']:>9}")
+            if res['plantel']:
+                lineas.append(f"\nPlantel / Tarjetas:")
+                for j in res['plantel']:
+                    lineas.append(f"  {j['nombre']:<20}  AM={j['am']}  RJ={j['rj']}")
+            text3.insert("1.0", "\n".join(lineas))
+
+            # Botón para guardar .txt
+            def guardar():
+                contenido = generar_informe_equipo(team)
+                archivo = guardar_informe_txt(contenido)
+                messagebox.showinfo("Informe generado",
+                                    f"Guardado en:\n{archivo}", parent=win)
+
+            btn_frame3 = tk.Frame(tab3, bg=C["bg"])
+            btn_frame3.pack(fill="x", padx=20, pady=(0, 5))
+            tk.Button(btn_frame3, text="\U0001f4c4 Generar Informe .txt", command=guardar,
+                      **self._estilo_boton(width=22, bg=C["cyan"], fg="#000000")).pack()
+
+        cb3.bind("<<ComboboxSelected>>", lambda e: mostrar_resultados())
+        if cb3.get():
+            mostrar_resultados()
+
+        # ── TAB 4: Próximo partido ────────────────
+        tab4 = tk.Frame(notebook, bg=C["bg"])
+        notebook.add(tab4, text=" Pr\u00f3ximo partido ")
+
+        tk.Label(tab4, text="Ver el pr\u00f3ximo partido pendiente de un equipo",
+                 fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(10, 5))
+
+        top4 = tk.Frame(tab4, bg=C["bg"])
+        top4.pack(fill="x", padx=20)
+        tk.Label(top4, text="Equipo:", fg=C["fg"], bg=C["bg"],
+                 font=("Arial", 10, "bold")).pack(side="left", padx=(0, 5))
+        cb4 = ttk.Combobox(top4, values=sorted(data_store.tablagral.keys()),
+                           state="readonly", width=25, font=("Arial", 10))
+        cb4.pack(side="left")
+
+        frame4 = tk.Frame(tab4, bg=C["card"], padx=20, pady=20)
+        frame4.pack(fill="both", expand=True, padx=20, pady=20)
+
+        lbl4_info = tk.Label(frame4, text="Seleccion\u00e1 un equipo para ver su pr\u00f3ximo partido.",
+                             fg=C["disabled"], bg=C["card"], font=("Arial", 12), justify="center")
+        lbl4_info.pack(expand=True)
+
+        def mostrar_proximo():
+            team = cb4.get()
+            if not team:
+                return
+            prox = proximo_partido_equipo(team)
+            if prox:
+                texto = (f"Pr\u00f3ximo partido de {team}:\n\n"
+                         f"  vs {prox['visitante']}\n"
+                         f"  Grupo: {prox['grupo']}\n"
+                         f"  Fecha: {prox['fecha']}\n"
+                         f"  Hora: {prox['hora']}")
+                fg_color = C["green"]
+            else:
+                texto = f"{team} no tiene partidos pendientes.\n\n\u00a1Todos los partidos est\u00e1n jugados!"
+                fg_color = C["cyan"]
+            lbl4_info.config(text=texto, fg=fg_color)
+
+        cb4.bind("<<ComboboxSelected>>", lambda e: mostrar_proximo())
+
+        # ── TAB 5: Todas las tablas ───────────────
+        tab5 = tk.Frame(notebook, bg=C["bg"])
+        notebook.add(tab5, text=" Todas las tablas ")
+
+        tk.Label(tab5, text="Tablas de posiciones de todos los grupos",
+                 fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(10, 5))
+
+        canvas5 = tk.Canvas(tab5, bg=C["bg"], highlightthickness=0)
+        sv5 = tk.Scrollbar(tab5, orient="vertical", command=canvas5.yview)
+        scroll5 = tk.Frame(canvas5, bg=C["bg"])
+        scroll5.bind("<Configure>", lambda e: canvas5.configure(scrollregion=canvas5.bbox("all")))
+        canvas5.create_window((0, 0), window=scroll5, anchor="nw")
+        canvas5.configure(yscrollcommand=sv5.set)
+
+        canvas5.pack(side="left", fill="both", expand=True, padx=10)
+        sv5.pack(side="right", fill="y")
+
+        def construir_todas_tablas():
+            for w in scroll5.winfo_children():
+                w.destroy()
+            tabs = todas_tablas()
+            for g in "ABCDEFGHIJKL":
+                gf = tk.Frame(scroll5, bg=C["card"], padx=10, pady=5)
+                gf.pack(fill="x", pady=3, padx=5)
+
+                inner = tk.Frame(gf, bg=C["card"])
+                inner.pack(anchor="w")
+
+                tk.Label(inner, text=f"GRUPO {g}", fg=C["cyan"], bg=C["card"],
+                         font=("Arial", 10, "bold")).pack(anchor="w", pady=(2, 2))
+
+                enc = f"{'ID':<4} {'EQUIPO':<18} {'PJ':<3} {'PTS':<4} {'DG':<4} {'GF':<3}"
+                tk.Label(inner, text=enc, fg=C["green"], bg=C["card"],
+                         font=("Consolas", 9, "bold")).pack(anchor="w")
+
+                for e in tabs[g]:
+                    dg_str = f"{e['dg']:+d}"
+                    linea = f"{e['id']:<4} {e['nombre']:<18} {e['pj']:<3} {e['puntos']:<4} {dg_str:<4} {e['gf']:<3}"
+                    tk.Label(inner, text=linea, fg=C["fg"], bg=C["card"],
+                             font=("Consolas", 9)).pack(anchor="w")
+
+        construir_todas_tablas()
+
+        # Botón para generar reporte completo .txt
+        botom_frame = tk.Frame(win, bg=C["bg"])
+        botom_frame.pack(fill="x", padx=15, pady=(0, 10))
+
+        def generar_completo():
+            contenido = generar_reporte_completo()
+            archivo = guardar_informe_txt(contenido, "informe_completo.txt")
+            messagebox.showinfo("Informe completo",
+                                f"Informe completo guardado en:\n{archivo}", parent=win)
+
+        tk.Button(botom_frame, text="\U0001f4c4 Generar Informe Completo .txt",
+                  command=generar_completo,
+                  bg=C["green"], fg="#000000",
+                  **{k: v for k, v in self._estilo_boton(width=28).items()
+                     if k not in ("bg", "fg")}).pack()
+
+    # ── CLASIFICACIÓN DE TERCEROS ────────────────
+
+    def abrir_terceros(self):
+        if not self.torneo_configurado:
+            messagebox.showwarning("Acceso Denegado",
+                                   "Primero complet\u00e1 la Configuraci\u00f3n del Torneo.")
+            return
+
+        win = tk.Toplevel(self.root)
+        win.title("Clasificaci\u00f3n de Terceros")
+        centrar_ventana(win, 750, 520)
+        win.configure(bg=C["bg"])
+        win.transient(self.root)
+        win.grab_set()
+
+        tk.Label(win, text="CLASIFICACI\u00d3N DE TERCEROS", fg=C["cyan"], bg=C["bg"],
+                 font=("Arial", 12, "bold")).pack(pady=(15, 2))
+        tk.Label(win, text="Los 8 mejores terceros lugares avanzan a la fase eliminatoria",
+                 fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(0, 10))
+
         frame = tk.Frame(win, bg=C["bg"])
-        frame.pack(fill="both", expand=True, padx=20, pady=(10, 20))
+        frame.pack(fill="both", expand=True, padx=20)
 
-        cols = ("ID", "Equipo", "PJ", "PTS", "GF", "GC", "AM", "RJ")
+        cols = ("#", "Equipo", "Grupo", "PTS", "DG", "GF", "Prefijo")
         tree = ttk.Treeview(frame, columns=cols, show="headings", height=12)
         for c in cols:
             tree.heading(c, text=c)
-            tree.column(c, width=70, anchor="center")
-        tree.column("Equipo", width=170, anchor="w")
-        tree.column("ID", width=40)
-
-        # Estilo oscuro para el Treeview
-        style = ttk.Style()
-        style.theme_use("clam")
-        style.configure("Treeview",
-                        background=C["input_bg"],
-                        foreground="white",
-                        fieldbackground=C["input_bg"],
-                        rowheight=26)
-        style.configure("Treeview.Heading",
-                        background=C["gray"],
-                        foreground="white",
-                        relief="flat")
-        style.map("Treeview",
-                  background=[("selected", C["cyan"])],
-                  foreground=[("selected", "#000000")])
+            tree.column(c, width=80, anchor="center")
+        tree.column("Equipo", width=200, anchor="w")
+        tree.column("Prefijo", width=80, anchor="center")
 
         sv = tk.Scrollbar(frame, orient="vertical", command=tree.yview)
         tree.configure(yscrollcommand=sv.set)
         tree.pack(side="left", fill="both", expand=True)
         sv.pack(side="right", fill="y")
 
-        # Al cambiar de grupo, recalcula y refresca la tabla
-        def actualizar(event=None):
-            for i in tree.get_children():
-                tree.delete(i)
-            k = cb.get()
-            if not k:
-                return
-            for e in calcular_tabla_grupo(k):
-                tree.insert("", "end", values=(
-                    e.id or "", e.nombre, e.pj, e.puntos, e.gf, e.gc, e.am, e.rj))
+        terceros = clasificados_terceros()
 
-        cb.bind("<<ComboboxSelected>>", actualizar)
-        cb.set("A")
-        actualizar()
+        style = ttk.Style()
+        style.theme_use("clam")
+        style.configure("Treeview", background=C["input_bg"], foreground="white",
+                        fieldbackground=C["input_bg"], rowheight=26)
+        style.configure("Treeview.Heading", background=C["gray"], foreground="white", relief="flat")
+        style.map("Treeview", background=[("selected", C["cyan"])],
+                  foreground=[("selected", "#000000")])
+
+        if not terceros:
+            tk.Label(win, text="No hay datos suficientes. Carg\u00e1 resultados de grupos primero.",
+                     fg=C["disabled"], bg=C["bg"], font=("Arial", 10)).pack(pady=10)
+        else:
+            for i, t in enumerate(terceros, 1):
+                tree.insert("", "end", values=(i, t["nombre"], t["grupo"],
+                                               t["puntos"], t["dg"], t["gf"],
+                                               data_store.prefijos_telefonicos.get(t["nombre"], "")))
+
+        # Info de criterios
+        info = tk.Label(win,
+                        text="Criterios de clasificaci\u00f3n: Puntos \u2192 Diferencia de Gol \u2192 GF \u2192 Prefijo telef\u00f3nico",
+                        fg=C["disabled"], bg=C["bg"], font=("Arial", 8))
+        info.pack(pady=(5, 10))
+
+    # ── FASE ELIMINATORIA ─────────────────────────
+
+    def abrir_eliminatorias(self):
+        if not self.torneo_configurado:
+            messagebox.showwarning("Acceso Denegado",
+                                   "Primero complet\u00e1 la Configuraci\u00f3n del Torneo.")
+            return
+
+        win = tk.Toplevel(self.root)
+        win.title("Fase Eliminatoria")
+        centrar_ventana(win, 850, 640)
+        win.configure(bg=C["bg"])
+        win.transient(self.root)
+        win.grab_set()
+
+        tk.Label(win, text="FASE ELIMINATORIA", fg=C["cyan"], bg=C["bg"],
+                 font=("Arial", 12, "bold")).pack(pady=(12, 2))
+
+        lbl_ronda = tk.Label(win, text="", fg=C["green"], bg=C["bg"],
+                             font=("Arial", 11, "bold"))
+        lbl_ronda.pack(pady=(0, 5))
+
+        frame = tk.Frame(win, bg=C["bg"])
+        frame.pack(fill="both", expand=True, padx=15, pady=5)
+
+        # Área scrolleable para los partidos
+        canvas = tk.Canvas(frame, bg=C["bg"], highlightthickness=0)
+        scroll_bar = tk.Scrollbar(frame, orient="vertical", command=canvas.yview)
+        scroll_inner = tk.Frame(canvas, bg=C["bg"])
+        scroll_inner.bind("<Configure>",
+                          lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+        canvas.create_window((0, 0), window=scroll_inner, anchor="nw")
+        canvas.configure(yscrollcommand=scroll_bar.set)
+
+        canvas.pack(side="left", fill="both", expand=True)
+        scroll_bar.pack(side="right", fill="y")
+
+        match_widgets = {}
+
+        def construir_partidos():
+            for w in scroll_inner.winfo_children():
+                w.destroy()
+            match_widgets.clear()
+
+            estado = obtener_estado_eliminatorias()
+            if not estado["partidos"]:
+                tk.Label(scroll_inner, text="No hay partidos generados.\nGener\u00e1 la Ronda 32 para comenzar.",
+                         fg=C["disabled"], bg=C["bg"], font=("Arial", 12)).pack(pady=40)
+                lbl_ronda.config(text="Sin ronda activa")
+                return
+
+            lbl_ronda.config(text=f"Ronda actual: {estado['nombre_ronda']}")
+
+            for idx, p in enumerate(estado["partidos"]):
+                card = tk.Frame(scroll_inner, bg=C["card"], padx=15, pady=8)
+                card.pack(fill="x", pady=4, padx=5)
+
+                row = tk.Frame(card, bg=C["card"])
+                row.pack(fill="x")
+
+                tk.Label(row, text=p["local"], fg=C["fg"], bg=C["card"],
+                         font=("Arial", 10, "bold"), width=20, anchor="w").pack(side="left")
+                tk.Label(row, text="vs", fg=C["cyan"], bg=C["card"],
+                         font=("Arial", 10)).pack(side="left", padx=5)
+                tk.Label(row, text=p["visitante"], fg=C["fg"], bg=C["card"],
+                         font=("Arial", 10, "bold"), width=20, anchor="w").pack(side="left")
+
+                if p["goles"] is not None:
+                    g1, g2 = p["goles"]
+                    tk.Label(row, text=f"{g1} - {g2}", fg=C["green"], bg=C["card"],
+                             font=("Arial", 11, "bold")).pack(side="left", padx=(15, 0))
+                    ganador = p.get("ganador", "")
+                    tk.Label(row, text=f"\u2192 {ganador}", fg=C["cyan"], bg=C["card"],
+                             font=("Arial", 10)).pack(side="left", padx=(8, 0))
+                else:
+                    tk.Label(row, text="Goles:", fg=C["green"], bg=C["card"],
+                             font=("Arial", 9)).pack(side="left", padx=(12, 4))
+                    e1 = tk.Entry(row, bg=C["input_bg"], fg="white",
+                                  insertbackground="white", relief="flat",
+                                  font=("Arial", 10), width=4, justify="center")
+                    e1.pack(side="left", padx=1)
+                    tk.Label(row, text="-", fg=C["fg"], bg=C["card"],
+                             font=("Arial", 10, "bold")).pack(side="left")
+                    e2 = tk.Entry(row, bg=C["input_bg"], fg="white",
+                                  insertbackground="white", relief="flat",
+                                  font=("Arial", 10), width=4, justify="center")
+                    e2.pack(side="left", padx=1)
+                    match_widgets[idx] = (e1, e2)
+
+        construir_partidos()
+
+        # ── Botones de control ──
+        btn_frame = tk.Frame(win, bg=C["bg"])
+        btn_frame.pack(fill="x", padx=15, pady=(5, 10))
+
+        def generar_r32():
+            if data_store.ronda_actual is not None:
+                resp = messagebox.askyesno(
+                    "Confirmar",
+                    "Ya hay una eliminatoria en curso.\n\u00bfGenerar de nuevo desde Ronda 32?",
+                    parent=win)
+                if not resp:
+                    return
+                reiniciar_eliminatorias()
+            generar_ronda32()
+            construir_partidos()
+            messagebox.showinfo("Ronda 32",
+                                "Dieciseisavos de final generados.\nIngres\u00e1 los resultados.", parent=win)
+
+        def guardar_y_avanzar():
+            if not data_store.partidos_ronda:
+                messagebox.showwarning("Sin partidos",
+                                       "Gener\u00e1 la Ronda 32 primero.", parent=win)
+                return
+
+            resultados = {}
+            for idx, (e1, e2) in match_widgets.items():
+                g1 = e1.get().strip()
+                g2 = e2.get().strip()
+                if g1 and g2:
+                    try:
+                        resultados[idx] = {"local": int(g1), "visitante": int(g2)}
+                    except ValueError:
+                        messagebox.showerror("Error",
+                                             f"Goles inv\u00e1lidos en partido {idx+1}.", parent=win)
+                        return
+
+            if not resultados:
+                messagebox.showwarning("Sin datos",
+                                       "Ingres\u00e1 los resultados antes de avanzar.", parent=win)
+                return
+
+            nuevos = procesar_resultados_ronda(resultados)
+            if nuevos is None:
+                # Final del torneo
+                ganador = data_store.partidos_ronda[0]["ganador"]
+                ganador2 = data_store.partidos_ronda[1]["ganador"] if len(data_store.partidos_ronda) > 1 else ""
+
+                if len(data_store.partidos_ronda) >= 2:
+                    final = data_store.partidos_ronda
+                    if data_store.ronda_actual == "F" and len(data_store.partidos_ronda) == 1:
+                        msg = (f"\u00a1Torneo finalizado!\n\n"
+                               f"Campe\u00f3n: {data_store.partidos_ronda[0]['ganador']}")
+                        messagebox.showinfo("Final", msg, parent=win)
+                    else:
+                        if len(final) == 2:
+                            messagebox.showinfo(
+                                "Semifinales completadas",
+                                f"Finalistas: {final[0]['ganador']} vs {final[1]['ganador']}",
+                                parent=win)
+                        else:
+                            messagebox.showinfo("Ronda completada",
+                                                "Resultados guardados.", parent=win)
+                    construir_partidos()
+                    return
+
+            if nuevos:
+                ronda_nombre = obtener_estado_eliminatorias()["nombre_ronda"]
+                messagebox.showinfo("Avanzar",
+                                    f"Resultados guardados. Se gener\u00f3 {ronda_nombre}.",
+                                    parent=win)
+                construir_partidos()
+
+        def mostrar_avances():
+            avances = obtener_maximo_avance()
+            av_win = tk.Toplevel(win)
+            av_win.title("M\u00e1ximo Avance de Equipos")
+            centrar_ventana(av_win, 600, 500)
+            av_win.configure(bg=C["bg"])
+            av_win.transient(win)
+            av_win.grab_set()
+
+            tk.Label(av_win, text="M\u00c1XIMO AVANCE DE EQUIPOS", fg=C["cyan"], bg=C["bg"],
+                     font=("Arial", 12, "bold")).pack(pady=(15, 10))
+
+            av_frame = tk.Frame(av_win, bg=C["bg"])
+            av_frame.pack(fill="both", expand=True, padx=20)
+
+            av_tree = ttk.Treeview(av_frame, columns=("Equipo", "M\u00e1ximo Avance", "Nivel"),
+                                   show="headings", height=20)
+            av_tree.heading("Equipo", text="Equipo")
+            av_tree.heading("M\u00e1ximo Avance", text="M\u00e1ximo Avance")
+            av_tree.heading("Nivel", text="Nivel")
+            av_tree.column("Equipo", width=200, anchor="w")
+            av_tree.column("M\u00e1ximo Avance", width=200, anchor="center")
+            av_tree.column("Nivel", width=80, anchor="center")
+
+            av_sv = tk.Scrollbar(av_frame, orient="vertical", command=av_tree.yview)
+            av_tree.configure(yscrollcommand=av_sv.set)
+            av_tree.pack(side="left", fill="both", expand=True)
+            av_sv.pack(side="right", fill="y")
+
+            # Estilo
+            style_av = ttk.Style()
+            style_av.theme_use("clam")
+            style_av.configure("Treeview", background=C["input_bg"], foreground="white",
+                               fieldbackground=C["input_bg"], rowheight=24)
+            style_av.configure("Treeview.Heading", background=C["gray"], foreground="white")
+
+            for nom, ronda, nivel in sorted(avances, key=lambda x: -x[2]):
+                av_tree.insert("", "end", values=(nom, ronda, nivel))
+
+        tk.Button(btn_frame, text="\U0001f3b2 Generar Ronda 32", command=generar_r32,
+                  **self._estilo_boton(width=18, bg=C["cyan"], fg="#000000")).pack(side="left", padx=3)
+        tk.Button(btn_frame, text="\u25b6 Guardar y Avanzar", command=guardar_y_avanzar,
+                  **self._estilo_boton(width=18, bg=C["green"], fg="#000000")).pack(side="left", padx=3)
+        tk.Button(btn_frame, text="\U0001f4ca M\u00e1ximo Avance", command=mostrar_avances,
+                  **self._estilo_boton(width=18)).pack(side="right", padx=3)
 
 
 # ── PUNTO DE ENTRADA ────────────────────────────
-# Al ejecutar `python src/gui.py` directamente
 
 if __name__ == "__main__":
     root = tk.Tk()
