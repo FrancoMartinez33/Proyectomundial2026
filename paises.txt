@@ -1,0 +1,48 @@
+México, MEX, +52, CONCACAF
+Sudáfrica, RSA, +27, CAF
+Corea del Sur, KOR, +82, AFC
+República Checa, CZE, +420, UEFA
+Canadá, CAN, +1, CONCACAF
+Bosnia-Herzegovina, BIH, +387, UEFA
+Qatar, QAT, +974, AFC
+Suiza, SUI, +41, UEFA
+Brasil, BRA, +55, CONMEBOL
+Marruecos, MAR, +212, CAF
+Haití, HAI, +509, CONCACAF
+Escocia, SCO, +44, UEFA
+EE. UU., USA, +1, CONCACAF
+Paraguay, PAR, +595, CONMEBOL
+Australia, AUS, +61, AFC
+Turquía, TUR, +90, UEFA
+Alemania, GER, +49, UEFA
+Curazao, CUW, +599, CONCACAF
+Costa de Marfil, CIV, +225, CAF
+Ecuador, ECU, +593, CONMEBOL
+Países Bajos, NED, +31, UEFA
+Japón, JPN, +81, AFC
+Suecia, SWE, +46, UEFA
+Túnez, TUN, +216, CAF
+Bélgica, BEL, +32, UEFA
+Egipto, EGY, +20, CAF
+Irán, IRN, +98, AFC
+Nueva Zelanda, NZL, +64, OFC
+España, ESP, +34, UEFA
+Uruguay, URU, +598, CONMEBOL
+Cabo Verde, CPV, +238, CAF
+Arabia Saudita, KSA, +966, AFC
+Francia, FRA, +33, UEFA
+Senegal, SEN, +221, CAF
+Irak, IRQ, +964, AFC
+Noruega, NOR, +47, UEFA
+Argentina, ARG, +54, CONMEBOL
+Argelia, ALG, +213, CAF
+Austria, AUT, +43, UEFA
+Jordania, JOR, +962, AFC
+Portugal, POR, +351, UEFA
+Colombia, COL, +57, CONMEBOL
+RD Congo, COD, +243, CAF
+Uzbekistán, UZB, +998, AFC
+Inglaterra, ENG, +44, UEFA
+Croacia, CRO, +385, UEFA
+Ghana, GHA, +233, CAF
+Panamá, PAN, +507, CONCACAF
