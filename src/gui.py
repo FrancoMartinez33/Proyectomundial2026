@@ -180,94 +180,203 @@ class InterfazMundial:
     def __init__(self, root):
         self.root = root
         self.root.title("FIFA World Cup 2026 - Sistema de Control")
-        self.root.configure(bg=C["bg"])
-        pantalla_h = self.root.winfo_screenheight()
-        self.root.geometry(f"500x{pantalla_h}+{(self.root.winfo_screenwidth()-500)//2}+0")
+        self.root.geometry("1280x720")
+        self.root.resizable(False, False)
+        
+        # Paleta de Colores Oficiales (Estilo WE ARE 26)
+        self.COLOR_TEXTO = C["fg"]           # Blanco puro
+        self.COLOR_CIAN = C["cyan"]          # Cian neón (Acento principal)
+        self.COLOR_VERDE = C["green"]        # Verde neón (Acento secundario)
+        self.COLOR_BG = C["bg"]              # Fondo oscuro
 
         self.torneo_configurado = False
         self.disponibles = set()
         self.asignaciones = {}
         self.datos_config = None
+        
+        # --- CARGA DE IMÁGENES ---
+        self.img_fondo = None
+        self.img_btn_config = None
+        self.img_btn_registro = None
+        self.img_btn_edicion = None
+        self.img_btn_salir = None
+        self._cargar_imagenes()
+
+        # --- CANVAS PRINCIPAL ---
+        self.canvas = tk.Canvas(self.root, width=1280, height=720, highlightthickness=0, bg=self.COLOR_BG)
+        self.canvas.place(x=0, y=0)
+        
+        # Dibujar fondo si existe
+        if self.img_fondo:
+            self.canvas.create_image(0, 0, image=self.img_fondo, anchor="nw")
 
         self.crear_zona_titulos()
-        self.crear_identidad_visual()
         self.crear_menu_principal()
+
+    # ── CARGAR IMÁGENES ────────────────────────
+
+    def _cargar_imagenes(self):
+        """Intenta cargar las imágenes del proyecto. Si no existen, continúa sin ellas."""
+        try:
+            from pathlib import Path
+            # Buscar en la carpeta src o en Proyecto_Algo 2_Interfaz
+            paths_posibles = [
+                Path(__file__).parent,  # src/
+                Path(__file__).parent.parent / "Proyecto_Algo 2_Interfaz"  # Proyecto_Algo 2_Interfaz/
+            ]
+            
+            img_files = {
+                "fondo.png": None,
+                "Configuracion.png": None,
+                "Registro.png": None,
+                "Emision.png": None,
+                "Salir.png": None
+            }
+            
+            for path in paths_posibles:
+                if not path.exists():
+                    continue
+                for filename in img_files.keys():
+                    img_path = path / filename
+                    if img_path.exists() and img_files[filename] is None:
+                        try:
+                            img = tk.PhotoImage(file=str(img_path))
+                            img_files[filename] = img
+                        except Exception as e:
+                            print(f"No se pudo cargar {filename}: {e}")
+            
+            self.img_fondo = img_files.get("fondo.png")
+            self.img_btn_config = img_files.get("Configuracion.png")
+            self.img_btn_registro = img_files.get("Registro.png")
+            self.img_btn_edicion = img_files.get("Emision.png")
+            self.img_btn_salir = img_files.get("Salir.png")
+            
+        except Exception as e:
+            print(f"Advertencia: No se pudieron cargar las imágenes. Continuando sin ellas. ({e})")
 
     # ── HEADER ──────────────────────────────────
 
     def crear_zona_titulos(self):
-        header = tk.Frame(self.root, bg=C["bg"],
-                          highlightbackground=C["cyan"], highlightthickness=1, bd=0)
-        header.pack(fill="x", padx=25, pady=(15, 5))
+        """Dibuja el encabezado obligatorio directamente en el Canvas."""
+        # Borde rectangular Cian
+        self.canvas.create_rectangle(25, 20, 1255, 130, outline=self.COLOR_CIAN, width=2)
 
-        tk.Label(header, text="Algoritmos y Estructuras de Datos II",
-                 fg=C["fg"], bg=C["bg"], font=("Arial", 10, "bold")).pack(pady=(8, 2))
-        tk.Label(header, text="CONTROL DE TORNEO DEPORTIVO",
-                 fg=C["cyan"], bg=C["bg"], font=("Arial", 14, "bold")).pack(pady=2)
-
-        self.lbl_reloj = tk.Label(header, fg=C["green"], bg=C["bg"], font=("Consolas", 11))
-        self.lbl_reloj.pack(pady=(2, 8))
+        # Textos del encabezado
+        self.canvas.create_text(640, 45, text="Algoritmos y Estructuras de Datos II", 
+                               fill=self.COLOR_TEXTO, font=("Arial", 20, "bold"), justify="center")
+        self.canvas.create_text(640, 75, text="CONTROL DE TORNEO DEPORTIVO", 
+                               fill=self.COLOR_CIAN, font=("Arial", 16, "bold"), justify="center")
+        
+        # Identificador del reloj dinámico para actualizarlo por id
+        self.id_reloj = self.canvas.create_text(640, 105, fill=self.COLOR_VERDE, 
+                                               font=("Consolas", 11), justify="center")
+        
         self.actualizar_reloj()
 
     def actualizar_reloj(self):
-        self.lbl_reloj.config(
-            text=datetime.now().strftime("Fecha: %d/%m/%Y   |   Hora: %H:%M:%S"))
+        """Actualiza la fecha y la hora en tiempo real sobre el objeto del Canvas."""
+        ahora = datetime.now()
+        formato = ahora.strftime("Fecha: %d/%m/%Y   |   Hora: %H:%M:%S")
+        self.canvas.itemconfig(self.id_reloj, text=formato)
         self.root.after(1000, self.actualizar_reloj)
-
-    # ── LOGO ────────────────────────────────────
-
-    def crear_identidad_visual(self):
-        frame = tk.Frame(self.root, bg=C["bg"])
-        frame.pack(pady=(0, 5))
-        tk.Label(frame, text="2\n6", fg=C["green"], bg=C["bg"],
-                 font=("Arial Black", 44), justify="center").pack()
-        tk.Label(frame, text="FIFA WORLD CUP", fg=C["fg"], bg=C["bg"],
-                 font=("Arial", 9, "bold")).pack()
 
     # ── MENÚ PRINCIPAL ───────────────────────────
 
+    def crear_menu_principal(self):
+        """Dibuja las imágenes de los botones y superpone sus textos alineados."""
+        # Título del Menú
+        self.canvas.create_text(640, 200, text="MENÚ PRINCIPAL", 
+                               fill=self.COLOR_TEXTO, font=("Arial Black", 14, "bold"))
+
+        # Configuración de coordenadas (reducidas para que quepan todos los botones)
+        y_inicial = 250
+        separacion = 70  # Reducido de 85 a 70
+        x_texto = 560
+
+        # --- BOTÓN 1: CONFIGURACIÓN ---
+        if self.img_btn_config:
+            self.canvas.create_image(640, y_inicial, image=self.img_btn_config)
+        btn1_txt = self.canvas.create_text(
+            x_texto, y_inicial, 
+            text="1. Configuración del Torneo", 
+            fill=self.COLOR_TEXTO, 
+            font=("Arial", 10, "bold"), 
+            anchor="w"
+        )
+        self.canvas.tag_bind(btn1_txt, "<Button-1>", lambda e: self.abrir_configuracion())
+
+        # --- BOTÓN 2: REGISTRO DE RESULTADOS ---
+        if self.img_btn_registro:
+            self.canvas.create_image(640, y_inicial + separacion, image=self.img_btn_registro)
+        self.btn2_txt = self.canvas.create_text(
+            x_texto, y_inicial + separacion, 
+            text="2. Registro de Resultados", 
+            fill="#888888",  
+            font=("Arial", 10, "bold"), 
+            anchor="w"
+        )
+        self.canvas.tag_bind(self.btn2_txt, "<Button-1>", lambda e: self.abrir_resultados())
+
+        # --- BOTÓN 3: EMISIÓN DE INFORMES ---
+        if self.img_btn_edicion:
+            self.canvas.create_image(640, y_inicial + (separacion * 2), image=self.img_btn_edicion)
+        btn3_txt = self.canvas.create_text(
+            x_texto, y_inicial + (separacion * 2), 
+            text="3. Emisión de Informes", 
+            fill=self.COLOR_TEXTO, 
+            font=("Arial", 10, "bold"), 
+            anchor="w"
+        )
+        self.canvas.tag_bind(btn3_txt, "<Button-1>", lambda e: self.abrir_informes())
+
+        # --- BOTÓN 4: SIMULADOR ---
+        if self.img_btn_edicion:
+            self.canvas.create_image(640, y_inicial + (separacion * 3), image=self.img_btn_edicion)
+        btn4_txt = self.canvas.create_text(
+            x_texto, y_inicial + (separacion * 3), 
+            text="4. Simulador de Partidos", 
+            fill=self.COLOR_TEXTO, 
+            font=("Arial", 10, "bold"), 
+            anchor="w"
+        )
+        self.canvas.tag_bind(btn4_txt, "<Button-1>", lambda e: self.abrir_simulador())
+
+        # --- BOTÓN 5: FASE ELIMINATORIA ---
+        if self.img_btn_edicion:
+            self.canvas.create_image(640, y_inicial + (separacion * 4), image=self.img_btn_edicion)
+        btn5_txt = self.canvas.create_text(
+            x_texto, y_inicial + (separacion * 4), 
+            text="5. Fase Eliminatoria", 
+            fill=self.COLOR_TEXTO, 
+            font=("Arial", 10, "bold"), 
+            anchor="w"
+        )
+        self.canvas.tag_bind(btn5_txt, "<Button-1>", lambda e: self.abrir_eliminatorias())
+
+        # --- BOTÓN 6: SALIR ---
+        if self.img_btn_salir:
+            self.canvas.create_image(640, y_inicial + (separacion * 5), image=self.img_btn_salir)
+        
+        btn6_txt = self.canvas.create_text(
+            640, y_inicial + (separacion * 5), 
+            text="6. Salir", 
+            fill=self.COLOR_TEXTO, 
+            font=("Arial", 10, "bold")
+        )
+        self.canvas.tag_bind(btn6_txt, "<Button-1>", lambda e: self.root.quit())
+
+    def _habilitar_btn2(self):
+        """Habilita el botón 2 (Registro de Resultados) cuando finaliza la configuración."""
+        self.canvas.itemconfig(self.btn2_txt, fill=self.COLOR_TEXTO)
+
     def _estilo_boton(self, **kw):
+        """Retorna un diccionario con estilos por defecto para botones."""
         base = {"fg": C["fg"], "bg": C["gray"],
                 "activebackground": C["cyan"], "activeforeground": "#000000",
                 "font": ("Arial", 11, "bold"), "width": 32, "bd": 0,
                 "cursor": "hand2", "pady": 8}
         base.update(kw)
         return base
-
-    def crear_menu_principal(self):
-        frame = tk.Frame(self.root, bg=C["bg"])
-        frame.pack(fill="both", expand=True, padx=25)
-
-        tk.Label(frame, text="MEN\u00da PRINCIPAL", fg=C["fg"], bg=C["bg"],
-                 font=("Arial", 12, "bold")).pack(pady=(10, 5))
-
-        botones_frame = tk.Frame(frame, bg=C["bg"])
-        botones_frame.pack(fill="both", expand=True)
-
-        espaciador_top = tk.Frame(botones_frame, bg=C["bg"])
-        espaciador_top.pack(fill="both", expand=True)
-
-        buttons = [
-            ("1. Configuraci\u00f3n del Torneo", self.abrir_configuracion, None),
-            ("2. Registro de Resultados", self.abrir_resultados, "disabled"),
-            ("3. Emisi\u00f3n de Informes", self.abrir_informes, None),
-            ("4. Clasificaci\u00f3n de Terceros", self.abrir_terceros, None),
-            ("5. Fase Eliminatoria", self.abrir_eliminatorias, None),
-            ("6. Salir", self.root.quit, "red_hover"),
-        ]
-        self.menu_buttons = {}
-        for text, cmd, extra in buttons:
-            kw = {}
-            if extra == "disabled":
-                kw = {"bg": C["disabled"], "fg": "#888888", "state": "disabled"}
-            elif extra == "red_hover":
-                kw = {"activebackground": "#FF3333"}
-            btn = tk.Button(botones_frame, text=text, command=cmd, **self._estilo_boton(**kw))
-            btn.pack(pady=5, anchor="center")
-            self.menu_buttons[text] = btn
-
-        espaciador_bottom = tk.Frame(botones_frame, bg=C["bg"])
-        espaciador_bottom.pack(fill="both", expand=True)
 
     # ── CONFIGURACIÓN DEL TORNEO ─────────────────
 
@@ -527,14 +636,7 @@ class InterfazMundial:
 
         data_store.config_guardada = True
         self.torneo_configurado = True
-        self.menu_buttons["1. Configuraci\u00f3n del Torneo"].config(
-            state="disabled", bg=C["disabled"], fg="#888888")
-        self.menu_buttons["2. Registro de Resultados"].config(
-            state="normal", bg=C["gray"], fg=C["fg"])
-        self.menu_buttons["4. Clasificaci\u00f3n de Terceros"].config(
-            state="normal", bg=C["gray"], fg=C["fg"])
-        self.menu_buttons["5. Fase Eliminatoria"].config(
-            state="normal", bg=C["gray"], fg=C["fg"])
+        self._habilitar_btn2()
         messagebox.showinfo(
             "\u00c9xito",
             f"Torneo '{data_store.nombre_torneo}' configurado.\n48 equipos en 12 grupos, partidos generados.",
@@ -562,12 +664,102 @@ class InterfazMundial:
                  fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(0, 12))
 
         top = tk.Frame(win, bg=C["bg"])
-        top.pack(fill="x", padx=20)
+        top.pack(fill="x", padx=20, pady=(10, 5))
         tk.Label(top, text="Grupo:", fg=C["fg"], bg=C["bg"],
                  font=("Arial", 10, "bold")).pack(side="left", padx=(0, 10))
         cb = ttk.Combobox(top, values=list("ABCDEFGHIJKL"),
                            state="readonly", width=4, font=("Arial", 10))
-        cb.pack(side="left")
+        cb.pack(side="left", padx=(0, 20))
+        
+        def randomizar_grupo():
+            """Genera resultados y tarjetas aleatorios para todos los partidos del grupo."""
+            import random
+            k = cb.get()
+            if not k:
+                messagebox.showwarning("Seleccionar grupo", "Selecciona un grupo.", parent=win)
+                return
+            
+            # Llenar campos de goles de forma aleatoria
+            for par, (loc, vis, loc_n, vis_n) in match_widgets.items():
+                goles_loc = random.randint(0, 4)
+                goles_vis = random.randint(0, 4)
+                loc.delete(0, "end")
+                vis.delete(0, "end")
+                loc.insert(0, str(goles_loc))
+                vis.insert(0, str(goles_vis))
+            
+            # Generar tarjetas aleatorias para ambos equipos
+            equipos = [e for e in data_store.tablagral.values() if e.grupo == k]
+            for e in equipos:
+                # Limpiar tarjetas previas
+                e.am = 0
+                e.rj = 0
+                e.plantel = {}
+                
+                # Generar jugadores si existen en la base de datos
+                jugadores = jugadores_por_equipo.get(e.nombre, [])
+                if jugadores:
+                    # Asignar tarjetas a jugadores aleatorios
+                    num_jugadores_tarjetas = random.randint(1, min(5, len(jugadores)))
+                    for _ in range(num_jugadores_tarjetas):
+                        jug = random.choice(jugadores)
+                        if jug not in e.plantel:
+                            e.plantel[jug] = {"AM": 0, "RJ": 0}
+                        
+                        # 80% probabilidad de amarilla, 20% de roja
+                        if random.random() < 0.8:
+                            e.plantel[jug]["AM"] += 1
+                            e.am += 1
+                        else:
+                            e.plantel[jug]["RJ"] += 1
+                            e.rj += 1
+        
+        def simular_todos():
+            """Genera resultados y tarjetas aleatorios para TODOS los partidos del mundial."""
+            import random
+            
+            # Generar goles para todos los partidos de todos los grupos
+            for equipo in data_store.tablagral.values():
+                for p in equipo.partidos:
+                    if p["goles"] is None:  # Solo si no tiene resultado
+                        p["goles"] = [random.randint(0, 4), random.randint(0, 4)]
+            
+            # Generar tarjetas aleatorias para todos los equipos
+            for e in data_store.tablagral.values():
+                # Limpiar tarjetas previas
+                e.am = 0
+                e.rj = 0
+                e.plantel = {}
+                
+                # Generar jugadores si existen en la base de datos
+                jugadores = jugadores_por_equipo.get(e.nombre, [])
+                if jugadores:
+                    # Asignar tarjetas a jugadores aleatorios
+                    num_jugadores_tarjetas = random.randint(1, min(5, len(jugadores)))
+                    for _ in range(num_jugadores_tarjetas):
+                        jug = random.choice(jugadores)
+                        if jug not in e.plantel:
+                            e.plantel[jug] = {"AM": 0, "RJ": 0}
+                        
+                        # 80% probabilidad de amarilla, 20% de roja
+                        if random.random() < 0.8:
+                            e.plantel[jug]["AM"] += 1
+                            e.am += 1
+                        else:
+                            e.plantel[jug]["RJ"] += 1
+                            e.rj += 1
+            
+            messagebox.showinfo("✓ Simulación Completada", 
+                              "Se han generado resultados aleatorios para todos los partidos del mundial.",
+                              parent=win)
+        
+        tk.Button(top, text="🎲 Randomizar", command=randomizar_grupo,
+                  bg=C["green"], fg="#000000", font=("Arial", 9, "bold"),
+                  bd=0, cursor="hand2", padx=10, pady=4).pack(side="left", padx=(0, 5))
+        
+        tk.Button(top, text="🌍 Simular Todo", command=simular_todos,
+                  bg="#0088FF", fg="#FFFFFF", font=("Arial", 9, "bold"),
+                  bd=0, cursor="hand2", padx=10, pady=4).pack(side="left")
 
         scroll_canvas = tk.Canvas(win, bg=C["bg"], highlightthickness=0)
         scroll_bar = tk.Scrollbar(win, orient="vertical", command=scroll_canvas.yview)
@@ -678,9 +870,11 @@ class InterfazMundial:
                             pp["goles"] = [g1n, g2n] if nom == loc_n else [g2n, g1n]
             if ok:
                 messagebox.showinfo("Guardado", "Resultados guardados correctamente.", parent=win)
+                win.destroy()
 
         btn_frame = tk.Frame(win, bg=C["bg"])
         btn_frame.pack(fill="x", pady=(5, 12))
+        
         tk.Button(btn_frame, text="Guardar Resultados",
                   command=guardar_res,
                   bg=C["cyan"], fg="#000000",
@@ -1045,6 +1239,58 @@ class InterfazMundial:
                   **{k: v for k, v in self._estilo_boton(width=28).items()
                      if k not in ("bg", "fg")}).pack()
 
+        # ── TAB 6: Clasificación de Terceros ─────
+        tab6 = tk.Frame(notebook, bg=C["bg"])
+        notebook.add(tab6, text=" Terceros ")
+
+        tk.Label(tab6, text="CLASIFICACIÓN DE TERCEROS", fg=C["cyan"], bg=C["bg"],
+                 font=("Arial", 11, "bold")).pack(pady=(10, 2))
+        tk.Label(tab6, text="Los 8 mejores terceros lugares avanzan a la fase eliminatoria",
+                 fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(0, 10))
+
+        frame6 = tk.Frame(tab6, bg=C["bg"])
+        frame6.pack(fill="both", expand=True, padx=20, pady=10)
+
+        cols6 = ("#", "Equipo", "Grupo", "PTS", "DG", "GF", "Prefijo")
+        tree6 = ttk.Treeview(frame6, columns=cols6, show="headings", height=12)
+        for c in cols6:
+            tree6.heading(c, text=c)
+            tree6.column(c, width=80, anchor="center")
+        tree6.column("Equipo", width=200, anchor="w")
+        tree6.column("Prefijo", width=80, anchor="center")
+
+        sv6 = tk.Scrollbar(frame6, orient="vertical", command=tree6.yview)
+        tree6.configure(yscrollcommand=sv6.set)
+        tree6.pack(side="left", fill="both", expand=True)
+        sv6.pack(side="right", fill="y")
+
+        def actualizar_terceros():
+            for i in tree6.get_children():
+                tree6.delete(i)
+            terceros = clasificados_terceros()
+            if not terceros:
+                tk.Label(tab6, text="No hay datos suficientes. Carga resultados de grupos primero.",
+                         fg=C["disabled"], bg=C["bg"], font=("Arial", 10)).pack(pady=10)
+            else:
+                for i, t in enumerate(terceros, 1):
+                    tree6.insert("", "end", values=(i, t["nombre"], t["grupo"],
+                                                   t["puntos"], t["dg"], t["gf"],
+                                                   data_store.prefijos_telefonicos.get(t["nombre"], "")))
+
+        actualizar_terceros()
+
+        # Botón para refrescar
+        btn6_frame = tk.Frame(tab6, bg=C["bg"])
+        btn6_frame.pack(fill="x", padx=20, pady=5)
+        tk.Button(btn6_frame, text="🔄 Actualizar", command=actualizar_terceros,
+                  bg=C["cyan"], fg="#000000", font=("Arial", 9, "bold"),
+                  bd=0, cursor="hand2", padx=10, pady=4).pack()
+
+        # Info de criterios
+        tk.Label(tab6, 
+                text="Criterios: Puntos → Diferencia de Gol → GF → Prefijo telefónico",
+                fg=C["disabled"], bg=C["bg"], font=("Arial", 8)).pack(pady=5)
+
     # ── CLASIFICACIÓN DE TERCEROS ────────────────
 
     def abrir_terceros(self):
@@ -1314,6 +1560,282 @@ class InterfazMundial:
                   **self._estilo_boton(width=18, bg=C["green"], fg="#000000")).pack(side="left", padx=3)
         tk.Button(btn_frame, text="\U0001f4ca M\u00e1ximo Avance", command=mostrar_avances,
                   **self._estilo_boton(width=18)).pack(side="right", padx=3)
+
+    # ── SIMULADOR DE PARTIDOS ───────────────────
+
+    def abrir_simulador(self):
+        """Abre la ventana de selección de países para el simulador."""
+        win = tk.Toplevel(self.root)
+        win.title("Simulador de Partidos")
+        centrar_ventana(win, 600, 400)
+        win.configure(bg=C["bg"])
+        win.transient(self.root)
+        win.grab_set()
+
+        tk.Label(win, text="SIMULADOR DE PARTIDOS", fg=C["cyan"], bg=C["bg"],
+                 font=("Arial", 12, "bold")).pack(pady=(15, 10))
+
+        # Obtener lista de países disponibles en el mundial
+        paises_disp = sorted(data_store.paises_mundial)
+
+        # Frame para equipo local
+        frame1 = tk.Frame(win, bg=C["card"], padx=15, pady=10)
+        frame1.pack(fill="x", padx=20, pady=5)
+
+        tk.Label(frame1, text="🏠 Equipo Local", fg=C["green"], bg=C["card"],
+                 font=("Arial", 10, "bold")).pack(anchor="w", pady=(0, 5))
+        cb1 = ttk.Combobox(frame1, values=paises_disp, state="readonly", width=40,
+                          font=("Arial", 10))
+        cb1.pack(fill="x")
+
+        # Frame para equipo visitante
+        frame2 = tk.Frame(win, bg=C["card"], padx=15, pady=10)
+        frame2.pack(fill="x", padx=20, pady=5)
+
+        tk.Label(frame2, text="✈️ Equipo Visitante", fg=C["cyan"], bg=C["card"],
+                 font=("Arial", 10, "bold")).pack(anchor="w", pady=(0, 5))
+        cb2 = ttk.Combobox(frame2, values=paises_disp, state="readonly", width=40,
+                          font=("Arial", 10))
+        cb2.pack(fill="x")
+
+        # Botón Iniciar Simulación
+        def iniciar_simulacion():
+            local = cb1.get().strip()
+            visitante = cb2.get().strip()
+
+            if not local or not visitante:
+                messagebox.showwarning("Seleccionar países", 
+                                      "Debes seleccionar ambos equipos.", parent=win)
+                return
+            
+            # Validar que ambos países estén en el mundial
+            if local not in paises_disp:
+                messagebox.showwarning("País no válido",
+                                      f"'{local}' no está en el mundial.", parent=win)
+                return
+            if visitante not in paises_disp:
+                messagebox.showwarning("País no válido",
+                                      f"'{visitante}' no está en el mundial.", parent=win)
+                return
+            
+            if local == visitante:
+                messagebox.showwarning("Equipos diferentes",
+                                      "No puede haber dos equipos iguales.", parent=win)
+                return
+
+            win.destroy()
+            self._iniciar_partido_simulado(local, visitante)
+
+        btn_frame = tk.Frame(win, bg=C["bg"])
+        btn_frame.pack(fill="x", pady=(20, 15))
+        tk.Button(btn_frame, text="▶ Iniciar Simulación",
+                  command=iniciar_simulacion,
+                  bg=C["cyan"], fg="#000000", font=("Arial", 11, "bold"),
+                  bd=0, cursor="hand2", padx=20, pady=8).pack()
+
+    def _iniciar_partido_simulado(self, local, visitante):
+        """Inicia la simulación del partido."""
+        import random
+        from datetime import datetime
+
+        # Crear ventana principal del simulador
+        win_sim = tk.Toplevel(self.root)
+        win_sim.title(f"SIMULACIÓN: {local} vs {visitante}")
+        centrar_ventana(win_sim, 1000, 700)
+        win_sim.configure(bg=C["bg"])
+        win_sim.transient(self.root)
+        win_sim.grab_set()
+
+        # Variables de control
+        tiempo_minuto = [0]  # Minuto actual (0-90)
+        simulando = [True]  # Si está corriendo
+        eventos_log = []  # Registro de eventos
+        goles = [0, 0]  # Goles [local, visitante]
+        tarjetas = [[{"AM": 0, "RJ": 0}], [{"AM": 0, "RJ": 0}]]  # Tarjetas por equipo
+        última_generación = [0]  # Último minuto donde se generó evento
+
+        # ── HEADER ──────────────────────────────
+        header = tk.Frame(win_sim, bg=C["cyan"], height=60)
+        header.pack(fill="x", padx=5, pady=5)
+
+        info_text = f"🏆 {local.upper()} {goles[0]} - {goles[1]} {visitante.upper()}"
+        lbl_header = tk.Label(header, text=info_text, fg="#000000", bg=C["cyan"],
+                             font=("Arial", 16, "bold"), padx=10, pady=10)
+        lbl_header.pack(expand=True)
+
+        # ── CRONÓMETRO ──────────────────────────
+        frame_tiempo = tk.Frame(win_sim, bg=C["card"], padx=15, pady=10)
+        frame_tiempo.pack(fill="x", padx=5, pady=5)
+
+        lbl_tiempo = tk.Label(frame_tiempo, text="00:00", fg=C["green"], bg=C["card"],
+                             font=("Consolas", 28, "bold"))
+        lbl_tiempo.pack()
+        
+        lbl_tiempo_info = tk.Label(frame_tiempo, text="(Primer tiempo)", fg=C["disabled"], bg=C["card"],
+                                   font=("Consolas", 9))
+        lbl_tiempo_info.pack()
+
+        # ── EVENTOS LOG ─────────────────────────
+        frame_log = tk.Frame(win_sim, bg=C["bg"])
+        frame_log.pack(fill="both", expand=True, padx=5, pady=5)
+
+        text_log = tk.Text(frame_log, bg=C["input_bg"], fg="white", font=("Consolas", 9),
+                          relief="flat", height=15)
+        text_log.pack(fill="both", expand=True)
+
+        scroll_log = tk.Scrollbar(text_log, orient="vertical", command=text_log.yview)
+        text_log.configure(yscrollcommand=scroll_log.set)
+        scroll_log.pack(side="right", fill="y")
+
+        # ── CONTROLES ───────────────────────────
+        frame_btn = tk.Frame(win_sim, bg=C["bg"])
+        frame_btn.pack(fill="x", padx=5, pady=5)
+
+        def toggle_simulacion():
+            simulando[0] = not simulando[0]
+            btn_play.config(text="⏸ Pausar" if simulando[0] else "▶ Reanudar")
+
+        def skip_evento():
+            """Salta al siguiente evento importante."""
+            # Avanza 5 minutos en el juego
+            tiempo_minuto[0] += 5
+            if tiempo_minuto[0] > 90:
+                tiempo_minuto[0] = 90
+            generar_evento()
+            # Forzar actualización visual inmediata
+            actualizar_simulacion()
+
+        def finalizar():
+            win_sim.destroy()
+
+        btn_play = tk.Button(frame_btn, text="⏸ Pausar", command=toggle_simulacion,
+                           bg=C["green"], fg="#000000", font=("Arial", 10, "bold"),
+                           bd=0, cursor="hand2", padx=12, pady=6)
+        btn_play.pack(side="left", padx=5)
+
+        tk.Button(frame_btn, text="⏩ Skip al siguiente evento", command=skip_evento,
+                 bg=C["cyan"], fg="#000000", font=("Arial", 10, "bold"),
+                 bd=0, cursor="hand2", padx=12, pady=6).pack(side="left", padx=5)
+
+        tk.Button(frame_btn, text="❌ Finalizar", command=finalizar,
+                 bg="#FF3333", fg="white", font=("Arial", 10, "bold"),
+                 bd=0, cursor="hand2", padx=12, pady=6).pack(side="left", padx=5)
+
+        # ── LÓGICA DE SIMULACIÓN ────────────────
+        jugadores_local = jugadores_por_equipo.get(local, [])
+        jugadores_visitante = jugadores_por_equipo.get(visitante, [])
+
+        cambios_efectuados = [0, 0]  # Cambios realizados por equipo
+
+        def generar_evento():
+            """Genera un evento aleatorio importante."""
+            if tiempo_minuto[0] >= 90:
+                return
+
+            eventos_posibles = []
+
+            # Gol
+            if random.random() < 0.06:  # 6% de probabilidad por evento
+                equipo = random.choice([0, 1])
+                jug = random.choice([jugadores_local, jugadores_visitante][equipo])
+                goles[equipo] += 1
+                evento = f"{tiempo_minuto[0]:02d}' ⚽ GOL de {jug}"
+                eventos_posibles.append(evento)
+
+            # Tarjeta amarilla
+            elif random.random() < 0.08:
+                equipo = random.choice([0, 1])
+                jug = random.choice([jugadores_local, jugadores_visitante][equipo])
+                tarjetas[equipo][0]["AM"] += 1
+                evento = f"{tiempo_minuto[0]:02d}' 🟨 TARJETA AMARILLA: {jug}"
+                eventos_posibles.append(evento)
+
+            # Tarjeta roja
+            elif random.random() < 0.02:
+                equipo = random.choice([0, 1])
+                jugadores = [jugadores_local, jugadores_visitante][equipo]
+                jug = random.choice(jugadores)
+                tarjetas[equipo][0]["RJ"] += 1
+                evento = f"{tiempo_minuto[0]:02d}' 🔴 TARJETA ROJA: {jug}"
+                eventos_posibles.append(evento)
+                
+                # Si es arquero (primer jugador) y hay suplentes, cambiar por arquero suplente
+                if jug == jugadores[0] and len(jugadores) > 11:
+                    # Obtener arquero suplente (primer suplente después de los 11 titulares)
+                    arquero_suplente = jugadores[11]
+                    # Reemplazar arquero titular por suplente
+                    jugadores[0] = arquero_suplente
+                    evento += f"\n{tiempo_minuto[0]:02d}' 🔄 CAMBIO FORZADO: Entra {arquero_suplente} (Arquero suplente)"
+                    eventos_posibles[-1] = evento
+
+            # Cambio
+            elif random.random() < 0.04 and cambios_efectuados[0] < 3:
+                equipo = 0
+                jug_entra = random.choice([jugadores_local, jugadores_visitante][equipo])
+                jug_sale = random.choice([jugadores_local, jugadores_visitante][equipo])
+                cambios_efectuados[equipo] += 1
+                evento = f"{tiempo_minuto[0]:02d}' 🔄 CAMBIO {local}: sale {jug_sale}, entra {jug_entra}"
+                eventos_posibles.append(evento)
+
+            # Cambio visitante
+            elif random.random() < 0.04 and cambios_efectuados[1] < 3:
+                equipo = 1
+                jug_entra = random.choice([jugadores_local, jugadores_visitante][equipo])
+                jug_sale = random.choice([jugadores_local, jugadores_visitante][equipo])
+                cambios_efectuados[equipo] += 1
+                evento = f"{tiempo_minuto[0]:02d}' 🔄 CAMBIO {visitante}: sale {jug_sale}, entra {jug_entra}"
+                eventos_posibles.append(evento)
+
+            # Falta
+            elif random.random() < 0.10:
+                equipo = random.choice([0, 1])
+                jug = random.choice([jugadores_local, jugadores_visitante][equipo])
+                evento = f"{tiempo_minuto[0]:02d}' ⚠️  FALTA: {jug}"
+                eventos_posibles.append(evento)
+
+            if eventos_posibles:
+                evento = eventos_posibles[0]
+                eventos_log.append(evento)
+                text_log.insert("end", evento + "\n")
+                text_log.see("end")
+
+                # Actualizar header con nuevos goles
+                info_text = f"🏆 {local.upper()} {goles[0]} - {goles[1]} {visitante.upper()}"
+                lbl_header.config(text=info_text)
+
+        def actualizar_simulacion():
+            """Actualiza el cronómetro y lógica cada cierto tiempo."""
+            if simulando[0] and tiempo_minuto[0] < 90:
+                # Avanzar tiempo (cada 1000ms = 1 segundo real = 1 minuto de juego)
+                tiempo_minuto[0] += 1
+
+                # Generar eventos aleatorios cada cierto tiempo
+                if random.random() < 0.20:  # 20% cada actualización
+                    generar_evento()
+
+            elif tiempo_minuto[0] >= 90 and simulando[0]:
+                # Partido finalizado - detener simulación
+                simulando[0] = False
+
+            # Actualizar cronómetro visual (en formato MM:SS)
+            minutos = tiempo_minuto[0]
+            tiempo_str = f"{minutos:02d}:00"
+            lbl_tiempo.config(text=tiempo_str)
+            
+            # Actualizar texto de tiempo (primer o segundo tiempo)
+            if minutos <= 45:
+                lbl_tiempo_info.config(text="(Primer tiempo)")
+            else:
+                lbl_tiempo_info.config(text=f"(Segundo tiempo - {minutos - 45}' del ST)")
+
+            # Programar siguiente actualización (cada 1000ms = 1 segundo)
+            if tiempo_minuto[0] < 90:
+                win_sim.after(1000, actualizar_simulacion)
+            else:
+                win_sim.after(500, lambda: None)  # Pequeña espera final
+
+        # Iniciar actualización
+        actualizar_simulacion()
 
 
 # ── PUNTO DE ENTRADA ────────────────────────────

@@ -57,29 +57,30 @@ avances_equipos = {}           # { nombre_equipo: ronda_maxima_alcanzada }
                                # Se actualiza cada vez que un equipo gana un partido eliminatorio.
 
 # ── CARGA DE PAÍSES DESDE ARCHIVO TXT ────────────
-# El archivo paises.txt debe contener: nombre;confederación;prefijo
-# Ejemplo: "Argentina;CONMEBOL;+54"
-# Se usa importlib.resources para acceder al archivo empaquetado.
-
-import importlib.resources as _resources
+# El archivo paises.txt debe contener: País, Código, Prefijo, Confederación
+# Ejemplo: "México, MEX, +52, CONCACAF"
+# Se carga al importar el módulo.
 
 paises_mundial = []            # Lista con nombres de los países
 prefijos_telefonicos = {}      # { nombre_pais: prefijo }
 confederaciones = {}           # { nombre_pais: confederación }
 
 try:
-    _texto = _resources.read_text("src", "paises.txt", encoding="utf-8")
-    for _linea in _texto.strip().split("\n"):
-        _linea = _linea.strip()
-        if not _linea:
-            continue
-        _partes = _linea.split(";")
-        if len(_partes) >= 3:
-            nombre = _partes[0].strip()
-            confed = _partes[1].strip()
-            prefijo = _partes[2].strip()
-            paises_mundial.append(nombre)
-            prefijos_telefonicos[nombre] = prefijo
-            confederaciones[nombre] = confed
-except Exception:
-    pass
+    _base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    _ruta = os.path.join(_base, "paises.txt")
+    with open(_ruta, encoding="utf-8") as _f:
+        for _linea in _f:
+            _linea = _linea.strip()
+            if not _linea:
+                continue
+            _partes = _linea.split(",")
+            if len(_partes) >= 4:
+                nombre = _partes[0].strip()
+                # codigo = _partes[1].strip()  # No se usa de momento
+                prefijo = _partes[2].strip()
+                confed = _partes[3].strip()
+                paises_mundial.append(nombre)
+                prefijos_telefonicos[nombre] = prefijo
+                confederaciones[nombre] = confed
+except Exception as e:
+    print(f"Advertencia: No se pudieron cargar los países desde paises.txt: {e}")
