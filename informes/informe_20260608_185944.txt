@@ -1,0 +1,25 @@
+==================================================
+INFORME DEL EQUIPO: Alemania
+Abreviatura: ALE
+Grupo: A  |  ID: A1
+Torneo: adsfasd
+==================================================
+
+--- ESTADÍSTICAS ---
+  Partidos jugados:   1
+  Puntos:             0
+  Goles a favor:      2
+  Goles en contra:    3
+  Diferencia de gol:  -1
+  Tarjetas amarillas: 1
+  Tarjetas rojas:     0
+
+--- PARTIDOS ---
+  1. vs Argentina               2 - 3   
+  2. vs Bélgica             Pendiente   
+  3. vs Canadá              Pendiente   
+
+--- PLANTEL / TARJETAS ---
+  Vdasdfasd             AM=1  RJ=0
+
+==================================================
