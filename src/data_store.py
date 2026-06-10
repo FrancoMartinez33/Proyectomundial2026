@@ -6,7 +6,34 @@
 #  para que services.py, cli.py y gui.py compartan la misma info.
 # ─────────────────────────────────────────────────────────────
 
+import os
+
 from src.models import Equipo
+
+# ── CARGA DE JUGADORES DESDE ARCHIVO TXT ──────
+# El archivo jugadores.txt debe contener: NombrePaís, NombreJugador
+# Ejemplo: "México, Luis Malagón"
+# Se carga al importar el módulo.
+
+jugadores_por_equipo = {}   # { nombre_pais: [lista_de_jugadores] }
+
+try:
+    _base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    _ruta = os.path.join(_base, "jugadores.txt")
+    with open(_ruta, encoding="utf-8") as _f:
+        for _linea in _f:
+            _linea = _linea.strip()
+            if not _linea:
+                continue
+            _partes = _linea.split(",", 1)
+            if len(_partes) == 2:
+                _equipo = _partes[0].strip()
+                _jugador = _partes[1].strip()
+                if _equipo not in jugadores_por_equipo:
+                    jugadores_por_equipo[_equipo] = []
+                jugadores_por_equipo[_equipo].append(_jugador)
+except Exception:
+    pass
 
 # ── ESTRUCTURA PRINCIPAL ─────────────────────────
 # tablagral: diccionario { nombre_del_pais: objeto Equipo }
@@ -29,33 +56,30 @@ partidos_ronda = []            # lista de dicts con info de cada partido elimina
 avances_equipos = {}           # { nombre_equipo: ronda_maxima_alcanzada }
                                # Se actualiza cada vez que un equipo gana un partido eliminatorio.
 
-# ── PREFIJOS TELEFÓNICOS ─────────────────────────
-# Diccionario que asigna a cada país su prefijo telefónico internacional.
-# Se usa como último criterio de desempate en la clasificación de terceros
-# (según la consigna: Puntos → DG → GF → Prefijo telefónico).
-prefijos_telefonicos = {
-    "Argentina": "+54", "Bolivia": "+591", "Brasil": "+55", "Chile": "+56",
-    "Colombia": "+57", "Ecuador": "+593", "Paraguay": "+595", "Perú": "+51",
-    "Uruguay": "+598", "Venezuela": "+58", "México": "+52", "Estados Unidos": "+1",
-    "Canadá": "+1", "Costa Rica": "+506", "Panamá": "+507", "Jamaica": "+1876",
-    "Honduras": "+504", "El Salvador": "+503", "España": "+34", "Francia": "+33",
-    "Inglaterra": "+44", "Alemania": "+49", "Italia": "+39", "Portugal": "+351",
-    "Holanda": "+31", "Bélgica": "+32", "Croacia": "+385", "Suiza": "+41",
-    "Japón": "+81", "Corea del Sur": "+82", "Australia": "+61", "Arabia Saudita": "+966",
-    "Irán": "+98", "Catar": "+974", "Egipto": "+20", "Marruecos": "+212",
-    "Senegal": "+221", "Túnez": "+216", "Argelia": "+213", "Nigeria": "+234",
-    "Camerún": "+237", "Ghana": "+233", "Sudáfrica": "+27", "Costa de Marfil": "+225",
-    "Nueva Zelanda": "+64", "Polonia": "+48", "Dinamarca": "+45", "Serbia": "+381"
-}
+# ── CARGA DE PAÍSES DESDE ARCHIVO TXT ────────────
+# El archivo paises.txt debe contener: nombre;confederación;prefijo
+# Ejemplo: "Argentina;CONMEBOL;+54"
+# Se usa importlib.resources para acceder al archivo empaquetado.
 
-# ── PAÍSES PARTICIPANTES ─────────────────────────
-# Lista fija con los 48 países participantes del Mundial 2026.
-# Se usa como pool para que el usuario asigne equipos a los 12 grupos (A-L).
-paises_mundial = [
-    "Argentina", "Bolivia", "Brasil", "Chile", "Colombia", "Ecuador", "Paraguay", "Perú", "Uruguay", "Venezuela",
-    "México", "Estados Unidos", "Canadá", "Costa Rica", "Panamá", "Jamaica", "Honduras", "El Salvador",
-    "España", "Francia", "Inglaterra", "Alemania", "Italia", "Portugal", "Holanda", "Bélgica", "Croacia", "Suiza",
-    "Japón", "Corea del Sur", "Australia", "Arabia Saudita", "Irán", "Catar",
-    "Egipto", "Marruecos", "Senegal", "Túnez", "Argelia", "Nigeria", "Camerún", "Ghana", "Sudáfrica", "Costa de Marfil",
-    "Nueva Zelanda", "Polonia", "Dinamarca", "Serbia"
-]
+import importlib.resources as _resources
+
+paises_mundial = []            # Lista con nombres de los países
+prefijos_telefonicos = {}      # { nombre_pais: prefijo }
+confederaciones = {}           # { nombre_pais: confederación }
+
+try:
+    _texto = _resources.read_text("src", "paises.txt", encoding="utf-8")
+    for _linea in _texto.strip().split("\n"):
+        _linea = _linea.strip()
+        if not _linea:
+            continue
+        _partes = _linea.split(";")
+        if len(_partes) >= 3:
+            nombre = _partes[0].strip()
+            confed = _partes[1].strip()
+            prefijo = _partes[2].strip()
+            paises_mundial.append(nombre)
+            prefijos_telefonicos[nombre] = prefijo
+            confederaciones[nombre] = confed
+except Exception:
+    pass

@@ -1,0 +1,720 @@
+México, Luis Malagón
+México, Jorge Sánchez
+México, César Montes
+México, Johan Vásquez
+México, Gerardo Arteaga
+México, Edson Álvarez
+México, Luis Chávez
+México, Orbelín Pineda
+México, Hirving Lozano
+México, Santiago Giménez
+México, Julián Quiñones
+México, Julio González (S)
+México, Chiquete Orozco (S)
+México, Marcel Ruiz (S)
+México, Henry Martín (S)
+Sudáfrica, Ronwen Williams
+Sudáfrica, Khuliso Mudau
+Sudáfrica, Mothobi Mvala
+Sudáfrica, Grant Kekana
+Sudáfrica, Aubrey Modiba
+Sudáfrica, Teboho Mokoena
+Sudáfrica, Sphephelo Sithole
+Sudáfrica, Thapelo Morena
+Sudáfrica, Themba Zwane
+Sudáfrica, Percy Tau
+Sudáfrica, Evidence Makgopa
+Sudáfrica, Ricardo Goss (S)
+Sudáfrica, Nkosinathi Sibisi (S)
+Sudáfrica, Thabang Monare (S)
+Sudáfrica, Zakhele Lepasa (S)
+Corea del Sur, Jo Hyeon-woo
+Corea del Sur, Kim Young-gwon
+Corea del Sur, Kim Min-jae
+Corea del Sur, Kim Jin-su
+Corea del Sur, Seol Young-woo
+Corea del Sur, Hwang In-beom
+Corea del Sur, Park Yong-woo
+Corea del Sur, Lee Kang-in
+Corea del Sur, Lee Jae-sung
+Corea del Sur, Son Heung-min
+Corea del Sur, Cho Gue-sung
+Corea del Sur, Song Bum-keun (S)
+Corea del Sur, Jung Seung-hyun (S)
+Corea del Sur, Hong Hyun-seok (S)
+Corea del Sur, Hwang Hee-chan (S)
+República Checa, Jindřich Staněk
+República Checa, Tomáš Holeš
+República Checa, Robin Hranáč
+República Checa, Ladislav Krejčí
+República Checa, Vladimír Coufal
+República Checa, Tomáš Souček
+República Checa, Lukáš Provod
+República Checa, David Douděra
+República Checa, Patrik Schick
+República Checa, Jan Kuchta
+República Checa, Adam Hložek
+República Checa, Matěj Kovář (S)
+República Checa, Martin Vitík (S)
+República Checa, Antonín Barák (S)
+República Checa, Mojmír Chytil (S)
+Canadá, Maxime Crépeau
+Canadá, Alistair Johnston
+Canadá, Moïse Bombito
+Canadá, Derek Cornelius
+Canadá, Alphonso Davies
+Canadá, Ismaël Koné
+Canadá, Stephen Eustáquio
+Canadá, Tajon Buchanan
+Canadá, Jonathan David
+Canadá, Cyle Larin
+Canadá, Jacob Shaffelburg
+Canadá, Dayne St. Clair (S)
+Canadá, Kamal Miller (S)
+Canadá, Richie Laryea (S)
+Canadá, Theo Bair (S)
+Bosnia-H., Nikola Vasilj
+Bosnia-H., Anel Ahmedhodžić
+Bosnia-H., Dennis Hadžikadunić
+Bosnia-H., Ermin Bičakčić
+Bosnia-H., Amar Dedić
+Bosnia-H., Benjamin Tahirović
+Bosnia-H., Rade Krunić
+Bosnia-H., Jusuf Gazibegović
+Bosnia-H., Haris Hajradinović
+Bosnia-H., Ermedin Demirović
+Bosnia-H., Edin Džeko
+Bosnia-H., Kenan Pirić (S)
+Bosnia-H., Nihad Mujakić (S)
+Bosnia-H., Armin Gigović (S)
+Bosnia-H., Haris Tabakovic (S)
+Qatar, Meshaal Barsham
+Qatar, Pedro Miguel
+Qatar, Al-Mahdi Ali Mukhtar
+Qatar, Lucas Mendes
+Qatar, Mohammed Waad
+Qatar, Jassem Gaber
+Qatar, Ahmed Fatehi
+Qatar, Hassan Al-Haydos
+Qatar, Akram Afif
+Qatar, Almoez Ali
+Qatar, Yusuf Abdurisag
+Qatar, Saad Al-Sheeb (S)
+Qatar, Tarek Salman (S)
+Qatar, Abdulaziz Hatem (S)
+Qatar, Ahmed Alaaeldin (S)
+Suiza, Yann Sommer
+Suiza, Manuel Akanji
+Suiza, Nico Elvedi
+Suiza, Ricardo Rodríguez
+Suiza, Silvan Widmer
+Suiza, Granit Xhaka
+Suiza, Remo Freuler
+Suiza, Michel Aebischer
+Suiza, Dan Ndoye
+Suiza, Ruben Vargas
+Suiza, Breel Embolo
+Suiza, Gregor Kobel (S)
+Suiza, Fabian Schär (S)
+Suiza, Denis Zakaria (S)
+Suiza, Xherdan Shaqiri (S)
+Brasil, Alisson
+Brasil, Vanderson
+Brasil, Marquinhos
+Brasil, Gabriel Magalhães
+Brasil, Guilherme Arana
+Brasil, André
+Brasil, Bruno Guimarães
+Brasil, Lucas Paquetá
+Brasil, Rodrygo
+Brasil, Vinícius Jr.
+Brasil, Endrick
+Brasil, Ederson (S)
+Brasil, Bremer (S)
+Brasil, Douglas Luiz (S)
+Brasil, Raphinha (S)
+Marruecos, Yassine Bounou
+Marruecos, Achraf Hakimi
+Marruecos, Nayef Aguerd
+Marruecos, Romain Saïss
+Marruecos, Noussair Mazraoui
+Marruecos, Sofyan Amrabat
+Marruecos, Azzedine Ounahi
+Marruecos, Brahim Díaz
+Marruecos, Hakim Ziyech
+Marruecos, Amine Adli
+Marruecos, Youssef En-Nesyri
+Marruecos, Munir Mohamedi (S)
+Marruecos, Achraf Dari (S)
+Marruecos, Bilal El Khannouss (S)
+Marruecos, Soufiane Rahimi (S)
+Haití, Johny Placide
+Haití, Carlens Arcus
+Haití, Ricardo Adé
+Haití, Jean-Kevin Duverne
+Haití, Alex Christian
+Haití, Carl-Fred Sainte
+Haití, Danley Jean Jacques
+Haití, Duckens Nazon
+Haití, Frantzdy Pierrot
+Haití, Derrick Etienne Jr.
+Haití, Louicius Don Deedson
+Haití, Alexandre Pierre (S)
+Haití, Garissone Innocent (S)
+Haití, Bryan Alceus (S)
+Haití, Mondy Prunier (S)
+Escocia, Angus Gunn
+Escocia, Ryan Porteous
+Escocia, Jack Hendry
+Escocia, Kieran Tierney
+Escocia, Anthony Ralston
+Escocia, Billy Gilmour
+Escocia, Callum McGregor
+Escocia, Andrew Robertson
+Escocia, Scott McTominay
+Escocia, John McGinn
+Escocia, Ché Adams
+Escocia, Zander Clark (S)
+Escocia, Grant Hanley (S)
+Escocia, Kenny McLean (S)
+Escocia, Lawrence Shankland (S)
+EE. UU., Matt Turner
+EE. UU., Joe Scally
+EE. UU., Chris Richards
+EE. UU., Tim Ream
+EE. UU., Antonee Robinson
+EE. UU., Tyler Adams
+EE. UU., Weston McKennie
+EE. UU., Gio Reyna
+EE. UU., Tim Weah
+EE. UU., Christian Pulisic
+EE. UU., Folarin Balogun
+EE. UU., Ethan Horvath (S)
+EE. UU., Miles Robinson (S)
+EE. UU., Yunus Musah (S)
+EE. UU., Ricardo Pepi (S)
+Paraguay, Carlos Coronel
+Paraguay, Gustavo Velázquez
+Paraguay, Gustavo Gómez
+Paraguay, Omar Alderete
+Paraguay, Matías Espinoza
+Paraguay, Andrés Cubas
+Paraguay, Mathías Villasanti
+Paraguay, Diego Gómez
+Paraguay, Julio Enciso
+Paraguay, Miguel Almirón
+Paraguay, Adam Bareiro
+Paraguay, Rodrigo Morínigo (S)
+Paraguay, Fabián Balbuena (S)
+Paraguay, Alejandro Romero Gamarra (S)
+Paraguay, Ramón Sosa (S)
+Australia, Mathew Ryan
+Australia, Gethin Jones
+Australia, Harry Souttar
+Australia, Kye Rowles
+Australia, Aziz Behich
+Australia, Keanu Baccus
+Australia, Jackson Irvine
+Australia, Connor Metcalfe
+Australia, Craig Goodwin
+Australia, Martin Boyle
+Australia, Kusini Yengi
+Australia, Joe Gauci (S)
+Australia, Cameron Burgess (S)
+Australia, Riley McGree (S)
+Australia, Mitchell Duke (S)
+Turquía, Mert Günok
+Turquía, Merih Demiral
+Turquía, Samet Akaydin
+Turquía, Ferdi Kadıoğlu
+Turquía, Mert Müldür
+Turquía, Hakan Çalhanoğlu
+Turquía, Kaan Ayhan
+Turquía, Arda Güler
+Turquía, Kenan Yıldız
+Turquía, Kerem Aktürkoğlu
+Turquía, Barış Alper Yılmaz
+Turquía, Uğurcan Çakır (S)
+Turquía, Abdülkerim Bardakcı (S)
+Turquía, Salih Özcan (S)
+Turquía, Cenk Tosun (S)
+Alemania, Manuel Neuer
+Alemania, Joshua Kimmich
+Alemania, Antonio Rüdiger
+Alemania, Jonathan Tah
+Alemania, Maximilian Mittelstädt
+Alemania, Robert Andrich
+Alemania, Toni Kroos
+Alemania, İlkay Gündoğan
+Alemania, Jamal Musiala
+Alemania, Florian Wirtz
+Alemania, Kai Havertz
+Alemania, Marc-André ter Stegen (S)
+Alemania, Nico Schlotterbeck (S)
+Alemania, Aleksandar Pavlović (S)
+Alemania, Niclas Füllkrug (S)
+Curazao, Eloy Room
+Curazao, Juriën Gaari
+Curazao, Cuco Martina
+Curazao, Roshon van Eijma
+Curazao, Sherel Floranus
+Curazao, Vurnon Anita
+Curazao, Leandro Bacuna
+Curazao, Juninho Bacuna
+Curazao, Brandley Kuwas
+Curazao, Kenji Gorré
+Curazao, Rangelo Janga
+Curazao, Tyrick Bodak (S)
+Curazao, Justin Ogenia (S)
+Curazao, Kevin Felida (S)
+Curazao, Jearl Margaritha (S)
+Costa de Marfil, Yahia Fofana
+Costa de Marfil, Wilfried Singo
+Costa de Marfil, Ousmane Diomande
+Costa de Marfil, Evan Ndicka
+Costa de Marfil, Ghislain Konan
+Costa de Marfil, Franck Kessié
+Costa de Marfil, Jean Michaël Seri
+Costa de Marfil, Seko Fofana
+Costa de Marfil, Simon Adingra
+Costa de Marfil, Nicolas Pépé
+Costa de Marfil, Sébastien Haller
+Costa de Marfil, Badra Ali Sangaré (S)
+Costa de Marfil, Odilon Kossounou (S)
+Costa de Marfil, Ibrahim Sangaré (S)
+Costa de Marfil, Oumar Diakité (S)
+Ecuador, Hernán Galíndez
+Ecuador, Angelo Preciado
+Ecuador, Félix Torres
+Ecuador, Piero Hincapié
+Ecuador, Willian Pacho
+Ecuador, Moisés Caicedo
+Ecuador, Alan Franco
+Ecuador, Jeremy Sarmiento
+Ecuador, Kendry Páez
+Ecuador, John Yeboah
+Ecuador, Enner Valencia
+Ecuador, Alexander Domínguez (S)
+Ecuador, Joel Ordóñez (S)
+Ecuador, Carlos Gruezo (S)
+Ecuador, Kevin Rodríguez (S)
+Países Bajos, Bart Verbruggen
+Países Bajos, Denzel Dumfries
+Países Bajos, Virgil van Dijk
+Países Bajos, Stefan de Vrij
+Países Bajos, Nathan Aké
+Países Bajos, Jerdy Schouten
+Países Bajos, Tijjani Reijnders
+Países Bajos, Xavi Simons
+Países Bajos, Cody Gakpo
+Países Bajos, Memphis Depay
+Países Bajos, Donyell Malen
+Países Bajos, Mark Flekken (S)
+Países Bajos, Matthijs de Ligt (S)
+Países Bajos, Ryan Gravenberch (S)
+Países Bajos, Wout Weghorst (S)
+Japón, Zion Suzuki
+Japón, Yukinari Sugawara
+Japón, Ko Itakura
+Japón, Shogo Taniguchi
+Japón, Hiroki Ito
+Japón, Wataru Endo
+Japón, Hidemasa Morita
+Japón, Takefusa Kubo
+Japón, Takumi Minamino
+Japón, Junya Ito
+Japón, Ayase Ueda
+Japón, Keisuke Osako (S)
+Japón, Koki Machida (S)
+Japón, Ritsu Doan (S)
+Japón, Keito Nakamura (S)
+Suecia, Robin Olsen
+Suecia, Emil Krafth
+Suecia, Isak Hien
+Suecia, Victor Lindelöf
+Suecia, Ludwig Augustinsson
+Suecia, Anton Salétros
+Suecia, Jens Cajuste
+Suecia, Dejan Kulusevski
+Suecia, Emil Forsberg
+Suecia, Alexander Isak
+Suecia, Viktor Gyökeres
+Suecia, Viktor Johansson (S)
+Suecia, Carl Starfelt (S)
+Suecia, Hugo Larsson (S)
+Suecia, Anthony Elanga (S)
+Túnez, Bechir Ben Saïd
+Túnez, Yan Valery
+Túnez, Montassar Talbi
+Túnez, Yassine Meriah
+Túnez, Ali Abdi
+Túnez, Ellyes Skhiri
+Túnez, Aïssa Laïdouni
+Túnez, Mohamed Ali Ben Romdhane
+Túnez, Elias Achouri
+Túnez, Sayfallah Ltaief
+Túnez, Hamza Rafia
+Túnez, Aymen Dahmen (S)
+Túnez, Dylan Bronn (S)
+Túnez, Anis Ben Slimane (S)
+Túnez, Seifeddine Jaziri (S)
+Bélgica, Koen Casteels
+Bélgica, Timothy Castagne
+Bélgica, Wout Faes
+Bélgica, Jan Vertonghen
+Bélgica, Arthur Theate
+Bélgica, Amadou Onana
+Bélgica, Orel Mangala
+Bélgica, Kevin De Bruyne
+Bélgica, Leandro Trossard
+Bélgica, Jérémy Doku
+Bélgica, Romelu Lukaku
+Bélgica, Matz Sels (S)
+Bélgica, Zeno Debast (S)
+Bélgica, Youri Tielemans (S)
+Bélgica, Loïs Openda (S)
+Egipto, Mohamed El Shenawy
+Egipto, Mohamed Hany
+Egipto, Mohamed Abdelmonem
+Egipto, Ahmed Hegazi
+Egipto, Mohamed Hamdi
+Egipto, Marwan Attia
+Egipto, Hamdi Fathi
+Egipto, Trezeguet
+Egipto, Mohamed Salah
+Egipto, Omar Marmoush
+Egipto, Mostafa Mohamed
+Egipto, Mohamed Sobhy (S)
+Egipto, Rami Rabia (S)
+Egipto, Mohamed Elneny (S)
+Egipto, Mostafa Fathi (S)
+Irán, Alireza Beiranvand
+Irán, Ramin Rezaeian
+Irán, Hossein Kanaanizadegan
+Irán, Shojae Khalilzadeh
+Irán, Milad Mohammadi
+Irán, Saeid Ezatolahi
+Irán, Saman Ghoddos
+Irán, Alireza Jahanbakhsh
+Irán, Mehdi Torabi
+Irán, Mehdi Taremi
+Irán, Sardar Azmoun
+Irán, Payam Niazmand (S)
+Irán, Mohammad Amin Hazbavi (S)
+Irán, Omid Noorafkan (S)
+Irán, Shahriyar Moghanlou (S)
+Nueva Zelanda, Stefan Marinovic
+Nueva Zelanda, Tim Payne
+Nueva Zelanda, Michael Boxall
+Nueva Zelanda, Nando Pijnaker
+Nueva Zelanda, Liberato Cacace
+Nueva Zelanda, Joe Bell
+Nueva Zelanda, Marko Stamenic
+Nueva Zelanda, Sarpreet Singh
+Nueva Zelanda, Matthew Garbett
+Nueva Zelanda, Ben Waine
+Nueva Zelanda, Chris Wood
+Nueva Zelanda, Alex Paulsen (S)
+Nueva Zelanda, Tyler Bindon (S)
+Nueva Zelanda, Elijah Just (S)
+Nueva Zelanda, Kosta Barbarouses (S)
+España, Unai Simón
+España, Dani Carvajal
+España, Robin Le Normand
+España, Pau Cubarsí
+España, Alejandro Grimaldo
+España, Rodri
+España, Pedri
+España, Fabián Ruiz
+España, Lamine Yamal
+España, Nico Williams
+España, Álvaro Morata
+España, David Raya (S)
+España, Dani Vivian (S)
+España, Dani Olmo (S)
+España, Mikel Oyarzabal (S)
+Uruguay, Sergio Rochet
+Uruguay, Nahitan Nández
+Uruguay, Ronald Araújo
+Uruguay, Josema Giménez
+Uruguay, Mathias Olivera
+Uruguay, Federico Valverde
+Uruguay, Manuel Ugarte
+Uruguay, Nicolás de la Cruz
+Uruguay, Facundo Pellistri
+Uruguay, Maximiliano Araújo
+Uruguay, Darwin Núñez
+Uruguay, Santiago Mele (S)
+Uruguay, Sebastián Cáceres (S)
+Uruguay, Rodrigo Bentancur (S)
+Uruguay, Luis Suárez (S)
+Cabo Verde, Vozinha
+Cabo Verde, Steven Moreira
+Cabo Verde, Logan Costa
+Cabo Verde, Roberto Lopes
+Cabo Verde, João Paulo
+Cabo Verde, Kevin Pina
+Cabo Verde, Jamiro Monteiro
+Cabo Verde, Deroy Duarte
+Cabo Verde, Ryan Mendes
+Cabo Verde, Jovane Cabral
+Cabo Verde, Bebé
+Cabo Verde, Márcio Rosa (S)
+Cabo Verde, Pico (S)
+Cabo Verde, Patrick Andrade (S)
+Cabo Verde, Garry Rodrigues (S)
+Arabia Saudita, Mohammed Al-Owais
+Arabia Saudita, Saud Abdulhamid
+Arabia Saudita, Ali Lajami
+Arabia Saudita, Ali Al-Bulaihi
+Arabia Saudita, Yasir Al-Shahrani
+Arabia Saudita, Abdullah Alkhaibari
+Arabia Saudita, Mohamed Kanno
+Arabia Saudita, Nasser Al-Dawsari
+Arabia Saudita, Salem Al-Dawsari
+Arabia Saudita, Firas Al-Buraikan
+Arabia Saudita, Saleh Al-Shehri
+Arabia Saudita, Ahmed Al-Kassar (S)
+Arabia Saudita, Hassan Al-Tambakti (S)
+Arabia Saudita, Faisal Al-Ghamdi (S)
+Arabia Saudita, Abdulrahman Ghareeb (S)
+Francia, Mike Maignan
+Francia, Jules Koundé
+Francia, William Saliba
+Francia, Dayot Upamecano
+Francia, Theo Hernández
+Francia, Aurélien Tchouaméni
+Francia, Eduardo Camavinga
+Francia, Antoine Griezmann
+Francia, Ousmane Dembélé
+Francia, Kylian Mbappé
+Francia, Bradley Barcola
+Francia, Brice Samba (S)
+Francia, Ibrahima Konaté (S)
+Francia, Warren Zaïre-Emery (S)
+Francia, Marcus Thuram (S)
+Senegal, Édouard Mendy
+Senegal, Formose Mendy
+Senegal, Kalidou Koulibaly
+Senegal, Moussa Niakhaté
+Senegal, Ismail Jakobs
+Senegal, Pape Matar Sarr
+Senegal, Lamine Camara
+Senegal, Idrissa Gueye
+Senegal, Ismaïla Sarr
+Senegal, Sadio Mané
+Senegal, Nicolas Jackson
+Senegal, Mory Diaw (S)
+Senegal, Abdou Diallo (S)
+Senegal, Pape Gueye (S)
+Senegal, Habib Diallo (S)
+Irak, Jalal Hassan
+Irak, Hussein Ali
+Irak, Rebin Sulaka
+Irak, Saad Natiq
+Irak, Merchas Doski
+Irak, Osama Rashid
+Irak, Amir Al-Ammari
+Irak, Ibrahim Bayesh
+Irak, Ali Jasim
+Irak, Bashar Resan
+Irak, Aymen Hussein
+Irak, Ahmed Basil (S)
+Irak, Zaid Tahseen (S)
+Irak, Zidane Iqbal (S)
+Irak, Mohanad Ali (S)
+Noruega, Ørjan Nyland
+Noruega, Julian Ryerson
+Noruega, Leo Østigård
+Noruega, Kristoffer Ajer
+Noruega, David Møller Wolfe
+Noruega, Sander Berge
+Noruega, Martin Ødegaard
+Noruega, Patrick Berg
+Noruega, Oscar Bobb
+Noruega, Antonio Nusa
+Noruega, Erling Haaland
+Noruega, Mathias Dyngeland (S)
+Noruega, Andreas Hanche-Olsen (S)
+Noruega, Kristian Thorstvedt (S)
+Noruega, Jørgen Strand Larsen (S)
+Argentina, Emiliano Martínez
+Argentina, Nahuel Molina
+Argentina, Cristian Romero
+Argentina, Nicolás Otamendi
+Argentina, Nicolás Tagliafico
+Argentina, Rodrigo De Paul
+Argentina, Enzo Fernández
+Argentina, Alexis Mac Allister
+Argentina, Lionel Messi
+Argentina, Julián Álvarez
+Argentina, Lautaro Martínez
+Argentina, Franco Armani (S)
+Argentina, Lisandro Martínez (S)
+Argentina, Leandro Paredes (S)
+Argentina, Alejandro Garnacho (S)
+Argelia, Anthony Mandrea
+Argelia, Youcef Atal
+Argelia, Aïssa Mandi
+Argelia, Mohamed Amine Tougai
+Argelia, Rayan Aït-Nouri
+Argelia, Ismaël Bennacer
+Argelia, Ramiz Zerrouki
+Argelia, Houssem Aouar
+Argelia, Riyad Mahrez
+Argelia, Saïd Benrahma
+Argelia, Baghdad Bounedjah
+Argelia, Oussama Benbot (S)
+Argelia, Ramy Bensebaini (S)
+Argelia, Nabil Bentaleb (S)
+Argelia, Amine Gouiri (S)
+Austria, Patrick Pentz
+Austria, Stefan Posch
+Austria, Kevin Danso
+Austria, Philipp Lienhart
+Austria, Phillipp Mwene
+Austria, Nicolas Seiwald
+Austria, Konrad Laimer
+Austria, Marcel Sabitzer
+Austria, Christoph Baumgartner
+Austria, Patrick Wimmer
+Austria, Michael Gregoritsch
+Austria, Heinz Lindner (S)
+Austria, Maximilian Wöber (S)
+Austria, Florian Grillitsch (S)
+Austria, Marko Arnautović (S)
+Jordania, Yazeed Abulaila
+Jordania, Abdallah Nasib
+Jordania, Yazan Al-Arab
+Jordania, Salem Al-Ajalin
+Jordania, Ehsan Haddad
+Jordania, Noor Al-Rawabdeh
+Jordania, Nizar Al-Rashdan
+Jordania, Mahmoud Al-Mardi
+Jordania, Mousa Al-Tamari
+Jordania, Ali Olwan
+Jordania, Yazan Al-Naimat
+Jordania, Abdallah Al-Fakhouri (S)
+Jordania, Bara' Marei (S)
+Jordania, Ibrahim Sadeh (S)
+Jordania, Reziq Bani Hani (S)
+Portugal, Diogo Costa
+Portugal, João Cancelo
+Portugal, Rúben Dias
+Portugal, Pepe
+Portugal, Nuno Mendes
+Portugal, João Palhinha
+Portugal, Vitinha
+Portugal, Bruno Fernandes
+Portugal, Bernardo Silva
+Portugal, Rafael Leão
+Portugal, Cristiano Ronaldo
+Portugal, Rui Patrício (S)
+Portugal, Gonçalo Inácio (S)
+Portugal, João Neves (S)
+Portugal, Diogo Jota (S)
+Colombia, Camilo Vargas
+Colombia, Daniel Muñoz
+Colombia, Davinson Sánchez
+Colombia, Jhon Lucumí
+Colombia, Johan Mojica
+Colombia, Jefferson Lerma
+Colombia, Richard Ríos
+Colombia, James Rodríguez
+Colombia, Jhon Arias
+Colombia, Luis Díaz
+Colombia, Rafael Santos Borré
+Colombia, David Ospina (S)
+Colombia, Carlos Cuesta (S)
+Colombia, Mateus Uribe (S)
+Colombia, Jhon Durán (S)
+RD Congo, Lionel Mpasi
+RD Congo, Gédéon Kalulu
+RD Congo, Chancel Mbemba
+RD Congo, Henoc Inonga
+RD Congo, Arthur Masuaku
+RD Congo, Samuel Moutoussamy
+RD Congo, Charles Pickel
+RD Congo, Theo Bongonda
+RD Congo, Gaël Kakuta
+RD Congo, Yoane Wissa
+RD Congo, Cédric Bakambu
+RD Congo, Dimitry Bertaud (S)
+RD Congo, Dylan Batubinsika (S)
+RD Congo, Edo Kayembe (S)
+RD Congo, Fiston Mayele (S)
+Uzbekistán, Utkir Yusupov
+Uzbekistán, Rustam Ashurmatov
+Uzbekistán, Husniddin Aliqulov
+Uzbekistán, Abdukodir Khusanov
+Uzbekistán, Farrukh Sayfiev
+Uzbekistán, Odiljon Hamrobekov
+Uzbekistán, Otabek Shukurov
+Uzbekistán, Jaloliddin Masharipov
+Uzbekistán, Abbosbek Fayzullaev
+Uzbekistán, Eldor Shomurodov
+Uzbekistán, Igor Sergeev
+Uzbekistán, Abduvohid Nematov (S)
+Uzbekistán, Abdulla Abdullaev (S)
+Uzbekistán, Jamshid Iskanderov (S)
+Uzbekistán, Azizbek Amonov (S)
+Inglaterra, Jordan Pickford
+Inglaterra, Kyle Walker
+Inglaterra, John Stones
+Inglaterra, Marc Guéhi
+Inglaterra, Kieran Trippier
+Inglaterra, Declan Rice
+Inglaterra, Jude Bellingham
+Inglaterra, Phil Foden
+Inglaterra, Bukayo Saka
+Inglaterra, Cole Palmer
+Inglaterra, Harry Kane
+Inglaterra, Aaron Ramsdale (S)
+Inglaterra, Ezra Konsa (S)
+Inglaterra, Kobbie Mainoo (S)
+Inglaterra, Ollie Watkins (S)
+Croacia, Dominik Livaković
+Croacia, Josip Stanišić
+Croacia, Josip Šutalo
+Croacia, Joško Gvardiol
+Croacia, Borna Sosa
+Croacia, Luka Modrić
+Croacia, Mateo Kovačić
+Croacia, Marcelo Brozović
+Croacia, Lovro Majer
+Croacia, Andrej Kramarić
+Croacia, Ante Budimir
+Croacia, Nediljko Labrović (S)
+Croacia, Martin Erlić (S)
+Croacia, Luka Sučić (S)
+Croacia, Bruno Petković (S)
+Ghana, Lawrence Ati-Zigi
+Ghana, Alidu Seidu
+Ghana, Mohammed Salisu
+Ghana, Alexander Djiku
+Ghana, Gideon Mensah
+Ghana, Thomas Partey
+Ghana, Salis Abdul Samed
+Ghana, Mohammed Kudus
+Ghana, Ernest Nuamah
+Ghana, Antoine Semenyo
+Ghana, Jordan Ayew
+Ghana, Jojo Wollacott (S)
+Ghana, Tariq Lamptey (S)
+Ghana, Ibrahim Osman (S)
+Ghana, Inaki Williams (S)
+Panamá, Orlando Mosquera
+Panamá, Michael Murillo
+Panamá, José Córdoba
+Panamá, Edgardo Fariña
+Panamá, Eric Davis
+Panamá, Aníbal Godoy
+Panamá, Adalberto Carrasquilla
+Panamá, José Luis Rodríguez
+Panamá, Yoel Bárcenas
+Panamá, Ismael Díaz
+Panamá, José Fajardo
+Panamá, Luis Mejía (S)
+Panamá, Fidel Escobar (S)
+Panamá, Abdiel Ayarza (S)
+Panamá, Cecilio Waterman (S)

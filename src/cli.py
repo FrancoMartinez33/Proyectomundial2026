@@ -30,10 +30,9 @@ def menu(contador):
         print("2. Registro de resultados")
         print("3. Emisi\u00f3n de informes")
         print("4. Salir")
-        print("5. Simulador")
 
         n = input("Opci\u00f3n: ")
-        opciones = {"2": registro, "3": emision, "4": "salir", "5": "sim"}
+        opciones = {"2": registro, "3": emision, "4": "salir"}
 
         # Si la configuración aún no fue guardada, se habilita la opción 1
         if not data_store.config_guardada:
@@ -44,9 +43,15 @@ def menu(contador):
 
         if n in opciones:
             if n == "1":
-                contador = opciones[n]()
-                if contador not in (None, False):
+                nombre = input("Nombre del torneo: ")
+                f_inicio = input("Fecha inicio (DD/MM/AAAA): ")
+                f_fin = input("Fecha fin (DD/MM/AAAA): ")
+                contador = configuracion(nombre, f_inicio, f_fin)
+                if isinstance(contador, dict):
                     data_store.config_guardada = True
+                    print("Configuraci\u00f3n guardada.")
+                else:
+                    print(contador)
             else:
                 if n == "2":
                     registro()

@@ -10,6 +10,7 @@ from datetime import datetime
 
 # Módulos propios del paquete src/
 from . import data_store 
+from .data_store import confederaciones, jugadores_por_equipo
 from .models import Equipo
 from .services import (configuracion, generar_pares_grupo, calcular_tabla_grupo,
                        randomizar_grupos, generar_informe_equipo, guardar_informe_txt,
@@ -336,7 +337,9 @@ class InterfazMundial:
         tk.Label(win, text="ASIGNACI\u00d3N DE EQUIPOS A GRUPOS", fg=C["cyan"], bg=C["bg"],
                  font=("Arial", 12, "bold")).pack(pady=(15, 2))
         tk.Label(win, text="Seleccion\u00e1 un pa\u00eds disponible y agregalo a un grupo (4 por grupo)",
-                 fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(0, 8))
+                 fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(0, 2))
+        tk.Label(win, text="Regla: m\u00e1x 2 UEFA por grupo; otras confederaciones no pueden repetirse",
+                 fg=C["cyan"], bg=C["bg"], font=("Arial", 8)).pack(pady=(0, 8))
 
         main = tk.Frame(win, bg=C["bg"])
         main.pack(fill="both", expand=True, padx=15, pady=5)
@@ -345,6 +348,16 @@ class InterfazMundial:
                              fg=C["cyan"], bg=C["card"], font=("Arial", 10, "bold"),
                              padx=5, pady=5)
         left.pack(side="left", fill="both", expand=True, padx=(0, 10))
+
+        search_frame = tk.Frame(left, bg=C["card"])
+        search_frame.pack(fill="x", pady=(0, 4))
+        tk.Label(search_frame, text="\U0001f50d", fg=C["disabled"], bg=C["card"],
+                 font=("Arial", 10)).pack(side="left", padx=(2, 0))
+        self.e_busqueda = tk.Entry(search_frame, bg=C["input_bg"], fg="white",
+                                    insertbackground="white", relief="flat",
+                                    font=("Arial", 10))
+        self.e_busqueda.pack(side="left", fill="x", expand=True, padx=(2, 0))
+        self.e_busqueda.bind("<KeyRelease>", self._filtrar_disp)
 
         self.lbox_disp = tk.Listbox(left, bg=C["input_bg"], fg="white",
                                      selectbackground=C["cyan"],
@@ -398,16 +411,34 @@ class InterfazMundial:
                   **{k: v for k, v in self._estilo_boton(width=30).items()
                      if k not in ("bg", "fg")}).pack(pady=8)
 
-    def _refrescar_disp(self):
+    def _refrescar_disp(self, filtro=""):
         self.lbox_disp.delete(0, "end")
         for p in sorted(self.disponibles):
-            self.lbox_disp.insert("end", p)
+            if filtro.lower() in p.lower():
+                conf = confederaciones.get(p, "")
+                self.lbox_disp.insert("end", f"{p} [{conf}]" if conf else p)
+
+    def _filtrar_disp(self, event=None):
+        self._refrescar_disp(filtro=self.e_busqueda.get())
 
     def _refrescar_asig(self, event=None):
         self.lbox_asig.delete(0, "end")
         grupo = self.cb_grupo.get()
         for i, p in enumerate(self.asignaciones.get(grupo, []), 1):
             self.lbox_asig.insert("end", f"{i}. {p}")
+
+    def _verificar_confederacion(self, pais, grupo):
+        conf_pais = confederaciones.get(pais)
+        if not conf_pais:
+            return True
+        if conf_pais == "UEFA":
+            uefa_count = sum(1 for eq in self.asignaciones.get(grupo, [])
+                             if confederaciones.get(eq) == "UEFA")
+            return uefa_count < 2
+        for eq in self.asignaciones.get(grupo, []):
+            if confederaciones.get(eq) == conf_pais:
+                return False
+        return True
 
     def _agregar(self):
         grupo = self.cb_grupo.get()
@@ -419,10 +450,22 @@ class InterfazMundial:
             messagebox.showwarning("Grupo completo",
                                    f"El grupo {grupo} ya tiene 4 equipos.")
             return
-        pais = self.lbox_disp.get(sel[0])
+        texto = self.lbox_disp.get(sel[0])
+        pais = texto.split(" [")[0]
+        if not self._verificar_confederacion(pais, grupo):
+            conf = confederaciones.get(pais, "")
+            if conf == "UEFA":
+                messagebox.showwarning(
+                    "L\u00edmite UEFA",
+                    f"{pais} ({conf}) no puede agregarse: m\u00e1ximo 2 equipos UEFA por grupo.")
+            else:
+                messagebox.showwarning(
+                    "Confederaci\u00f3n repetida",
+                    f"{pais} ({conf}) no puede estar en el mismo grupo con otro equipo de {conf}.")
+            return
         self.disponibles.discard(pais)
         self.asignaciones[grupo].append(pais)
-        self._refrescar_disp()
+        self._refrescar_disp(filtro=self.e_busqueda.get())
         self._refrescar_asig()
         self._actualizar_status()
 
@@ -435,7 +478,7 @@ class InterfazMundial:
         pais = texto.split(". ", 1)[1]
         self.asignaciones[grupo].remove(pais)
         self.disponibles.add(pais)
-        self._refrescar_disp()
+        self._refrescar_disp(filtro=self.e_busqueda.get())
         self._refrescar_asig()
         self._actualizar_status()
 
@@ -449,7 +492,7 @@ class InterfazMundial:
             return
         self.asignaciones, self.disponibles = randomizar_grupos(
             self.disponibles, self.asignaciones)
-        self._refrescar_disp()
+        self._refrescar_disp(filtro=self.e_busqueda.get())
         self._refrescar_asig()
         self._actualizar_status()
         total = sum(len(v) for v in self.asignaciones.values())
@@ -468,9 +511,11 @@ class InterfazMundial:
             for i, nom in enumerate(eqs, 1):
                 abrev = "".join(c for c in nom.upper() if c.isalpha())[:3]
                 pref = data_store.prefijos_telefonicos.get(nom, "")
+                conf = confederaciones.get(nom, "")
                 data_store.tablagral[nom] = Equipo(
                     nombre=nom, abreviatura=abrev, prefijo=pref,
-                    grupo=g, id_identificador=f"{g}{i}"
+                    grupo=g, id_identificador=f"{g}{i}",
+                    confederacion=conf
                 )
 
         for g, eqs in self.asignaciones.items():
@@ -672,10 +717,10 @@ class InterfazMundial:
 
             tk.Label(row, text="Jugador:", fg=C["fg"], bg=C["card"],
                      font=("Arial", 9)).pack(side="left")
-            e_jug = tk.Entry(row, bg=C["input_bg"], fg="white",
-                             insertbackground="white", relief="flat",
-                             font=("Arial", 9), width=16)
-            e_jug.pack(side="left", padx=5)
+            jugadores = jugadores_por_equipo.get(team_name, [])
+            cb_jug = ttk.Combobox(row, values=jugadores,
+                                   state="normal", width=22, font=("Arial", 9))
+            cb_jug.pack(side="left", padx=5)
 
             tk.Label(row, text="Tipo:", fg=C["fg"], bg=C["card"],
                      font=("Arial", 9)).pack(side="left")
@@ -685,9 +730,9 @@ class InterfazMundial:
             cb_tipo.set("Amarilla")
 
             def agregar():
-                jug = e_jug.get().strip()
+                jug = cb_jug.get().strip()
                 if not jug:
-                    messagebox.showwarning("Nombre", "Escrib\u00ed el nombre del jugador.", parent=win)
+                    messagebox.showwarning("Nombre", "Seleccion\u00e1 o escrib\u00ed el nombre del jugador.", parent=win)
                     return
                 tipo = "AM" if cb_tipo.get() == "Amarilla" else "RJ"
                 obj = data_store.tablagral[team_name]
@@ -698,7 +743,7 @@ class InterfazMundial:
                     obj.am += 1
                 else:
                     obj.rj += 1
-                e_jug.delete(0, "end")
+                cb_jug.set("")
                 lbl_feedback.config(text=f"{jug} ({cb_tipo.get()}) \u2192 {team_name}")
 
             tk.Button(row, text="+", command=agregar,

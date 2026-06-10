@@ -13,7 +13,7 @@ class Equipo:
     (estadísticas, partidos, plantel con tarjetas).
     """
 
-    def __init__(self, nombre, abreviatura, prefijo, grupo, id_identificador):
+    def __init__(self, nombre, abreviatura, prefijo, grupo, id_identificador, confederacion=""):
         """
         Constructor del equipo. Recibe los datos que se conocen
         al momento de la configuración del torneo.
@@ -24,12 +24,14 @@ class Equipo:
             prefijo (str): prefijo telefónico internacional (ej: "+54").
             grupo (str): letra del grupo asignado (A-L).
             id_identificador (str): identificador grupo+posición (ej: "A1", "B3").
+            confederacion (str): confederación a la que pertenece (ej: "CONMEBOL").
         """
         self.nombre = nombre
         self.abreviatura = abreviatura
         self.prefijo = prefijo
         self.grupo = grupo
         self.id = id_identificador
+        self.confederacion = confederacion
 
         # Estadísticas que se calculan durante el torneo
         self.puntos = 0      # Puntos acumulados (3 por victoria, 1 por empate)

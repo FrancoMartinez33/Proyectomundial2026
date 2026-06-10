@@ -12,7 +12,7 @@ import random
 from datetime import datetime
 
 from . import data_store
-from .data_store import tablagral, paises_mundial, prefijos_telefonicos
+from .data_store import tablagral, paises_mundial, prefijos_telefonicos, confederaciones, jugadores_por_equipo
 from .validators import validar_fecha_manual
 
 
@@ -130,6 +130,13 @@ def asignar_tarjetas(nombre_equipo, tipo_tarjeta):
         tipo_tarjeta (str): "AM" para amarilla, "RJ" para roja.
     """
     equipo = tablagral[nombre_equipo]
+
+    # Si el plantel está vacío, lo poblamos desde jugadores.txt
+    if not equipo.plantel:
+        for jug in jugadores_por_equipo.get(nombre_equipo, []):
+            if jug not in equipo.plantel:
+                equipo.plantel[jug] = {"AM": 0, "RJ": 0}
+
     cant = int(input(f"\u00bfCu\u00e1ntas tarjetas {tipo_tarjeta} para {nombre_equipo}?: "))
 
     for _ in range(cant):
@@ -264,11 +271,70 @@ def emision():
 # ──────────────────────────────────────────────
 
 
+def _puede_agregar_a_grupo(pais, grupo_actual):
+    """
+    Verifica si un país puede ser agregado a un grupo según las reglas
+    de confederación:
+    - UEFA: máximo 2 equipos UEFA por grupo.
+    - Otras confederaciones: NO pueden compartir grupo con otro equipo de la misma confederación.
+
+    Parámetros:
+        pais (str): nombre del país a agregar.
+        grupo_actual (list): lista de nombres de países ya en el grupo.
+
+    Retorna:
+        bool: True si el país puede ser agregado, False en caso contrario.
+    """
+    conf_pais = confederaciones.get(pais)
+    if not conf_pais:
+        return True
+    if conf_pais == "UEFA":
+        uefa_count = sum(1 for eq in grupo_actual if confederaciones.get(eq) == "UEFA")
+        return uefa_count < 2
+    for eq in grupo_actual:
+        if confederaciones.get(eq) == conf_pais:
+            return False
+    return True
+
+
+def _distribuir_grupos(disponibles, asignaciones):
+    """
+    Intenta distribuir los países disponibles en los grupos respetando
+    las reglas de confederación.
+
+    Parámetros:
+        disponibles (list): lista de países sin asignar.
+        asignaciones (dict): { grupo: [lista de países asignados] }.
+
+    Retorna:
+        tuple: (asignaciones actualizadas, restantes como set).
+    """
+    temp_asig = {g: list(eqs) for g, eqs in asignaciones.items()}
+    temp_disp = list(disponibles)
+
+    for g in temp_asig:
+        colocados = []
+        restantes = []
+        for pais in temp_disp:
+            if len(temp_asig[g]) + len(colocados) >= 4:
+                restantes.append(pais)
+            elif _puede_agregar_a_grupo(pais, temp_asig[g] + colocados):
+                colocados.append(pais)
+            else:
+                restantes.append(pais)
+        temp_asig[g].extend(colocados)
+        temp_disp = restantes
+
+    return temp_asig, set(temp_disp)
+
+
 def randomizar_grupos(disponibles, asignaciones):
     """
-    Asigna aleatoriamente los países disponibles a grupos con cupos libres.
+    Asigna aleatoriamente los países disponibles a grupos con cupos libres,
+    respetando las reglas de confederación.
     Mezcla la lista de países y los distribuye en los grupos hasta
     completar 4 por grupo o agotar disponibles.
+    Reintenta con diferentes mezclas si es necesario.
 
     Parámetros:
         disponibles (set): conjunto de países sin asignar.
@@ -278,14 +344,19 @@ def randomizar_grupos(disponibles, asignaciones):
         tuple: (asignaciones actualizadas, restantes como set).
     """
     disponibles = list(disponibles)
-    random.shuffle(disponibles)
-    idx = 0
-    for g in asignaciones:
-        while len(asignaciones[g]) < 4 and idx < len(disponibles):
-            asignaciones[g].append(disponibles[idx])
-            idx += 1
-    restantes = set(disponibles[idx:])
-    return asignaciones, restantes
+    mejor_resultado = None
+    mejor_restantes = None
+
+    for _ in range(50):
+        random.shuffle(disponibles)
+        resultado, restantes = _distribuir_grupos(disponibles, asignaciones)
+        if mejor_resultado is None or len(restantes) < len(mejor_restantes):
+            mejor_resultado = resultado
+            mejor_restantes = restantes
+        if not restantes:
+            return mejor_resultado, mejor_restantes
+
+    return mejor_resultado, mejor_restantes
 
 
 # ──────────────────────────────────────────────

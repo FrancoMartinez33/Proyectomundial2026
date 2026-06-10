@@ -1,0 +1,48 @@
+Argentina;CONMEBOL;+54
+Bolivia;CONMEBOL;+591
+Brasil;CONMEBOL;+55
+Chile;CONMEBOL;+56
+Colombia;CONMEBOL;+57
+Ecuador;CONMEBOL;+593
+Paraguay;CONMEBOL;+595
+Perú;CONMEBOL;+51
+Uruguay;CONMEBOL;+598
+Venezuela;CONMEBOL;+58
+México;CONCACAF;+52
+Estados Unidos;CONCACAF;+1
+Canadá;CONCACAF;+1
+Costa Rica;CONCACAF;+506
+Panamá;CONCACAF;+507
+Jamaica;CONCACAF;+1876
+Honduras;CONCACAF;+504
+El Salvador;CONCACAF;+503
+España;UEFA;+34
+Francia;UEFA;+33
+Inglaterra;UEFA;+44
+Alemania;UEFA;+49
+Italia;UEFA;+39
+Portugal;UEFA;+351
+Holanda;UEFA;+31
+Bélgica;UEFA;+32
+Croacia;UEFA;+385
+Suiza;UEFA;+41
+Polonia;UEFA;+48
+Dinamarca;UEFA;+45
+Serbia;UEFA;+381
+Japón;AFC;+81
+Corea del Sur;AFC;+82
+Australia;AFC;+61
+Arabia Saudita;AFC;+966
+Irán;AFC;+98
+Catar;AFC;+974
+Egipto;CAF;+20
+Marruecos;CAF;+212
+Senegal;CAF;+221
+Túnez;CAF;+216
+Argelia;CAF;+213
+Nigeria;CAF;+234
+Camerún;CAF;+237
+Ghana;CAF;+233
+Sudáfrica;CAF;+27
+Costa de Marfil;CAF;+225
+Nueva Zelanda;OFC;+64
