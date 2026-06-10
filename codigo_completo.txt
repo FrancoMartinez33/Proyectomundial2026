@@ -1,3 +1,685 @@
+===== src/main.py =====
+
+from .gui import InterfazMundial
+import tkinter as tk
+
+def main():
+    root = tk.Tk()
+    InterfazMundial(root)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
+
+
+===== src/models.py =====
+
+class Equipo:
+    def __init__(self, nombre, abreviatura, prefijo, grupo, id_identificador, confederacion=""):
+        self.nombre = nombre
+        self.abreviatura = abreviatura
+        self.prefijo = prefijo
+        self.grupo = grupo
+        self.id = id_identificador
+        self.confederacion = confederacion
+
+        self.puntos = 0
+        self.pj = 0
+        self.gf = 0
+        self.gc = 0
+        self.am = 0
+        self.rj = 0
+
+        self.partidos = []
+        self.plantel = {}
+
+    def reset_stats(self):
+        self.puntos = 0
+        self.pj = 0
+        self.gf = 0
+        self.gc = 0
+
+
+===== src/data_store.py =====
+
+import os
+
+jugadores_por_equipo = {}
+
+try:
+    _base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    _ruta = os.path.join(_base, "jugadores.txt")
+    with open(_ruta, encoding="utf-8") as _f:
+        for _linea in _f:
+            _linea = _linea.strip()
+            if not _linea:
+                continue
+            _partes = _linea.split(",", 1)
+            if len(_partes) == 2:
+                _equipo = _partes[0].strip()
+                _jugador = _partes[1].strip()
+                if _equipo not in jugadores_por_equipo:
+                    jugadores_por_equipo[_equipo] = []
+                jugadores_por_equipo[_equipo].append(_jugador)
+except Exception:
+    pass
+
+tablagral = {}
+
+nombre_torneo = ""
+fecha_inicio_obj = None
+fecha_fin_obj = None
+config_guardada = False
+
+ronda_actual = None
+partidos_ronda = []
+avances_equipos = {}
+
+paises_mundial = []
+prefijos_telefonicos = {}
+confederaciones = {}
+
+try:
+    _base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    _ruta = os.path.join(_base, "paises.txt")
+    with open(_ruta, encoding="utf-8") as _f:
+        for _linea in _f:
+            _linea = _linea.strip()
+            if not _linea:
+                continue
+            _partes = _linea.split(",")
+            if len(_partes) >= 4:
+                nombre = _partes[0].strip()
+                prefijo = _partes[2].strip()
+                confed = _partes[3].strip()
+                paises_mundial.append(nombre)
+                prefijos_telefonicos[nombre] = prefijo
+                confederaciones[nombre] = confed
+except Exception as e:
+    print(f"Advertencia: No se pudieron cargar los países: {e}")
+
+
+===== src/persistence.py =====
+
+import os
+import json
+from datetime import datetime
+from . import data_store
+from .models import Equipo
+
+RUTA = None
+
+def _ruta_archivo():
+    global RUTA
+    if RUTA is None:
+        base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        RUTA = os.path.join(base, "mundial_data.json")
+    return RUTA
+
+
+def _equipo_a_dict(eq):
+    return {
+        "nombre": eq.nombre,
+        "abreviatura": eq.abreviatura,
+        "prefijo": eq.prefijo,
+        "grupo": eq.grupo,
+        "id": eq.id,
+        "confederacion": eq.confederacion,
+        "puntos": eq.puntos,
+        "pj": eq.pj,
+        "gf": eq.gf,
+        "gc": eq.gc,
+        "am": eq.am,
+        "rj": eq.rj,
+        "partidos": eq.partidos,
+        "plantel": eq.plantel
+    }
+
+
+def _dict_a_equipo(d):
+    eq = Equipo(
+        nombre=d["nombre"],
+        abreviatura=d["abreviatura"],
+        prefijo=d["prefijo"],
+        grupo=d["grupo"],
+        id_identificador=d["id"],
+        confederacion=d.get("confederacion", "")
+    )
+    eq.puntos = d.get("puntos", 0)
+    eq.pj = d.get("pj", 0)
+    eq.gf = d.get("gf", 0)
+    eq.gc = d.get("gc", 0)
+    eq.am = d.get("am", 0)
+    eq.rj = d.get("rj", 0)
+    eq.partidos = d.get("partidos", [])
+    eq.plantel = d.get("plantel", {})
+    return eq
+
+
+def guardar_datos():
+    datos = {
+        "nombre_torneo": data_store.nombre_torneo,
+        "fecha_inicio": data_store.fecha_inicio_obj.isoformat() if data_store.fecha_inicio_obj else None,
+        "fecha_fin": data_store.fecha_fin_obj.isoformat() if data_store.fecha_fin_obj else None,
+        "config_guardada": data_store.config_guardada,
+        "ronda_actual": data_store.ronda_actual,
+        "partidos_ronda": data_store.partidos_ronda,
+        "avances_equipos": data_store.avances_equipos,
+        "tablagral": {nom: _equipo_a_dict(eq) for nom, eq in data_store.tablagral.items()}
+    }
+    try:
+        with open(_ruta_archivo(), "w", encoding="utf-8") as f:
+            json.dump(datos, f, indent=2, ensure_ascii=False)
+    except Exception:
+        pass
+
+
+def cargar_datos():
+    try:
+        with open(_ruta_archivo(), "r", encoding="utf-8") as f:
+            datos = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return
+
+    data_store.nombre_torneo = datos.get("nombre_torneo", "")
+
+    fi = datos.get("fecha_inicio")
+    data_store.fecha_inicio_obj = datetime.fromisoformat(fi) if fi else None
+
+    ff = datos.get("fecha_fin")
+    data_store.fecha_fin_obj = datetime.fromisoformat(ff) if ff else None
+
+    data_store.config_guardada = datos.get("config_guardada", False)
+    data_store.ronda_actual = datos.get("ronda_actual")
+    data_store.partidos_ronda = datos.get("partidos_ronda", [])
+    data_store.avances_equipos = datos.get("avances_equipos", {})
+
+    tablagral = datos.get("tablagral", {})
+    data_store.tablagral.clear()
+    for nom, d in tablagral.items():
+        data_store.tablagral[nom] = _dict_a_equipo(d)
+
+
+===== src/services.py =====
+
+import os
+import random
+from datetime import datetime
+
+from . import data_store
+from .data_store import tablagral, paises_mundial, prefijos_telefonicos, confederaciones, jugadores_por_equipo
+
+
+def generar_pares_grupo(lista_equipos):
+    pares = []
+    for i in range(len(lista_equipos)):
+        for j in range(i + 1, len(lista_equipos)):
+            pares.append((lista_equipos[i], lista_equipos[j]))
+    return pares
+
+
+def _prefijo_num(nombre_pais):
+    p = prefijos_telefonicos.get(nombre_pais, "+0")
+    return int(''.join(c for c in p if c.isdigit())) if any(c.isdigit() for c in p) else 0
+
+
+def calcular_tabla_grupo(k):
+    temp = []
+    for nombre in tablagral:
+        e = tablagral[nombre]
+        if e.grupo == k:
+            e.reset_stats()
+            for p in e.partidos:
+                if p.get("goles") is not None:
+                    gf, gc = p["goles"][0], p["goles"][1]
+                    e.pj += 1
+                    e.gf += gf
+                    e.gc += gc
+                    if gf > gc:
+                        e.puntos += 3
+                    elif gf == gc:
+                        e.puntos += 1
+            temp.append(e)
+
+    temp.sort(key=lambda e: (e.puntos, e.gf - e.gc, e.gf, -_prefijo_num(e.nombre)), reverse=True)
+    return temp
+
+
+def configuracion(nombre, f_inicio, f_fin):
+    data_store.nombre_torneo = nombre
+    try:
+        data_store.fecha_inicio_obj = datetime.strptime(f_inicio, "%d/%m/%Y")
+        data_store.fecha_fin_obj = datetime.strptime(f_fin, "%d/%m/%Y")
+    except (ValueError, TypeError):
+        return "ERROR: fechas inv\u00e1lidas"
+
+    if data_store.fecha_fin_obj <= data_store.fecha_inicio_obj:
+        return "ERROR: rango de fechas incorrecto"
+
+    return {
+        "disponibles": list(paises_mundial),
+        "grupos": ["A","B","C","D","E","F","G","H","I","J","K","L"]
+    }
+
+
+def _puede_agregar_a_grupo(pais, grupo_actual):
+    conf_pais = confederaciones.get(pais)
+    if not conf_pais:
+        return True
+    if conf_pais == "UEFA":
+        uefa_count = sum(1 for eq in grupo_actual if confederaciones.get(eq) == "UEFA")
+        return uefa_count < 2
+    for eq in grupo_actual:
+        if confederaciones.get(eq) == conf_pais:
+            return False
+    return True
+
+
+def _distribuir_grupos(disponibles, asignaciones):
+    temp_asig = {g: list(eqs) for g, eqs in asignaciones.items()}
+    temp_disp = list(disponibles)
+
+    for g in temp_asig:
+        colocados = []
+        restantes = []
+        for pais in temp_disp:
+            if len(temp_asig[g]) + len(colocados) >= 4:
+                restantes.append(pais)
+            elif _puede_agregar_a_grupo(pais, temp_asig[g] + colocados):
+                colocados.append(pais)
+            else:
+                restantes.append(pais)
+        temp_asig[g].extend(colocados)
+        temp_disp = restantes
+
+    return temp_asig, set(temp_disp)
+
+
+def randomizar_grupos(disponibles, asignaciones):
+    disponibles = list(disponibles)
+    mejor_resultado = None
+    mejor_restantes = None
+
+    for _ in range(50):
+        random.shuffle(disponibles)
+        resultado, restantes = _distribuir_grupos(disponibles, asignaciones)
+        if mejor_resultado is None or len(restantes) < len(mejor_restantes):
+            mejor_resultado = resultado
+            mejor_restantes = restantes
+        if not restantes:
+            return mejor_resultado, mejor_restantes
+
+    return mejor_resultado, mejor_restantes
+
+
+def partidos_en_fecha(fecha_str):
+    equipos = list(tablagral.values())
+    resultados = []
+    for e in equipos:
+        for p in e.partidos:
+            if p.get("fecha") == fecha_str:
+                goles = p.get("goles")
+                if goles is not None:
+                    resultado = f"{goles[0]} - {goles[1]}"
+                else:
+                    resultado = "Pendiente"
+                resultados.append({
+                    "local": e.nombre,
+                    "visitante": p["rival"],
+                    "grupo": e.grupo,
+                    "hora": p.get("hora", ""),
+                    "resultado": resultado,
+                    "goles": goles
+                })
+    return resultados
+
+
+def resultados_equipo(nombre):
+    equipo = tablagral.get(nombre)
+    if not equipo:
+        return None
+    dg = equipo.gf - equipo.gc
+    partidos = []
+    for p in equipo.partidos:
+        goles = p.get("goles")
+        if goles is not None:
+            resultado = f"{goles[0]} - {goles[1]}"
+        else:
+            resultado = "Pendiente"
+        partidos.append({
+            "rival": p["rival"],
+            "fecha": p.get("fecha", ""),
+            "hora": p.get("hora", ""),
+            "resultado": resultado,
+            "goles": goles
+        })
+
+    plantel = []
+    for jug, cards in sorted(equipo.plantel.items()):
+        plantel.append({"nombre": jug, "am": cards["AM"], "rj": cards["RJ"]})
+
+    return {
+        "nombre": equipo.nombre,
+        "abreviatura": equipo.abreviatura,
+        "grupo": equipo.grupo,
+        "id": equipo.id,
+        "pj": equipo.pj,
+        "puntos": equipo.puntos,
+        "gf": equipo.gf,
+        "gc": equipo.gc,
+        "dg": dg,
+        "am": equipo.am,
+        "rj": equipo.rj,
+        "partidos": partidos,
+        "plantel": plantel
+    }
+
+
+def proximo_partido_equipo(nombre):
+    equipo = tablagral.get(nombre)
+    if not equipo:
+        return None
+    for p in equipo.partidos:
+        if p.get("goles") is None:
+            return {
+                "local": nombre,
+                "visitante": p["rival"],
+                "grupo": equipo.grupo,
+                "fecha": p.get("fecha", "Sin asignar"),
+                "hora": p.get("hora", "Sin asignar")
+            }
+    return None
+
+
+def todas_tablas():
+    grupos = "ABCDEFGHIJKL"
+    resultado = {}
+    for g in grupos:
+        tabla = calcular_tabla_grupo(g)
+        filas = []
+        for e in tabla:
+            filas.append({
+                "id": e.id,
+                "nombre": e.nombre,
+                "pj": e.pj,
+                "puntos": e.puntos,
+                "gf": e.gf,
+                "gc": e.gc,
+                "dg": e.gf - e.gc,
+                "am": e.am,
+                "rj": e.rj
+            })
+        resultado[g] = filas
+    return resultado
+
+
+def generar_reporte_completo():
+    lineas = []
+    lineas.append("=" * 60)
+    lineas.append(f"INFORME COMPLETO DEL TORNEO: {data_store.nombre_torneo}")
+    lineas.append(f"Generado: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+    lineas.append("=" * 60)
+
+    lineas.append("\n\n" + "=" * 60)
+    lineas.append("TABLAS DE POSICIONES - TODOS LOS GRUPOS")
+    lineas.append("=" * 60)
+    tabs = todas_tablas()
+    for g in "ABCDEFGHIJKL":
+        lineas.append(f"\n--- GRUPO {g} ---")
+        lineas.append(f"{'ID':<4} {'EQUIPO':<18} {'PJ':<3} {'PTS':<4} {'DG':<4} {'GF':<3}")
+        for e in tabs[g]:
+            lineas.append(f"{e['id']:<4} {e['nombre']:<18} {e['pj']:<3} {e['puntos']:<4} {e['dg']:<4} {e['gf']:<3}")
+
+    terceros = calcular_terceros()
+    if terceros:
+        lineas.append("\n\n" + "=" * 60)
+        lineas.append("CLASIFICACIÓN DE TERCEROS (8 MEJORES)")
+        lineas.append("=" * 60)
+        lineas.append(f"{'#':<3} {'EQUIPO':<18} {'GRUPO':<6} {'PTS':<4} {'DG':<4} {'GF':<3}")
+        for i, t in enumerate(terceros, 1):
+            lineas.append(f"{i:<3} {t['nombre']:<18} {t['grupo']:<6} {t['puntos']:<4} {t['dg']:<4} {t['gf']:<3}")
+
+    return "\n".join(lineas)
+
+
+def generar_informe_equipo(nombre_equipo):
+    equipo = tablagral.get(nombre_equipo)
+    if not equipo:
+        return "ERROR: equipo no encontrado"
+
+    lineas = []
+    lineas.append("=" * 50)
+    lineas.append(f"INFORME DEL EQUIPO: {equipo.nombre}")
+    lineas.append(f"Abreviatura: {equipo.abreviatura}")
+    lineas.append(f"Grupo: {equipo.grupo}  |  ID: {equipo.id}")
+    lineas.append(f"Torneo: {data_store.nombre_torneo}")
+    lineas.append("=" * 50)
+
+    lineas.append(f"\n--- ESTADÍSTICAS ---")
+    lineas.append(f"  Partidos jugados:   {equipo.pj}")
+    lineas.append(f"  Puntos:             {equipo.puntos}")
+    lineas.append(f"  Goles a favor:      {equipo.gf}")
+    lineas.append(f"  Goles en contra:    {equipo.gc}")
+    lineas.append(f"  Diferencia de gol:  {equipo.gf - equipo.gc}")
+    lineas.append(f"  Tarjetas amarillas: {equipo.am}")
+    lineas.append(f"  Tarjetas rojas:     {equipo.rj}")
+
+    lineas.append(f"\n--- PARTIDOS ---")
+    if equipo.partidos:
+        for i, p in enumerate(equipo.partidos, 1):
+            goles = p.get("goles")
+            if goles is not None:
+                resultado = f"{goles[0]} - {goles[1]}"
+            else:
+                resultado = "Pendiente"
+            fe = p.get("fecha", "")
+            ho = p.get("hora", "")
+            fyh = f"{fe} {ho}".strip()
+            lineas.append(f"  {i}. vs {p['rival']:<18}  {resultado:>9}   {fyh}")
+    else:
+        lineas.append("  (No hay partidos registrados)")
+
+    lineas.append(f"\n--- PLANTEL / TARJETAS ---")
+    if equipo.plantel:
+        for jug, cards in sorted(equipo.plantel.items()):
+            lineas.append(f"  {jug:<20}  AM={cards['AM']}  RJ={cards['RJ']}")
+    else:
+        lineas.append("  (No hay jugadores registrados)")
+
+    lineas.append("\n" + "=" * 50)
+    return "\n".join(lineas)
+
+
+def guardar_informe_txt(contenido, nombre_archivo=None):
+    os.makedirs("informes", exist_ok=True)
+    if nombre_archivo is None:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        nombre_archivo = f"informe_{timestamp}.txt"
+    ruta = os.path.join("informes", nombre_archivo)
+    with open(ruta, "w", encoding="utf-8") as f:
+        f.write(contenido)
+    return ruta
+
+
+def calcular_terceros():
+    equipos = []
+    for g in "ABCDEFGHIJKL":
+        tabla = calcular_tabla_grupo(g)
+        if len(tabla) >= 3:
+            tercero = tabla[2]
+            dg = tercero.gf - tercero.gc
+            equipos.append({
+                "nombre": tercero.nombre,
+                "grupo": g,
+                "puntos": tercero.puntos,
+                "dg": dg,
+                "gf": tercero.gf,
+                "prefijo": _prefijo_num(tercero.nombre),
+                "equipo": tercero
+            })
+
+    equipos.sort(key=lambda x: (-x["puntos"], -x["dg"], -x["gf"], x["prefijo"]))
+    return equipos[:8]
+
+
+def _ganadores_grupos():
+    res = {}
+    for g in "ABCDEFGHIJKL":
+        tabla = calcular_tabla_grupo(g)
+        if len(tabla) >= 1:
+            res[g] = tabla[0].nombre
+    return res
+
+
+def _segundos_grupos():
+    res = {}
+    for g in "ABCDEFGHIJKL":
+        tabla = calcular_tabla_grupo(g)
+        if len(tabla) >= 2:
+            res[g] = tabla[1].nombre
+    return res
+
+
+def generar_ronda32():
+    ganadores = _ganadores_grupos()
+    segundos = _segundos_grupos()
+    terceros = calcular_terceros()
+
+    pares_terceros = {
+        "A": 0, "B": 1, "D": 2, "E": 3,
+        "G": 4, "I": 5, "K": 6, "L": 7
+    }
+
+    partidos = []
+    for i, t in enumerate(terceros):
+        grupo_ganador = list(pares_terceros.keys())[i]
+        partidos.append({
+            "local": ganadores[grupo_ganador],
+            "visitante": t["nombre"],
+            "fase": "R32",
+            "goles": None,
+            "ganador": None
+        })
+
+    restantes = ["C", "F", "H", "J"]
+    for g in restantes:
+        if g in segundos:
+            partidos.append({
+                "local": ganadores[g],
+                "visitante": segundos[g],
+                "fase": "R32",
+                "goles": None,
+                "ganador": None
+            })
+
+    segundos_usados = set()
+    for p in partidos:
+        if p["visitante"] in segundos.values():
+            for g, nom in segundos.items():
+                if nom == p["visitante"]:
+                    segundos_usados.add(g)
+
+    segundos_libres = [(g, nom) for g, nom in segundos.items() if g not in segundos_usados]
+    for i in range(0, len(segundos_libres) - 1, 2):
+        if i + 1 < len(segundos_libres):
+            partidos.append({
+                "local": segundos_libres[i][1],
+                "visitante": segundos_libres[i + 1][1],
+                "fase": "R32",
+                "goles": None,
+                "ganador": None
+            })
+
+    data_store.ronda_actual = "R32"
+    data_store.partidos_ronda = partidos
+    return partidos
+
+
+def _nombre_ronda(fase):
+    nombres = {"R32": "Dieciseisavos de Final", "R16": "Octavos de Final",
+               "QF": "Cuartos de Final", "SF": "Semifinal", "F": "Final"}
+    return nombres.get(fase, fase)
+
+
+def _proxima_fase(fase):
+    orden = ["R32", "R16", "QF", "SF", "F"]
+    idx = orden.index(fase)
+    if idx + 1 < len(orden):
+        return orden[idx + 1]
+    return None
+
+
+def procesar_resultados_ronda(resultados):
+    for idx, goles in resultados.items():
+        if 0 <= idx < len(data_store.partidos_ronda):
+            p = data_store.partidos_ronda[idx]
+            p["goles"] = [goles["local"], goles["visitante"]]
+            if goles["local"] > goles["visitante"]:
+                p["ganador"] = p["local"]
+            elif goles["visitante"] > goles["local"]:
+                p["ganador"] = p["visitante"]
+            else:
+                p["ganador"] = p["local"]
+
+    ganadores_ronda = [p["ganador"] for p in data_store.partidos_ronda if p["ganador"]]
+    for g in ganadores_ronda:
+        data_store.avances_equipos[g] = data_store.ronda_actual
+
+    fase_actual = data_store.ronda_actual
+    prox_fase = _proxima_fase(fase_actual)
+    if prox_fase is None or len(ganadores_ronda) < 2:
+        return None
+
+    nuevos_partidos = []
+    for i in range(0, len(ganadores_ronda) - 1, 2):
+        if i + 1 < len(ganadores_ronda):
+            nuevos_partidos.append({
+                "local": ganadores_ronda[i],
+                "visitante": ganadores_ronda[i + 1],
+                "fase": prox_fase,
+                "goles": None,
+                "ganador": None
+            })
+
+    data_store.ronda_actual = prox_fase
+    data_store.partidos_ronda = nuevos_partidos
+    return nuevos_partidos
+
+
+def obtener_estado_eliminatorias():
+    return {
+        "ronda_actual": data_store.ronda_actual,
+        "partidos": data_store.partidos_ronda,
+        "nombre_ronda": _nombre_ronda(data_store.ronda_actual) if data_store.ronda_actual else ""
+    }
+
+
+def reiniciar_eliminatorias():
+    data_store.ronda_actual = None
+    data_store.partidos_ronda = []
+    data_store.avances_equipos = {}
+
+
+def obtener_maximo_avance():
+    orden = {"R32": 1, "R16": 2, "QF": 3, "SF": 4, "F": 5}
+    orden_inv = {1: "Dieciseisavos", 2: "Octavos", 3: "Cuartos", 4: "Semifinal", 5: "Final"}
+
+    equipos = list(tablagral.keys())
+    resultados = []
+    for nom in equipos:
+        ronda = data_store.avances_equipos.get(nom, None)
+        if ronda:
+            nivel = orden.get(ronda, 0)
+            resultados.append((nom, orden_inv.get(nivel, ronda), nivel))
+        else:
+            resultados.append((nom, "Fase de Grupos", 0))
+
+    resultados.sort(key=lambda x: -x[2])
+    return resultados
+
+
+===== src/gui.py =====
+
 # ─────────────────────────────────────────────────────────────
 #  GUI – Interfaz gráfica del Sistema de Control de Torneo
 #  Librerías: solo tkinter + calendar (biblioteca estándar)
@@ -680,6 +1362,7 @@ class InterfazMundial:
         cb.pack(side="left", padx=(0, 20))
         
         def randomizar_grupo():
+            import random
             k = cb.get()
             if not k:
                 messagebox.showwarning("Seleccionar grupo", "Selecciona un grupo.", parent=win)
@@ -721,6 +1404,8 @@ class InterfazMundial:
                             e.rj += 1
         
         def simular_todos():
+            import random
+            
             # Generar goles para todos los partidos de todos los grupos
             for equipo in data_store.tablagral.values():
                 for p in equipo.partidos:
@@ -1024,9 +1709,6 @@ class InterfazMundial:
                 return
             resultados = partidos_en_fecha(fecha)
             if not resultados:
-                for w in tab1.winfo_children():
-                    if isinstance(w, tk.Label):
-                        w.destroy()
                 tk.Label(tab1, text="No se encontraron partidos en esa fecha.",
                          fg=C["disabled"], bg=C["bg"]).pack()
                 return
@@ -1275,9 +1957,6 @@ class InterfazMundial:
             for i in tree6.get_children():
                 tree6.delete(i)
             terceros = calcular_terceros()
-            for w in tab6.winfo_children():
-                if isinstance(w, tk.Label):
-                    w.destroy()
             if not terceros:
                 tk.Label(tab6, text="No hay datos suficientes. Carga resultados de grupos primero.",
                          fg=C["disabled"], bg=C["bg"], font=("Arial", 10)).pack(pady=10)
@@ -1300,6 +1979,8 @@ class InterfazMundial:
         tk.Label(tab6, 
                 text="Criterios: Puntos → Diferencia de Gol → GF → Prefijo telefónico",
                 fg=C["disabled"], bg=C["bg"], font=("Arial", 8)).pack(pady=5)
+
+    # ── CLASIFICACIÓN DE TERCEROS ────────────────
 
     # ── FASE ELIMINATORIA ─────────────────────────
 
@@ -1436,23 +2117,27 @@ class InterfazMundial:
             nuevos = procesar_resultados_ronda(resultados)
             guardar_datos()
             if nuevos is None:
-                if not data_store.partidos_ronda:
-                    messagebox.showwarning("Error", "No hay partidos en esta ronda.", parent=win)
-                    return
+                # Final del torneo
                 ganador = data_store.partidos_ronda[0]["ganador"]
-                if data_store.ronda_actual == "F":
-                    msg = f"\u00a1Torneo finalizado!\n\nCampe\u00f3n: {ganador}"
-                    messagebox.showinfo("Final", msg, parent=win)
-                elif len(data_store.partidos_ronda) >= 2:
-                    if len(data_store.partidos_ronda) == 2:
-                        ganador2 = data_store.partidos_ronda[1]["ganador"]
-                        messagebox.showinfo("Semifinales completadas",
-                            f"Finalistas: {ganador} vs {ganador2}", parent=win)
+                ganador2 = data_store.partidos_ronda[1]["ganador"] if len(data_store.partidos_ronda) > 1 else ""
+
+                if len(data_store.partidos_ronda) >= 2:
+                    final = data_store.partidos_ronda
+                    if data_store.ronda_actual == "F" and len(data_store.partidos_ronda) == 1:
+                        msg = (f"\u00a1Torneo finalizado!\n\n"
+                               f"Campe\u00f3n: {data_store.partidos_ronda[0]['ganador']}")
+                        messagebox.showinfo("Final", msg, parent=win)
                     else:
-                        messagebox.showinfo("Ronda completada",
-                            "Resultados guardados.", parent=win)
-                construir_partidos()
-                return
+                        if len(final) == 2:
+                            messagebox.showinfo(
+                                "Semifinales completadas",
+                                f"Finalistas: {final[0]['ganador']} vs {final[1]['ganador']}",
+                                parent=win)
+                        else:
+                            messagebox.showinfo("Ronda completada",
+                                                "Resultados guardados.", parent=win)
+                    construir_partidos()
+                    return
 
             if nuevos:
                 ronda_nombre = obtener_estado_eliminatorias()["nombre_ronda"]
@@ -1579,6 +2264,7 @@ class InterfazMundial:
                   bd=0, cursor="hand2", padx=20, pady=8).pack()
 
     def _iniciar_partido_simulado(self, local, visitante):
+        import random
 
         # Crear ventana principal del simulador
         win_sim = tk.Toplevel(self.root)
@@ -1638,16 +2324,13 @@ class InterfazMundial:
             btn_play.config(text="⏸ Pausar" if simulando[0] else "▶ Reanudar")
 
         def skip_evento():
+            # Avanza 5 minutos en el juego
             tiempo_minuto[0] += 5
             if tiempo_minuto[0] > 90:
                 tiempo_minuto[0] = 90
             generar_evento()
-            minutos = tiempo_minuto[0]
-            lbl_tiempo.config(text=f"{minutos:02d}:00")
-            if minutos <= 45:
-                lbl_tiempo_info.config(text="(Primer tiempo)")
-            else:
-                lbl_tiempo_info.config(text=f"(Segundo tiempo - {minutos - 45}' del ST)")
+            # Forzar actualización visual inmediata
+            actualizar_simulacion()
 
         def finalizar():
             win_sim.destroy()
@@ -1724,10 +2407,8 @@ class InterfazMundial:
                 if suplentes and titulares:
                     jug_sale = random.choice(titulares)
                     jug_entra = random.choice(suplentes)
-                    idx_sale = jugadores_local.index(jug_sale)
-                    idx_entra = jugadores_local.index(jug_entra)
-                    jugadores_local[idx_sale] = jug_sale + " (s)"
-                    jugadores_local[idx_entra] = jug_entra.replace(" (s)", "")
+                    jugadores_local[jugadores_local.index(jug_sale)] = jug_sale + " (s)"
+                    jugadores_local[jugadores_local.index(jug_entra)] = jug_entra.replace(" (s)", "")
                     cambios_efectuados[0] += 1
                     evento = f"{tiempo_minuto[0]:02d}' 🔄 CAMBIO {local}: sale {jug_sale}, entra {jug_entra.replace(' (s)', '')}"
                     eventos_posibles.append(evento)
@@ -1739,10 +2420,8 @@ class InterfazMundial:
                 if suplentes and titulares:
                     jug_sale = random.choice(titulares)
                     jug_entra = random.choice(suplentes)
-                    idx_sale = jugadores_visitante.index(jug_sale)
-                    idx_entra = jugadores_visitante.index(jug_entra)
-                    jugadores_visitante[idx_sale] = jug_sale + " (s)"
-                    jugadores_visitante[idx_entra] = jug_entra.replace(" (s)", "")
+                    jugadores_visitante[jugadores_visitante.index(jug_sale)] = jug_sale + " (s)"
+                    jugadores_visitante[jugadores_visitante.index(jug_entra)] = jug_entra.replace(" (s)", "")
                     cambios_efectuados[1] += 1
                     evento = f"{tiempo_minuto[0]:02d}' 🔄 CAMBIO {visitante}: sale {jug_sale}, entra {jug_entra.replace(' (s)', '')}"
                     eventos_posibles.append(evento)
@@ -1804,3 +2483,15 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = InterfazMundial(root)
     root.mainloop()
+
+
+===== iniciar.py =====
+
+from src.gui import InterfazMundial
+import tkinter as tk
+
+root = tk.Tk()
+InterfazMundial(root)
+root.mainloop()
+
+
