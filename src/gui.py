@@ -1430,9 +1430,31 @@ class InterfazMundial:
                         f"  Hora:  {hora_txt}")
                 lbl4_info.config(text=texto, fg=C["green"])
             else:
-                lbl4_info.config(
-                    text=f"{team} no tiene partidos pendientes desde esa fecha.\n¡Todos los partidos están jugados!",
-                    fg=C["cyan"])
+                # Fase de grupos completada: buscar en eliminatorias
+                r32 = data_store.partidos_ronda
+                if not r32:
+                    lbl4_info.config(
+                        text=f"{team} completó la fase de grupos.\nEsperando la generación de la Ronda 32.",
+                        fg=C["cyan"])
+                else:
+                    rival = None
+                    for p in r32:
+                        if p.get("goles") is not None:
+                            continue
+                        if p["local"] == team:
+                            rival = p["visitante"]
+                        elif p["visitante"] == team:
+                            rival = p["local"]
+                    if rival:
+                        lbl4_info.config(
+                            text=("Próximo partido de {}\n\n"
+                                  "  vs {}\n"
+                                  "  Fase: Dieciseisavos de Final").format(team, rival),
+                            fg=C["green"])
+                    else:
+                        lbl4_info.config(
+                            text=f"{team} no clasificó a la fase eliminatoria.",
+                            fg="#FF4444")
 
         tk.Button(tab4, text="Buscar", command=mostrar_proximo,
                 bg=C["cyan"], fg="#000000", font=("Arial", 10, "bold"),

@@ -1,227 +1,227 @@
 {
-  "nombre_torneo": "mundial 2026",
-  "fecha_inicio": "2026-06-10T00:00:00",
-  "fecha_fin": "2026-07-15T00:00:00",
+  "nombre_torneo": "xbb",
+  "fecha_inicio": "2026-06-11T00:00:00",
+  "fecha_fin": "2026-06-27T00:00:00",
   "config_guardada": true,
-  "ronda_actual": "SF",
-  "partidos_ronda": [
-    {
-      "local": "Sudáfrica",
-      "visitante": "Inglaterra",
-      "fase": "SF",
-      "goles": null,
-      "ganador": null
-    }
-  ],
-  "avances_equipos": {
-    "Alemania": "R32",
-    "Sudáfrica": "QF",
-    "Bosnia-Herzegovina": "R32",
-    "Francia": "R16",
-    "Irak": "R16",
-    "Turquía": "R32",
-    "Inglaterra": "QF",
-    "Irán": "R32",
-    "Panamá": "R32",
-    "Paraguay": "R16",
-    "Colombia": "R32"
-  },
+  "ronda_actual": null,
+  "partidos_ronda": [],
+  "avances_equipos": {},
   "tablagral": {
-    "Alemania": {
-      "nombre": "Alemania",
-      "abreviatura": "ALE",
-      "prefijo": "+49",
+    "Irán": {
+      "nombre": "Irán",
+      "abreviatura": "IRÁ",
+      "prefijo": "+98",
       "grupo": "A",
       "id": "A1",
-      "confederacion": "UEFA",
-      "puntos": 9,
+      "confederacion": "AFC",
+      "puntos": 3,
       "pj": 3,
-      "gf": 5,
-      "gc": 1,
-      "am": 2,
-      "rj": 1,
+      "gf": 4,
+      "gc": 7,
+      "am": 3,
+      "rj": 2,
       "partidos": [
         {
-          "rival": "Austria",
-          "fecha": "",
-          "hora": "",
+          "rival": "Brasil",
+          "fecha": "22/06/2026",
+          "hora": "20:00",
           "goles": [
             1,
-            0
+            4
           ]
         },
         {
-          "rival": "Argentina",
-          "fecha": "",
-          "hora": "",
+          "rival": "Suecia",
+          "fecha": "13/06/2026",
+          "hora": "14:00",
           "goles": [
-            2,
-            0
+            0,
+            2
           ]
         },
         {
-          "rival": "Argelia",
-          "fecha": "",
-          "hora": "",
+          "rival": "Nueva Zelanda",
+          "fecha": "26/06/2026",
+          "hora": "14:00",
           "goles": [
-            2,
+            3,
             1
           ]
         }
       ],
       "plantel": {
-        "Joshua Kimmich": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Jonathan Tah": {
+        "Saeid Ezatolahi": {
           "AM": 1,
           "RJ": 0
         },
-        "Maximilian Mittelstädt": {
+        "Saman Ghoddos": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Mohammad Amin Hazbavi (S)": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Mehdi Taremi": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Alireza Beiranvand": {
+          "AM": 0,
+          "RJ": 1
+        }
+      }
+    },
+    "Brasil": {
+      "nombre": "Brasil",
+      "abreviatura": "BRA",
+      "prefijo": "+55",
+      "grupo": "A",
+      "id": "A2",
+      "confederacion": "CONMEBOL",
+      "puntos": 1,
+      "pj": 3,
+      "gf": 1,
+      "gc": 5,
+      "am": 3,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Irán",
+          "fecha": "22/06/2026",
+          "hora": "20:00",
+          "goles": [
+            1,
+            1
+          ]
+        },
+        {
+          "rival": "Suecia",
+          "fecha": "16/06/2026",
+          "hora": "14:00",
+          "goles": [
+            0,
+            3
+          ]
+        },
+        {
+          "rival": "Nueva Zelanda",
+          "fecha": "20/06/2026",
+          "hora": "10:00",
+          "goles": [
+            0,
+            1
+          ]
+        }
+      ],
+      "plantel": {
+        "Lucas Paquetá": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Bruno Guimarães": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Ederson (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Bremer (S)": {
           "AM": 1,
           "RJ": 0
         }
       }
     },
-    "Austria": {
-      "nombre": "Austria",
-      "abreviatura": "AUS",
-      "prefijo": "+43",
+    "Suecia": {
+      "nombre": "Suecia",
+      "abreviatura": "SUE",
+      "prefijo": "+46",
       "grupo": "A",
-      "id": "A2",
+      "id": "A3",
       "confederacion": "UEFA",
+      "puntos": 1,
+      "pj": 3,
+      "gf": 5,
+      "gc": 11,
+      "am": 2,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Irán",
+          "fecha": "13/06/2026",
+          "hora": "14:00",
+          "goles": [
+            0,
+            4
+          ]
+        },
+        {
+          "rival": "Brasil",
+          "fecha": "16/06/2026",
+          "hora": "14:00",
+          "goles": [
+            4,
+            4
+          ]
+        },
+        {
+          "rival": "Nueva Zelanda",
+          "fecha": "12/06/2026",
+          "hora": "16:00",
+          "goles": [
+            1,
+            3
+          ]
+        }
+      ],
+      "plantel": {
+        "Carl Starfelt (S)": {
+          "AM": 1,
+          "RJ": 1
+        },
+        "Anton Salétros": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Nueva Zelanda": {
+      "nombre": "Nueva Zelanda",
+      "abreviatura": "NUE",
+      "prefijo": "+64",
+      "grupo": "A",
+      "id": "A4",
+      "confederacion": "OFC",
       "puntos": 3,
       "pj": 3,
       "gf": 4,
       "gc": 6,
       "am": 1,
-      "rj": 0,
+      "rj": 1,
       "partidos": [
         {
-          "rival": "Alemania",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            1
-          ]
-        },
-        {
-          "rival": "Argentina",
-          "fecha": "",
-          "hora": "",
+          "rival": "Irán",
+          "fecha": "26/06/2026",
+          "hora": "14:00",
           "goles": [
             1,
-            4
+            3
           ]
         },
         {
-          "rival": "Argelia",
-          "fecha": "",
-          "hora": "",
+          "rival": "Brasil",
+          "fecha": "20/06/2026",
+          "hora": "10:00",
           "goles": [
             3,
-            1
-          ]
-        }
-      ],
-      "plantel": {
-        "Christoph Baumgartner": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Argentina": {
-      "nombre": "Argentina",
-      "abreviatura": "ARG",
-      "prefijo": "+54",
-      "grupo": "A",
-      "id": "A3",
-      "confederacion": "CONMEBOL",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 5,
-      "gc": 10,
-      "am": 2,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Alemania",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            4
+            0
           ]
         },
         {
-          "rival": "Austria",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            2
-          ]
-        },
-        {
-          "rival": "Argelia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            4
-          ]
-        }
-      ],
-      "plantel": {
-        "Julián Álvarez": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Lisandro Martínez (S)": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Argelia": {
-      "nombre": "Argelia",
-      "abreviatura": "ARG",
-      "prefijo": "+213",
-      "grupo": "A",
-      "id": "A4",
-      "confederacion": "CAF",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 3,
-      "gc": 8,
-      "am": 1,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Alemania",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            1
-          ]
-        },
-        {
-          "rival": "Austria",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            4
-          ]
-        },
-        {
-          "rival": "Argentina",
-          "fecha": "",
-          "hora": "",
+          "rival": "Suecia",
+          "fecha": "12/06/2026",
+          "hora": "16:00",
           "goles": [
             0,
             3
@@ -229,274 +229,180 @@
         }
       ],
       "plantel": {
-        "Rayan Aït-Nouri": {
+        "Ben Waine": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Chris Wood": {
           "AM": 1,
           "RJ": 0
         }
       }
     },
-    "Sudáfrica": {
-      "nombre": "Sudáfrica",
-      "abreviatura": "SUD",
-      "prefijo": "+27",
+    "Jordania": {
+      "nombre": "Jordania",
+      "abreviatura": "JOR",
+      "prefijo": "+962",
       "grupo": "B",
       "id": "B1",
-      "confederacion": "CAF",
-      "puntos": 6,
-      "pj": 3,
-      "gf": 7,
-      "gc": 3,
-      "am": 5,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Japón",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            2
-          ]
-        },
-        {
-          "rival": "México",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            1
-          ]
-        },
-        {
-          "rival": "Croacia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            0
-          ]
-        }
-      ],
-      "plantel": {
-        "Zakhele Lepasa (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Themba Zwane": {
-          "AM": 2,
-          "RJ": 0
-        },
-        "Grant Kekana": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Aubrey Modiba": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Japón": {
-      "nombre": "Japón",
-      "abreviatura": "JAP",
-      "prefijo": "+81",
-      "grupo": "B",
-      "id": "B2",
       "confederacion": "AFC",
       "puntos": 3,
       "pj": 3,
-      "gf": 6,
+      "gf": 4,
       "gc": 9,
       "am": 3,
-      "rj": 0,
+      "rj": 2,
       "partidos": [
         {
-          "rival": "Sudáfrica",
-          "fecha": "",
-          "hora": "",
+          "rival": "Uruguay",
+          "fecha": "19/06/2026",
+          "hora": "12:00",
+          "goles": [
+            0,
+            4
+          ]
+        },
+        {
+          "rival": "Ghana",
+          "fecha": "12/06/2026",
+          "hora": "16:00",
           "goles": [
             4,
-            1
+            3
           ]
         },
         {
-          "rival": "México",
-          "fecha": "",
-          "hora": "",
+          "rival": "Panamá",
+          "fecha": "21/06/2026",
+          "hora": "20:00",
           "goles": [
             0,
-            4
-          ]
-        },
-        {
-          "rival": "Croacia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            4
+            2
           ]
         }
       ],
       "plantel": {
-        "Keisuke Osako (S)": {
+        "Mahmoud Al-Mardi": {
           "AM": 1,
           "RJ": 0
         },
-        "Yukinari Sugawara": {
+        "Ehsan Haddad": {
           "AM": 1,
           "RJ": 0
         },
-        "Zion Suzuki": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "México": {
-      "nombre": "México",
-      "abreviatura": "MÉX",
-      "prefijo": "+52",
-      "grupo": "B",
-      "id": "B3",
-      "confederacion": "CONCACAF",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 6,
-      "gc": 5,
-      "am": 0,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Sudáfrica",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            0
-          ]
-        },
-        {
-          "rival": "Japón",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            4
-          ]
-        },
-        {
-          "rival": "Croacia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            1
-          ]
-        }
-      ],
-      "plantel": {
-        "Jorge Sánchez": {
+        "Yazan Al-Arab": {
           "AM": 0,
+          "RJ": 1
+        },
+        "Mousa Al-Tamari": {
+          "AM": 1,
           "RJ": 1
         }
       }
     },
-    "Croacia": {
-      "nombre": "Croacia",
-      "abreviatura": "CRO",
-      "prefijo": "+385",
+    "Uruguay": {
+      "nombre": "Uruguay",
+      "abreviatura": "URU",
+      "prefijo": "+598",
       "grupo": "B",
-      "id": "B4",
-      "confederacion": "UEFA",
-      "puntos": 4,
+      "id": "B2",
+      "confederacion": "CONMEBOL",
+      "puntos": 2,
       "pj": 3,
-      "gf": 6,
-      "gc": 5,
-      "am": 1,
+      "gf": 2,
+      "gc": 3,
+      "am": 2,
       "rj": 0,
       "partidos": [
         {
-          "rival": "Sudáfrica",
-          "fecha": "",
-          "hora": "",
+          "rival": "Jordania",
+          "fecha": "19/06/2026",
+          "hora": "12:00",
           "goles": [
             1,
             2
           ]
         },
         {
-          "rival": "Japón",
-          "fecha": "",
-          "hora": "",
+          "rival": "Ghana",
+          "fecha": "22/06/2026",
+          "hora": "16:00",
           "goles": [
-            2,
-            2
+            0,
+            0
           ]
         },
         {
-          "rival": "México",
-          "fecha": "",
-          "hora": "",
+          "rival": "Panamá",
+          "fecha": "25/06/2026",
+          "hora": "10:00",
           "goles": [
-            3,
+            1,
             1
           ]
         }
       ],
       "plantel": {
-        "Bruno Petković (S)": {
+        "Luis Suárez (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Maximiliano Araújo": {
           "AM": 1,
           "RJ": 0
         }
       }
     },
-    "Cabo Verde": {
-      "nombre": "Cabo Verde",
-      "abreviatura": "CAB",
-      "prefijo": "+238",
-      "grupo": "C",
-      "id": "C1",
+    "Ghana": {
+      "nombre": "Ghana",
+      "abreviatura": "GHA",
+      "prefijo": "+233",
+      "grupo": "B",
+      "id": "B3",
       "confederacion": "CAF",
-      "puntos": 1,
+      "puntos": 3,
       "pj": 3,
       "gf": 5,
-      "gc": 12,
+      "gc": 6,
       "am": 1,
-      "rj": 0,
+      "rj": 1,
       "partidos": [
         {
+          "rival": "Jordania",
+          "fecha": "12/06/2026",
+          "hora": "16:00",
+          "goles": [
+            2,
+            3
+          ]
+        },
+        {
+          "rival": "Uruguay",
+          "fecha": "22/06/2026",
+          "hora": "16:00",
+          "goles": [
+            3,
+            0
+          ]
+        },
+        {
           "rival": "Panamá",
-          "fecha": "",
-          "hora": "",
+          "fecha": "13/06/2026",
+          "hora": "16:00",
           "goles": [
             0,
-            4
-          ]
-        },
-        {
-          "rival": "Ecuador",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            4
-          ]
-        },
-        {
-          "rival": "España",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            4
+            3
           ]
         }
       ],
       "plantel": {
-        "Pico (S)": {
+        "Salis Abdul Samed": {
           "AM": 1,
           "RJ": 0
+        },
+        "Inaki Williams (S)": {
+          "AM": 0,
+          "RJ": 1
         }
       }
     },
@@ -504,54 +410,164 @@
       "nombre": "Panamá",
       "abreviatura": "PAN",
       "prefijo": "+507",
-      "grupo": "C",
-      "id": "C2",
+      "grupo": "B",
+      "id": "B4",
       "confederacion": "CONCACAF",
-      "puntos": 7,
+      "puntos": 9,
       "pj": 3,
-      "gf": 7,
-      "gc": 1,
+      "gf": 8,
+      "gc": 3,
       "am": 2,
-      "rj": 1,
+      "rj": 0,
       "partidos": [
         {
-          "rival": "Cabo Verde",
-          "fecha": "",
-          "hora": "",
+          "rival": "Jordania",
+          "fecha": "21/06/2026",
+          "hora": "20:00",
           "goles": [
-            0,
+            3,
+            2
+          ]
+        },
+        {
+          "rival": "Uruguay",
+          "fecha": "25/06/2026",
+          "hora": "10:00",
+          "goles": [
+            3,
+            1
+          ]
+        },
+        {
+          "rival": "Ghana",
+          "fecha": "13/06/2026",
+          "hora": "16:00",
+          "goles": [
+            2,
+            0
+          ]
+        }
+      ],
+      "plantel": {
+        "Michael Murillo": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Yoel Bárcenas": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Qatar": {
+      "nombre": "Qatar",
+      "abreviatura": "QAT",
+      "prefijo": "+974",
+      "grupo": "C",
+      "id": "C1",
+      "confederacion": "AFC",
+      "puntos": 4,
+      "pj": 3,
+      "gf": 5,
+      "gc": 8,
+      "am": 1,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Costa de Marfil",
+          "fecha": "16/06/2026",
+          "hora": "21:00",
+          "goles": [
+            1,
             0
           ]
         },
         {
           "rival": "Ecuador",
-          "fecha": "",
-          "hora": "",
+          "fecha": "13/06/2026",
+          "hora": "20:00",
           "goles": [
-            3,
-            0
+            0,
+            4
           ]
         },
         {
-          "rival": "España",
-          "fecha": "",
-          "hora": "",
+          "rival": "Bosnia-Herzegovina",
+          "fecha": "12/06/2026",
+          "hora": "21:00",
           "goles": [
             4,
-            1
+            4
           ]
         }
       ],
       "plantel": {
-        "Yoel Bárcenas": {
-          "AM": 0,
-          "RJ": 1
+        "Akram Afif": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Costa de Marfil": {
+      "nombre": "Costa de Marfil",
+      "abreviatura": "COS",
+      "prefijo": "+225",
+      "grupo": "C",
+      "id": "C2",
+      "confederacion": "CAF",
+      "puntos": 4,
+      "pj": 3,
+      "gf": 7,
+      "gc": 6,
+      "am": 5,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Qatar",
+          "fecha": "16/06/2026",
+          "hora": "21:00",
+          "goles": [
+            4,
+            4
+          ]
         },
-        "José Luis Rodríguez": {
+        {
+          "rival": "Ecuador",
+          "fecha": "24/06/2026",
+          "hora": "21:00",
+          "goles": [
+            2,
+            0
+          ]
+        },
+        {
+          "rival": "Bosnia-Herzegovina",
+          "fecha": "16/06/2026",
+          "hora": "20:00",
+          "goles": [
+            1,
+            2
+          ]
+        }
+      ],
+      "plantel": {
+        "Badra Ali Sangaré (S)": {
           "AM": 1,
           "RJ": 0
         },
-        "Aníbal Godoy": {
+        "Yahia Fofana": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Jean Michaël Seri": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Ghislain Konan": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Wilfried Singo": {
           "AM": 1,
           "RJ": 0
         }
@@ -564,263 +580,43 @@
       "grupo": "C",
       "id": "C3",
       "confederacion": "CONMEBOL",
-      "puntos": 6,
+      "puntos": 3,
       "pj": 3,
-      "gf": 9,
-      "gc": 5,
-      "am": 0,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Cabo Verde",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            1
-          ]
-        },
-        {
-          "rival": "Panamá",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            4
-          ]
-        },
-        {
-          "rival": "España",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            0
-          ]
-        }
-      ],
-      "plantel": {
-        "Piero Hincapié": {
-          "AM": 0,
-          "RJ": 1
-        }
-      }
-    },
-    "España": {
-      "nombre": "España",
-      "abreviatura": "ESP",
-      "prefijo": "+34",
-      "grupo": "C",
-      "id": "C4",
-      "confederacion": "UEFA",
-      "puntos": 2,
-      "pj": 3,
-      "gf": 4,
+      "gf": 6,
       "gc": 7,
-      "am": 4,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Cabo Verde",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            0
-          ]
-        },
-        {
-          "rival": "Panamá",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            4
-          ]
-        },
-        {
-          "rival": "Ecuador",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "Alejandro Grimaldo": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Nico Williams": {
-          "AM": 2,
-          "RJ": 0
-        },
-        "Pedri": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Egipto": {
-      "nombre": "Egipto",
-      "abreviatura": "EGI",
-      "prefijo": "+20",
-      "grupo": "D",
-      "id": "D1",
-      "confederacion": "CAF",
-      "puntos": 1,
-      "pj": 3,
-      "gf": 3,
-      "gc": 6,
-      "am": 3,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Brasil",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            0
-          ]
-        },
-        {
-          "rival": "Irán",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            3
-          ]
-        },
-        {
-          "rival": "Bosnia-Herzegovina",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "Omar Marmoush": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Hamdi Fathi": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Trezeguet": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Brasil": {
-      "nombre": "Brasil",
-      "abreviatura": "BRA",
-      "prefijo": "+55",
-      "grupo": "D",
-      "id": "D2",
-      "confederacion": "CONMEBOL",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 5,
-      "gc": 3,
-      "am": 4,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Egipto",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            1
-          ]
-        },
-        {
-          "rival": "Irán",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            0
-          ]
-        },
-        {
-          "rival": "Bosnia-Herzegovina",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            2
-          ]
-        }
-      ],
-      "plantel": {
-        "Alisson": {
-          "AM": 3,
-          "RJ": 0
-        },
-        "Bremer (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Vanderson": {
-          "AM": 0,
-          "RJ": 1
-        }
-      }
-    },
-    "Irán": {
-      "nombre": "Irán",
-      "abreviatura": "IRÁ",
-      "prefijo": "+98",
-      "grupo": "D",
-      "id": "D3",
-      "confederacion": "AFC",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 7,
-      "gc": 9,
       "am": 1,
       "rj": 0,
       "partidos": [
         {
-          "rival": "Egipto",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            2
-          ]
-        },
-        {
-          "rival": "Brasil",
-          "fecha": "",
-          "hora": "",
+          "rival": "Qatar",
+          "fecha": "13/06/2026",
+          "hora": "20:00",
           "goles": [
             1,
             4
           ]
         },
         {
-          "rival": "Bosnia-Herzegovina",
-          "fecha": "",
-          "hora": "",
+          "rival": "Costa de Marfil",
+          "fecha": "24/06/2026",
+          "hora": "21:00",
           "goles": [
-            2,
-            3
+            1,
+            2
+          ]
+        },
+        {
+          "rival": "Bosnia-Herzegovina",
+          "fecha": "12/06/2026",
+          "hora": "18:00",
+          "goles": [
+            4,
+            1
           ]
         }
       ],
       "plantel": {
-        "Hossein Kanaanizadegan": {
+        "Kendry Páez": {
           "AM": 1,
           "RJ": 0
         }
@@ -830,276 +626,528 @@
       "nombre": "Bosnia-Herzegovina",
       "abreviatura": "BOS",
       "prefijo": "+387",
-      "grupo": "D",
-      "id": "D4",
+      "grupo": "C",
+      "id": "C4",
       "confederacion": "UEFA",
       "puntos": 4,
       "pj": 3,
-      "gf": 4,
-      "gc": 5,
-      "am": 3,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Egipto",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            1
-          ]
-        },
-        {
-          "rival": "Brasil",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            1
-          ]
-        },
-        {
-          "rival": "Irán",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "Nihad Mujakić (S)": {
-          "AM": 2,
-          "RJ": 0
-        },
-        "Jusuf Gazibegović": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Uruguay": {
-      "nombre": "Uruguay",
-      "abreviatura": "URU",
-      "prefijo": "+598",
-      "grupo": "E",
-      "id": "E1",
-      "confederacion": "CONMEBOL",
-      "puntos": 7,
-      "pj": 3,
       "gf": 6,
-      "gc": 4,
-      "am": 1,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Túnez",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            1
-          ]
-        },
-        {
-          "rival": "Jordania",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            2
-          ]
-        },
-        {
-          "rival": "Francia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            1
-          ]
-        }
-      ],
-      "plantel": {
-        "Nicolás de la Cruz": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Túnez": {
-      "nombre": "Túnez",
-      "abreviatura": "TÚN",
-      "prefijo": "+216",
-      "grupo": "E",
-      "id": "E2",
-      "confederacion": "CAF",
-      "puntos": 1,
-      "pj": 3,
-      "gf": 5,
-      "gc": 10,
-      "am": 4,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Uruguay",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            3
-          ]
-        },
-        {
-          "rival": "Jordania",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            3
-          ]
-        },
-        {
-          "rival": "Francia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            4
-          ]
-        }
-      ],
-      "plantel": {
-        "Mohamed Ali Ben Romdhane": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Montassar Talbi": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Aymen Dahmen (S)": {
-          "AM": 2,
-          "RJ": 0
-        }
-      }
-    },
-    "Jordania": {
-      "nombre": "Jordania",
-      "abreviatura": "JOR",
-      "prefijo": "+962",
-      "grupo": "E",
-      "id": "E3",
-      "confederacion": "AFC",
-      "puntos": 0,
-      "pj": 3,
-      "gf": 4,
-      "gc": 10,
+      "gc": 6,
       "am": 5,
       "rj": 0,
       "partidos": [
         {
-          "rival": "Uruguay",
-          "fecha": "",
-          "hora": "",
+          "rival": "Qatar",
+          "fecha": "12/06/2026",
+          "hora": "21:00",
           "goles": [
             2,
             3
           ]
         },
         {
-          "rival": "Túnez",
-          "fecha": "",
-          "hora": "",
+          "rival": "Costa de Marfil",
+          "fecha": "16/06/2026",
+          "hora": "20:00",
           "goles": [
-            2,
+            4,
             3
           ]
         },
         {
-          "rival": "Francia",
-          "fecha": "",
-          "hora": "",
+          "rival": "Ecuador",
+          "fecha": "12/06/2026",
+          "hora": "18:00",
           "goles": [
             0,
-            4
-          ]
-        }
-      ],
-      "plantel": {
-        "Yazeed Abulaila": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Ali Olwan": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Reziq Bani Hani (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Mousa Al-Tamari": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Ehsan Haddad": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Francia": {
-      "nombre": "Francia",
-      "abreviatura": "FRA",
-      "prefijo": "+33",
-      "grupo": "E",
-      "id": "E4",
-      "confederacion": "UEFA",
-      "puntos": 7,
-      "pj": 3,
-      "gf": 7,
-      "gc": 3,
-      "am": 1,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Uruguay",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            1
-          ]
-        },
-        {
-          "rival": "Túnez",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            2
-          ]
-        },
-        {
-          "rival": "Jordania",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
             0
           ]
         }
       ],
       "plantel": {
-        "Brice Samba (S)": {
+        "Edin Džeko": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Dennis Hadžikadunić": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Rade Krunić": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Haris Hajradinović": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Amar Dedić": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Irak": {
+      "nombre": "Irak",
+      "abreviatura": "IRA",
+      "prefijo": "+964",
+      "grupo": "D",
+      "id": "D1",
+      "confederacion": "AFC",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 3,
+      "gc": 5,
+      "am": 1,
+      "rj": 4,
+      "partidos": [
+        {
+          "rival": "Marruecos",
+          "fecha": "15/06/2026",
+          "hora": "20:00",
+          "goles": [
+            2,
+            0
+          ]
+        },
+        {
+          "rival": "Austria",
+          "fecha": "19/06/2026",
+          "hora": "20:00",
+          "goles": [
+            1,
+            3
+          ]
+        },
+        {
+          "rival": "México",
+          "fecha": "17/06/2026",
+          "hora": "21:00",
+          "goles": [
+            0,
+            2
+          ]
+        }
+      ],
+      "plantel": {
+        "Mohanad Ali (S)": {
           "AM": 0,
           "RJ": 1
         },
-        "Antoine Griezmann": {
+        "Ali Jasim": {
           "AM": 1,
           "RJ": 0
+        },
+        "Aymen Hussein": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Ibrahim Bayesh": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Merchas Doski": {
+          "AM": 0,
+          "RJ": 1
+        }
+      }
+    },
+    "Marruecos": {
+      "nombre": "Marruecos",
+      "abreviatura": "MAR",
+      "prefijo": "+212",
+      "grupo": "D",
+      "id": "D2",
+      "confederacion": "CAF",
+      "puntos": 6,
+      "pj": 3,
+      "gf": 10,
+      "gc": 8,
+      "am": 3,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Irak",
+          "fecha": "15/06/2026",
+          "hora": "20:00",
+          "goles": [
+            3,
+            1
+          ]
+        },
+        {
+          "rival": "Austria",
+          "fecha": "13/06/2026",
+          "hora": "20:00",
+          "goles": [
+            4,
+            3
+          ]
+        },
+        {
+          "rival": "México",
+          "fecha": "17/06/2026",
+          "hora": "10:00",
+          "goles": [
+            3,
+            4
+          ]
+        }
+      ],
+      "plantel": {
+        "Noussair Mazraoui": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Bilal El Khannouss (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Amine Adli": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Austria": {
+      "nombre": "Austria",
+      "abreviatura": "AUS",
+      "prefijo": "+43",
+      "grupo": "D",
+      "id": "D3",
+      "confederacion": "UEFA",
+      "puntos": 2,
+      "pj": 3,
+      "gf": 2,
+      "gc": 4,
+      "am": 3,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Irak",
+          "fecha": "19/06/2026",
+          "hora": "20:00",
+          "goles": [
+            0,
+            0
+          ]
+        },
+        {
+          "rival": "Marruecos",
+          "fecha": "13/06/2026",
+          "hora": "20:00",
+          "goles": [
+            0,
+            0
+          ]
+        },
+        {
+          "rival": "México",
+          "fecha": "23/06/2026",
+          "hora": "20:00",
+          "goles": [
+            2,
+            4
+          ]
+        }
+      ],
+      "plantel": {
+        "Stefan Posch": {
+          "AM": 2,
+          "RJ": 0
+        },
+        "Philipp Lienhart": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "México": {
+      "nombre": "México",
+      "abreviatura": "MÉX",
+      "prefijo": "+52",
+      "grupo": "D",
+      "id": "D4",
+      "confederacion": "CONCACAF",
+      "puntos": 1,
+      "pj": 3,
+      "gf": 3,
+      "gc": 8,
+      "am": 3,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Irak",
+          "fecha": "17/06/2026",
+          "hora": "21:00",
+          "goles": [
+            0,
+            0
+          ]
+        },
+        {
+          "rival": "Marruecos",
+          "fecha": "17/06/2026",
+          "hora": "10:00",
+          "goles": [
+            1,
+            4
+          ]
+        },
+        {
+          "rival": "Austria",
+          "fecha": "23/06/2026",
+          "hora": "20:00",
+          "goles": [
+            2,
+            4
+          ]
+        }
+      ],
+      "plantel": {
+        "Jorge Sánchez": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Chiquete Orozco (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Santiago Giménez": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Edson Álvarez": {
+          "AM": 0,
+          "RJ": 1
+        }
+      }
+    },
+    "Noruega": {
+      "nombre": "Noruega",
+      "abreviatura": "NOR",
+      "prefijo": "+47",
+      "grupo": "E",
+      "id": "E1",
+      "confederacion": "UEFA",
+      "puntos": 1,
+      "pj": 3,
+      "gf": 4,
+      "gc": 7,
+      "am": 2,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Corea del Sur",
+          "fecha": "15/06/2026",
+          "hora": "14:00",
+          "goles": [
+            2,
+            3
+          ]
+        },
+        {
+          "rival": "RD Congo",
+          "fecha": "11/06/2026",
+          "hora": "16:00",
+          "goles": [
+            0,
+            0
+          ]
+        },
+        {
+          "rival": "Escocia",
+          "fecha": "21/06/2026",
+          "hora": "21:00",
+          "goles": [
+            2,
+            4
+          ]
+        }
+      ],
+      "plantel": {
+        "Kristian Thorstvedt (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Martin Ødegaard": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Corea del Sur": {
+      "nombre": "Corea del Sur",
+      "abreviatura": "COR",
+      "prefijo": "+82",
+      "grupo": "E",
+      "id": "E2",
+      "confederacion": "AFC",
+      "puntos": 6,
+      "pj": 3,
+      "gf": 10,
+      "gc": 8,
+      "am": 2,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Noruega",
+          "fecha": "15/06/2026",
+          "hora": "14:00",
+          "goles": [
+            3,
+            1
+          ]
+        },
+        {
+          "rival": "RD Congo",
+          "fecha": "26/06/2026",
+          "hora": "21:00",
+          "goles": [
+            4,
+            3
+          ]
+        },
+        {
+          "rival": "Escocia",
+          "fecha": "15/06/2026",
+          "hora": "18:00",
+          "goles": [
+            3,
+            4
+          ]
+        }
+      ],
+      "plantel": {
+        "Son Heung-min": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Cho Gue-sung": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Kim Min-jae": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "RD Congo": {
+      "nombre": "RD Congo",
+      "abreviatura": "RDC",
+      "prefijo": "+243",
+      "grupo": "E",
+      "id": "E3",
+      "confederacion": "CAF",
+      "puntos": 6,
+      "pj": 3,
+      "gf": 7,
+      "gc": 6,
+      "am": 3,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Noruega",
+          "fecha": "11/06/2026",
+          "hora": "16:00",
+          "goles": [
+            3,
+            0
+          ]
+        },
+        {
+          "rival": "Corea del Sur",
+          "fecha": "26/06/2026",
+          "hora": "21:00",
+          "goles": [
+            4,
+            3
+          ]
+        },
+        {
+          "rival": "Escocia",
+          "fecha": "25/06/2026",
+          "hora": "10:00",
+          "goles": [
+            0,
+            3
+          ]
+        }
+      ],
+      "plantel": {
+        "Dylan Batubinsika (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Chancel Mbemba": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Theo Bongonda": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Escocia": {
+      "nombre": "Escocia",
+      "abreviatura": "ESC",
+      "prefijo": "+44",
+      "grupo": "E",
+      "id": "E4",
+      "confederacion": "UEFA",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 6,
+      "gc": 6,
+      "am": 3,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Noruega",
+          "fecha": "21/06/2026",
+          "hora": "21:00",
+          "goles": [
+            2,
+            3
+          ]
+        },
+        {
+          "rival": "Corea del Sur",
+          "fecha": "15/06/2026",
+          "hora": "18:00",
+          "goles": [
+            3,
+            0
+          ]
+        },
+        {
+          "rival": "RD Congo",
+          "fecha": "25/06/2026",
+          "hora": "10:00",
+          "goles": [
+            1,
+            3
+          ]
+        }
+      ],
+      "plantel": {
+        "Ché Adams": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Angus Gunn": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Billy Gilmour": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "John McGinn": {
+          "AM": 0,
+          "RJ": 1
         }
       }
     },
@@ -1110,38 +1158,38 @@
       "grupo": "F",
       "id": "F1",
       "confederacion": "CAF",
-      "puntos": 3,
+      "puntos": 1,
       "pj": 3,
-      "gf": 1,
-      "gc": 5,
+      "gf": 3,
+      "gc": 7,
       "am": 2,
       "rj": 0,
       "partidos": [
         {
           "rival": "Uzbekistán",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            4
-          ]
-        },
-        {
-          "rival": "Paraguay",
-          "fecha": "",
-          "hora": "",
+          "fecha": "16/06/2026",
+          "hora": "12:00",
           "goles": [
             0,
             1
           ]
         },
         {
-          "rival": "Países Bajos",
-          "fecha": "",
-          "hora": "",
+          "rival": "Francia",
+          "fecha": "11/06/2026",
+          "hora": "18:00",
+          "goles": [
+            2,
+            2
+          ]
+        },
+        {
+          "rival": "España",
+          "fecha": "21/06/2026",
+          "hora": "12:00",
           "goles": [
             1,
-            0
+            4
           ]
         }
       ],
@@ -1150,7 +1198,7 @@
           "AM": 1,
           "RJ": 0
         },
-        "Moussa Niakhaté": {
+        "Pape Gueye (S)": {
           "AM": 1,
           "RJ": 0
         }
@@ -1163,416 +1211,253 @@
       "grupo": "F",
       "id": "F2",
       "confederacion": "AFC",
-      "puntos": 2,
+      "puntos": 9,
       "pj": 3,
-      "gf": 2,
-      "gc": 3,
-      "am": 3,
+      "gf": 10,
+      "gc": 4,
+      "am": 2,
       "rj": 0,
       "partidos": [
         {
           "rival": "Senegal",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            2
-          ]
-        },
-        {
-          "rival": "Paraguay",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            0
-          ]
-        },
-        {
-          "rival": "Países Bajos",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            1
-          ]
-        }
-      ],
-      "plantel": {
-        "Farrukh Sayfiev": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Abdulla Abdullaev (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Abbosbek Fayzullaev": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Paraguay": {
-      "nombre": "Paraguay",
-      "abreviatura": "PAR",
-      "prefijo": "+595",
-      "grupo": "F",
-      "id": "F3",
-      "confederacion": "CONMEBOL",
-      "puntos": 6,
-      "pj": 3,
-      "gf": 5,
-      "gc": 3,
-      "am": 4,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Senegal",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            1
-          ]
-        },
-        {
-          "rival": "Uzbekistán",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            1
-          ]
-        },
-        {
-          "rival": "Países Bajos",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            1
-          ]
-        }
-      ],
-      "plantel": {
-        "Fabián Balbuena (S)": {
-          "AM": 2,
-          "RJ": 0
-        },
-        "Diego Gómez": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Ramón Sosa (S)": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Países Bajos": {
-      "nombre": "Países Bajos",
-      "abreviatura": "PAÍ",
-      "prefijo": "+31",
-      "grupo": "F",
-      "id": "F4",
-      "confederacion": "UEFA",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 8,
-      "gc": 8,
-      "am": 4,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Senegal",
-          "fecha": "",
-          "hora": "",
+          "fecha": "16/06/2026",
+          "hora": "12:00",
           "goles": [
             4,
-            4
-          ]
-        },
-        {
-          "rival": "Uzbekistán",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            1
-          ]
-        },
-        {
-          "rival": "Paraguay",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "Jerdy Schouten": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Wout Weghorst (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Donyell Malen": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Ryan Gravenberch (S)": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Australia": {
-      "nombre": "Australia",
-      "abreviatura": "AUS",
-      "prefijo": "+61",
-      "grupo": "G",
-      "id": "G1",
-      "confederacion": "AFC",
-      "puntos": 6,
-      "pj": 3,
-      "gf": 6,
-      "gc": 2,
-      "am": 1,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Portugal",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            0
-          ]
-        },
-        {
-          "rival": "República Checa",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
             2
           ]
         },
         {
-          "rival": "EE. UU.",
-          "fecha": "",
-          "hora": "",
+          "rival": "Francia",
+          "fecha": "22/06/2026",
+          "hora": "12:00",
+          "goles": [
+            4,
+            1
+          ]
+        },
+        {
+          "rival": "España",
+          "fecha": "27/06/2026",
+          "hora": "20:00",
           "goles": [
             2,
-            0
+            1
           ]
         }
       ],
       "plantel": {
-        "Cameron Burgess (S)": {
+        "Igor Sergeev": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Otabek Shukurov": {
           "AM": 1,
           "RJ": 0
         }
       }
     },
-    "Portugal": {
-      "nombre": "Portugal",
-      "abreviatura": "POR",
-      "prefijo": "+351",
-      "grupo": "G",
-      "id": "G2",
+    "Francia": {
+      "nombre": "Francia",
+      "abreviatura": "FRA",
+      "prefijo": "+33",
+      "grupo": "F",
+      "id": "F3",
       "confederacion": "UEFA",
       "puntos": 5,
       "pj": 3,
-      "gf": 12,
-      "gc": 10,
-      "am": 3,
+      "gf": 2,
+      "gc": 1,
+      "am": 5,
       "rj": 0,
       "partidos": [
         {
-          "rival": "Australia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            4
-          ]
-        },
-        {
-          "rival": "República Checa",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            4
-          ]
-        },
-        {
-          "rival": "EE. UU.",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            2
-          ]
-        }
-      ],
-      "plantel": {
-        "Rafael Leão": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "João Neves (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Gonçalo Inácio (S)": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "República Checa": {
-      "nombre": "República Checa",
-      "abreviatura": "REP",
-      "prefijo": "+420",
-      "grupo": "G",
-      "id": "G3",
-      "confederacion": "UEFA",
-      "puntos": 2,
-      "pj": 3,
-      "gf": 5,
-      "gc": 6,
-      "am": 4,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Australia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            2
-          ]
-        },
-        {
-          "rival": "Portugal",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            4
-          ]
-        },
-        {
-          "rival": "EE. UU.",
-          "fecha": "",
-          "hora": "",
+          "rival": "Senegal",
+          "fecha": "11/06/2026",
+          "hora": "18:00",
           "goles": [
             0,
             0
           ]
-        }
-      ],
-      "plantel": {
-        "Patrik Schick": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Mojmír Chytil (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Robin Hranáč": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Lukáš Provod": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "EE. UU.": {
-      "nombre": "EE. UU.",
-      "abreviatura": "EEU",
-      "prefijo": "+1",
-      "grupo": "G",
-      "id": "G4",
-      "confederacion": "CONCACAF",
-      "puntos": 7,
-      "pj": 3,
-      "gf": 6,
-      "gc": 3,
-      "am": 3,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Australia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            2
-          ]
         },
         {
-          "rival": "Portugal",
-          "fecha": "",
-          "hora": "",
+          "rival": "Uzbekistán",
+          "fecha": "22/06/2026",
+          "hora": "12:00",
           "goles": [
             1,
             0
           ]
         },
         {
-          "rival": "República Checa",
-          "fecha": "",
-          "hora": "",
+          "rival": "España",
+          "fecha": "16/06/2026",
+          "hora": "16:00",
           "goles": [
-            3,
+            1,
             1
           ]
         }
       ],
       "plantel": {
-        "Weston McKennie": {
+        "William Saliba": {
           "AM": 1,
           "RJ": 0
         },
-        "Tim Ream": {
+        "Eduardo Camavinga": {
           "AM": 1,
           "RJ": 0
         },
-        "Ethan Horvath (S)": {
+        "Mike Maignan": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Dayot Upamecano": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Aurélien Tchouaméni": {
           "AM": 1,
           "RJ": 0
         }
       }
     },
-    "Corea del Sur": {
-      "nombre": "Corea del Sur",
-      "abreviatura": "COR",
-      "prefijo": "+82",
-      "grupo": "H",
-      "id": "H1",
-      "confederacion": "AFC",
-      "puntos": 6,
+    "España": {
+      "nombre": "España",
+      "abreviatura": "ESP",
+      "prefijo": "+34",
+      "grupo": "F",
+      "id": "F4",
+      "confederacion": "UEFA",
+      "puntos": 7,
       "pj": 3,
-      "gf": 5,
-      "gc": 6,
-      "am": 3,
+      "gf": 4,
+      "gc": 0,
+      "am": 1,
       "rj": 2,
       "partidos": [
         {
-          "rival": "Colombia",
-          "fecha": "",
-          "hora": "",
+          "rival": "Senegal",
+          "fecha": "21/06/2026",
+          "hora": "12:00",
+          "goles": [
+            0,
+            0
+          ]
+        },
+        {
+          "rival": "Uzbekistán",
+          "fecha": "27/06/2026",
+          "hora": "20:00",
+          "goles": [
+            3,
+            0
+          ]
+        },
+        {
+          "rival": "Francia",
+          "fecha": "16/06/2026",
+          "hora": "16:00",
+          "goles": [
+            1,
+            0
+          ]
+        }
+      ],
+      "plantel": {
+        "Rodri": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Unai Simón": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Fabián Ruiz": {
+          "AM": 0,
+          "RJ": 1
+        }
+      }
+    },
+    "Argentina": {
+      "nombre": "Argentina",
+      "abreviatura": "ARG",
+      "prefijo": "+54",
+      "grupo": "G",
+      "id": "G1",
+      "confederacion": "CONMEBOL",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 2,
+      "gc": 6,
+      "am": 3,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Canadá",
+          "fecha": "16/06/2026",
+          "hora": "14:00",
+          "goles": [
+            0,
+            3
+          ]
+        },
+        {
+          "rival": "Bélgica",
+          "fecha": "26/06/2026",
+          "hora": "10:00",
+          "goles": [
+            0,
+            3
+          ]
+        },
+        {
+          "rival": "Inglaterra",
+          "fecha": "24/06/2026",
+          "hora": "16:00",
+          "goles": [
+            2,
+            0
+          ]
+        }
+      ],
+      "plantel": {
+        "Nicolás Otamendi": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Leandro Paredes (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Lautaro Martínez": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Cristian Romero": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Canadá": {
+      "nombre": "Canadá",
+      "abreviatura": "CAN",
+      "prefijo": "+1",
+      "grupo": "G",
+      "id": "G2",
+      "confederacion": "CONCACAF",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 3,
+      "gc": 7,
+      "am": 3,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Argentina",
+          "fecha": "16/06/2026",
+          "hora": "14:00",
           "goles": [
             1,
             0
@@ -1580,33 +1465,314 @@
         },
         {
           "rival": "Bélgica",
-          "fecha": "",
-          "hora": "",
+          "fecha": "14/06/2026",
+          "hora": "16:00",
           "goles": [
-            4,
-            3
+            0,
+            4
           ]
         },
         {
-          "rival": "Nueva Zelanda",
-          "fecha": "",
-          "hora": "",
+          "rival": "Inglaterra",
+          "fecha": "12/06/2026",
+          "hora": "14:00",
           "goles": [
-            0,
+            2,
             3
           ]
         }
       ],
       "plantel": {
-        "Song Bum-keun (S)": {
+        "Richie Laryea (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Alistair Johnston": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Ismaël Koné": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Stephen Eustáquio": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Bélgica": {
+      "nombre": "Bélgica",
+      "abreviatura": "BÉL",
+      "prefijo": "+32",
+      "grupo": "G",
+      "id": "G3",
+      "confederacion": "UEFA",
+      "puntos": 9,
+      "pj": 3,
+      "gf": 12,
+      "gc": 4,
+      "am": 1,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Argentina",
+          "fecha": "26/06/2026",
+          "hora": "10:00",
+          "goles": [
+            4,
+            1
+          ]
+        },
+        {
+          "rival": "Canadá",
+          "fecha": "14/06/2026",
+          "hora": "16:00",
+          "goles": [
+            4,
+            1
+          ]
+        },
+        {
+          "rival": "Inglaterra",
+          "fecha": "15/06/2026",
+          "hora": "20:00",
+          "goles": [
+            4,
+            2
+          ]
+        }
+      ],
+      "plantel": {
+        "Wout Faes": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Inglaterra": {
+      "nombre": "Inglaterra",
+      "abreviatura": "ING",
+      "prefijo": "+44",
+      "grupo": "G",
+      "id": "G4",
+      "confederacion": "UEFA",
+      "puntos": 0,
+      "pj": 3,
+      "gf": 2,
+      "gc": 12,
+      "am": 3,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Argentina",
+          "fecha": "24/06/2026",
+          "hora": "16:00",
+          "goles": [
+            0,
+            4
+          ]
+        },
+        {
+          "rival": "Canadá",
+          "fecha": "12/06/2026",
+          "hora": "14:00",
+          "goles": [
+            2,
+            4
+          ]
+        },
+        {
+          "rival": "Bélgica",
+          "fecha": "15/06/2026",
+          "hora": "20:00",
+          "goles": [
+            0,
+            4
+          ]
+        }
+      ],
+      "plantel": {
+        "Aaron Ramsdale (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Phil Foden": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Jude Bellingham": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Argelia": {
+      "nombre": "Argelia",
+      "abreviatura": "ARG",
+      "prefijo": "+213",
+      "grupo": "H",
+      "id": "H1",
+      "confederacion": "CAF",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 8,
+      "gc": 8,
+      "am": 2,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Arabia Saudita",
+          "fecha": "18/06/2026",
+          "hora": "18:00",
+          "goles": [
+            3,
+            4
+          ]
+        },
+        {
+          "rival": "Turquía",
+          "fecha": "13/06/2026",
+          "hora": "16:00",
+          "goles": [
+            3,
+            1
+          ]
+        },
+        {
+          "rival": "Colombia",
+          "fecha": "25/06/2026",
+          "hora": "16:00",
+          "goles": [
+            2,
+            3
+          ]
+        }
+      ],
+      "plantel": {
+        "Nabil Bentaleb (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Ramiz Zerrouki": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Arabia Saudita": {
+      "nombre": "Arabia Saudita",
+      "abreviatura": "ARA",
+      "prefijo": "+966",
+      "grupo": "H",
+      "id": "H2",
+      "confederacion": "AFC",
+      "puntos": 4,
+      "pj": 3,
+      "gf": 6,
+      "gc": 3,
+      "am": 2,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Argelia",
+          "fecha": "18/06/2026",
+          "hora": "18:00",
+          "goles": [
+            4,
+            0
+          ]
+        },
+        {
+          "rival": "Turquía",
+          "fecha": "26/06/2026",
+          "hora": "21:00",
+          "goles": [
+            0,
+            1
+          ]
+        },
+        {
+          "rival": "Colombia",
+          "fecha": "23/06/2026",
+          "hora": "16:00",
+          "goles": [
+            2,
+            2
+          ]
+        }
+      ],
+      "plantel": {
+        "Abdulrahman Ghareeb (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Firas Al-Buraikan": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Abdullah Alkhaibari": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Turquía": {
+      "nombre": "Turquía",
+      "abreviatura": "TUR",
+      "prefijo": "+90",
+      "grupo": "H",
+      "id": "H3",
+      "confederacion": "UEFA",
+      "puntos": 0,
+      "pj": 3,
+      "gf": 2,
+      "gc": 6,
+      "am": 4,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Argelia",
+          "fecha": "13/06/2026",
+          "hora": "16:00",
+          "goles": [
+            0,
+            1
+          ]
+        },
+        {
+          "rival": "Arabia Saudita",
+          "fecha": "26/06/2026",
+          "hora": "21:00",
+          "goles": [
+            1,
+            2
+          ]
+        },
+        {
+          "rival": "Colombia",
+          "fecha": "20/06/2026",
+          "hora": "21:00",
+          "goles": [
+            1,
+            3
+          ]
+        }
+      ],
+      "plantel": {
+        "Salih Özcan (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Barış Alper Yılmaz": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Kaan Ayhan": {
           "AM": 2,
           "RJ": 0
         },
-        "Seol Young-woo": {
-          "AM": 1,
-          "RJ": 1
-        },
-        "Lee Kang-in": {
+        "Kenan Yıldız": {
           "AM": 0,
           "RJ": 1
         }
@@ -1617,846 +1783,145 @@
       "abreviatura": "COL",
       "prefijo": "+57",
       "grupo": "H",
-      "id": "H2",
+      "id": "H4",
       "confederacion": "CONMEBOL",
-      "puntos": 6,
-      "pj": 3,
-      "gf": 7,
-      "gc": 4,
-      "am": 3,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Corea del Sur",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            3
-          ]
-        },
-        {
-          "rival": "Bélgica",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            0
-          ]
-        },
-        {
-          "rival": "Nueva Zelanda",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            1
-          ]
-        }
-      ],
-      "plantel": {
-        "Mateus Uribe (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Johan Mojica": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Jhon Arias": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Bélgica": {
-      "nombre": "Bélgica",
-      "abreviatura": "BÉL",
-      "prefijo": "+32",
-      "grupo": "H",
-      "id": "H3",
-      "confederacion": "UEFA",
-      "puntos": 6,
+      "puntos": 3,
       "pj": 3,
       "gf": 8,
-      "gc": 8,
+      "gc": 7,
       "am": 4,
       "rj": 0,
       "partidos": [
         {
-          "rival": "Corea del Sur",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            4
-          ]
-        },
-        {
-          "rival": "Colombia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            3
-          ]
-        },
-        {
-          "rival": "Nueva Zelanda",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            1
-          ]
-        }
-      ],
-      "plantel": {
-        "Amadou Onana": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Youri Tielemans (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Matz Sels (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Romelu Lukaku": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Nueva Zelanda": {
-      "nombre": "Nueva Zelanda",
-      "abreviatura": "NUE",
-      "prefijo": "+64",
-      "grupo": "H",
-      "id": "H4",
-      "confederacion": "OFC",
-      "puntos": 6,
-      "pj": 3,
-      "gf": 8,
-      "gc": 5,
-      "am": 2,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Corea del Sur",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            4
-          ]
-        },
-        {
-          "rival": "Colombia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            1
-          ]
-        },
-        {
-          "rival": "Bélgica",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            0
-          ]
-        }
-      ],
-      "plantel": {
-        "Tyler Bindon (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Elijah Just (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Michael Boxall": {
-          "AM": 0,
-          "RJ": 1
-        }
-      }
-    },
-    "Irak": {
-      "nombre": "Irak",
-      "abreviatura": "IRA",
-      "prefijo": "+964",
-      "grupo": "I",
-      "id": "I1",
-      "confederacion": "AFC",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 6,
-      "gc": 6,
-      "am": 1,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "RD Congo",
-          "fecha": "",
-          "hora": "",
+          "rival": "Argelia",
+          "fecha": "25/06/2026",
+          "hora": "16:00",
           "goles": [
             4,
             1
           ]
         },
         {
-          "rival": "Curazao",
-          "fecha": "",
-          "hora": "",
+          "rival": "Arabia Saudita",
+          "fecha": "23/06/2026",
+          "hora": "16:00",
           "goles": [
-            2,
+            3,
             4
           ]
         },
         {
           "rival": "Turquía",
-          "fecha": "",
-          "hora": "",
+          "fecha": "20/06/2026",
+          "hora": "21:00",
           "goles": [
-            0,
-            1
+            1,
+            2
           ]
         }
       ],
       "plantel": {
-        "Aymen Hussein": {
+        "Jefferson Lerma": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Davinson Sánchez": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Jhon Lucumí": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Richard Ríos": {
           "AM": 1,
           "RJ": 0
         }
       }
     },
-    "RD Congo": {
-      "nombre": "RD Congo",
-      "abreviatura": "RDC",
-      "prefijo": "+243",
+    "Australia": {
+      "nombre": "Australia",
+      "abreviatura": "AUS",
+      "prefijo": "+61",
+      "grupo": "I",
+      "id": "I1",
+      "confederacion": "AFC",
+      "puntos": 6,
+      "pj": 3,
+      "gf": 8,
+      "gc": 6,
+      "am": 4,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Egipto",
+          "fecha": "19/06/2026",
+          "hora": "16:00",
+          "goles": [
+            2,
+            0
+          ]
+        },
+        {
+          "rival": "Haití",
+          "fecha": "12/06/2026",
+          "hora": "12:00",
+          "goles": [
+            4,
+            2
+          ]
+        },
+        {
+          "rival": "Croacia",
+          "fecha": "18/06/2026",
+          "hora": "10:00",
+          "goles": [
+            2,
+            4
+          ]
+        }
+      ],
+      "plantel": {
+        "Gethin Jones": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Kusini Yengi": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Mitchell Duke (S)": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Harry Souttar": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Cameron Burgess (S)": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Egipto": {
+      "nombre": "Egipto",
+      "abreviatura": "EGI",
+      "prefijo": "+20",
       "grupo": "I",
       "id": "I2",
       "confederacion": "CAF",
       "puntos": 3,
       "pj": 3,
-      "gf": 5,
-      "gc": 8,
-      "am": 3,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Irak",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            3
-          ]
-        },
-        {
-          "rival": "Curazao",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            1
-          ]
-        },
-        {
-          "rival": "Turquía",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            4
-          ]
-        }
-      ],
-      "plantel": {
-        "Dimitry Bertaud (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Theo Bongonda": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Yoane Wissa": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Henoc Inonga": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Curazao": {
-      "nombre": "Curazao",
-      "abreviatura": "CUR",
-      "prefijo": "+599",
-      "grupo": "I",
-      "id": "I3",
-      "confederacion": "CONCACAF",
-      "puntos": 6,
-      "pj": 3,
-      "gf": 9,
-      "gc": 10,
-      "am": 2,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Irak",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            3
-          ]
-        },
-        {
-          "rival": "RD Congo",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            4
-          ]
-        },
-        {
-          "rival": "Turquía",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "Sherel Floranus": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Kevin Felida (S)": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Turquía": {
-      "nombre": "Turquía",
-      "abreviatura": "TUR",
-      "prefijo": "+90",
-      "grupo": "I",
-      "id": "I4",
-      "confederacion": "UEFA",
-      "puntos": 6,
-      "pj": 3,
-      "gf": 5,
-      "gc": 3,
-      "am": 1,
-      "rj": 2,
-      "partidos": [
-        {
-          "rival": "Irak",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            2
-          ]
-        },
-        {
-          "rival": "RD Congo",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            1
-          ]
-        },
-        {
-          "rival": "Curazao",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            0
-          ]
-        }
-      ],
-      "plantel": {
-        "Merih Demiral": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Kenan Yıldız": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Hakan Çalhanoğlu": {
-          "AM": 0,
-          "RJ": 1
-        }
-      }
-    },
-    "Costa de Marfil": {
-      "nombre": "Costa de Marfil",
-      "abreviatura": "COS",
-      "prefijo": "+225",
-      "grupo": "J",
-      "id": "J1",
-      "confederacion": "CAF",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 6,
-      "gc": 7,
-      "am": 1,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Qatar",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            4
-          ]
-        },
-        {
-          "rival": "Noruega",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            2
-          ]
-        },
-        {
-          "rival": "Suecia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            1
-          ]
-        }
-      ],
-      "plantel": {
-        "Wilfried Singo": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Qatar": {
-      "nombre": "Qatar",
-      "abreviatura": "QAT",
-      "prefijo": "+974",
-      "grupo": "J",
-      "id": "J2",
-      "confederacion": "AFC",
-      "puntos": 4,
-      "pj": 3,
-      "gf": 7,
-      "gc": 6,
-      "am": 2,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Costa de Marfil",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            3
-          ]
-        },
-        {
-          "rival": "Noruega",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            3
-          ]
-        },
-        {
-          "rival": "Suecia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            0
-          ]
-        }
-      ],
-      "plantel": {
-        "Pedro Miguel": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Yusuf Abdurisag": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Noruega": {
-      "nombre": "Noruega",
-      "abreviatura": "NOR",
-      "prefijo": "+47",
-      "grupo": "J",
-      "id": "J3",
-      "confederacion": "UEFA",
-      "puntos": 5,
-      "pj": 3,
-      "gf": 5,
-      "gc": 4,
-      "am": 4,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Costa de Marfil",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            0
-          ]
-        },
-        {
-          "rival": "Qatar",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            1
-          ]
-        },
-        {
-          "rival": "Suecia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "David Møller Wolfe": {
-          "AM": 2,
-          "RJ": 0
-        },
-        "Erling Haaland": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Patrick Berg": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Suecia": {
-      "nombre": "Suecia",
-      "abreviatura": "SUE",
-      "prefijo": "+46",
-      "grupo": "J",
-      "id": "J4",
-      "confederacion": "UEFA",
-      "puntos": 1,
-      "pj": 3,
-      "gf": 1,
-      "gc": 4,
-      "am": 3,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Costa de Marfil",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            1
-          ]
-        },
-        {
-          "rival": "Qatar",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            2
-          ]
-        },
-        {
-          "rival": "Noruega",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            1
-          ]
-        }
-      ],
-      "plantel": {
-        "Viktor Johansson (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Anton Salétros": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Dejan Kulusevski": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Ghana": {
-      "nombre": "Ghana",
-      "abreviatura": "GHA",
-      "prefijo": "+233",
-      "grupo": "K",
-      "id": "K1",
-      "confederacion": "CAF",
-      "puntos": 6,
-      "pj": 3,
-      "gf": 6,
-      "gc": 5,
-      "am": 1,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Arabia Saudita",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            4
-          ]
-        },
-        {
-          "rival": "Inglaterra",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            1
-          ]
-        },
-        {
-          "rival": "Canadá",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            0
-          ]
-        }
-      ],
-      "plantel": {
-        "Antoine Semenyo": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Arabia Saudita": {
-      "nombre": "Arabia Saudita",
-      "abreviatura": "ARA",
-      "prefijo": "+966",
-      "grupo": "K",
-      "id": "K2",
-      "confederacion": "AFC",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 2,
-      "gc": 4,
-      "am": 1,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Ghana",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            1
-          ]
-        },
-        {
-          "rival": "Inglaterra",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            0
-          ]
-        },
-        {
-          "rival": "Canadá",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "Hassan Al-Tambakti (S)": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Abdullah Alkhaibari": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Inglaterra": {
-      "nombre": "Inglaterra",
-      "abreviatura": "ING",
-      "prefijo": "+44",
-      "grupo": "K",
-      "id": "K3",
-      "confederacion": "UEFA",
-      "puntos": 6,
-      "pj": 3,
-      "gf": 10,
-      "gc": 5,
-      "am": 1,
-      "rj": 2,
-      "partidos": [
-        {
-          "rival": "Ghana",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            4
-          ]
-        },
-        {
-          "rival": "Arabia Saudita",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            1
-          ]
-        },
-        {
-          "rival": "Canadá",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            0
-          ]
-        }
-      ],
-      "plantel": {
-        "Cole Palmer": {
-          "AM": 0,
-          "RJ": 2
-        },
-        "Phil Foden": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Canadá": {
-      "nombre": "Canadá",
-      "abreviatura": "CAN",
-      "prefijo": "+1",
-      "grupo": "K",
-      "id": "K4",
-      "confederacion": "CONCACAF",
-      "puntos": 4,
-      "pj": 3,
-      "gf": 9,
-      "gc": 10,
-      "am": 3,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Ghana",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            4
-          ]
-        },
-        {
-          "rival": "Arabia Saudita",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            4
-          ]
-        },
-        {
-          "rival": "Inglaterra",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            2
-          ]
-        }
-      ],
-      "plantel": {
-        "Richie Laryea (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Stephen Eustáquio": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Alistair Johnston": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Dayne St. Clair (S)": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Marruecos": {
-      "nombre": "Marruecos",
-      "abreviatura": "MAR",
-      "prefijo": "+212",
-      "grupo": "L",
-      "id": "L1",
-      "confederacion": "CAF",
-      "puntos": 1,
-      "pj": 3,
       "gf": 4,
       "gc": 8,
-      "am": 1,
-      "rj": 0,
+      "am": 2,
+      "rj": 1,
       "partidos": [
         {
-          "rival": "Escocia",
-          "fecha": "",
-          "hora": "",
+          "rival": "Australia",
+          "fecha": "19/06/2026",
+          "hora": "16:00",
           "goles": [
             0,
             3
@@ -2464,78 +1929,33 @@
         },
         {
           "rival": "Haití",
-          "fecha": "",
-          "hora": "",
+          "fecha": "24/06/2026",
+          "hora": "20:00",
           "goles": [
-            2,
+            4,
+            2
+          ]
+        },
+        {
+          "rival": "Croacia",
+          "fecha": "14/06/2026",
+          "hora": "12:00",
+          "goles": [
+            0,
             3
           ]
-        },
-        {
-          "rival": "Suiza",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            2
-          ]
         }
       ],
       "plantel": {
-        "Achraf Dari (S)": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Escocia": {
-      "nombre": "Escocia",
-      "abreviatura": "ESC",
-      "prefijo": "+44",
-      "grupo": "L",
-      "id": "L2",
-      "confederacion": "UEFA",
-      "puntos": 9,
-      "pj": 3,
-      "gf": 10,
-      "gc": 4,
-      "am": 2,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Marruecos",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            2
-          ]
-        },
-        {
-          "rival": "Haití",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            1
-          ]
-        },
-        {
-          "rival": "Suiza",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            1
-          ]
-        }
-      ],
-      "plantel": {
-        "Billy Gilmour": {
+        "Hamdi Fathi": {
           "AM": 1,
           "RJ": 0
         },
-        "Anthony Ralston": {
+        "Mohamed Hany": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Marwan Attia": {
           "AM": 1,
           "RJ": 0
         }
@@ -2545,46 +1965,396 @@
       "nombre": "Haití",
       "abreviatura": "HAI",
       "prefijo": "+509",
-      "grupo": "L",
-      "id": "L3",
+      "grupo": "I",
+      "id": "I3",
       "confederacion": "CONCACAF",
-      "puntos": 3,
+      "puntos": 4,
       "pj": 3,
-      "gf": 8,
-      "gc": 10,
-      "am": 1,
-      "rj": 0,
+      "gf": 7,
+      "gc": 6,
+      "am": 2,
+      "rj": 1,
       "partidos": [
         {
-          "rival": "Marruecos",
-          "fecha": "",
-          "hora": "",
+          "rival": "Australia",
+          "fecha": "12/06/2026",
+          "hora": "12:00",
+          "goles": [
+            3,
+            4
+          ]
+        },
+        {
+          "rival": "Egipto",
+          "fecha": "24/06/2026",
+          "hora": "20:00",
           "goles": [
             2,
-            4
-          ]
-        },
-        {
-          "rival": "Escocia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            4
-          ]
-        },
-        {
-          "rival": "Suiza",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
             2
+          ]
+        },
+        {
+          "rival": "Croacia",
+          "fecha": "13/06/2026",
+          "hora": "16:00",
+          "goles": [
+            2,
+            0
           ]
         }
       ],
       "plantel": {
-        "Carl-Fred Sainte": {
+        "Bryan Alceus (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Johny Placide": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Duckens Nazon": {
+          "AM": 0,
+          "RJ": 1
+        }
+      }
+    },
+    "Croacia": {
+      "nombre": "Croacia",
+      "abreviatura": "CRO",
+      "prefijo": "+385",
+      "grupo": "I",
+      "id": "I4",
+      "confederacion": "UEFA",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 7,
+      "gc": 10,
+      "am": 1,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Australia",
+          "fecha": "18/06/2026",
+          "hora": "10:00",
+          "goles": [
+            3,
+            2
+          ]
+        },
+        {
+          "rival": "Egipto",
+          "fecha": "14/06/2026",
+          "hora": "12:00",
+          "goles": [
+            1,
+            4
+          ]
+        },
+        {
+          "rival": "Haití",
+          "fecha": "13/06/2026",
+          "hora": "16:00",
+          "goles": [
+            3,
+            4
+          ]
+        }
+      ],
+      "plantel": {
+        "Ante Budimir": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Joško Gvardiol": {
+          "AM": 0,
+          "RJ": 1
+        }
+      }
+    },
+    "Cabo Verde": {
+      "nombre": "Cabo Verde",
+      "abreviatura": "CAB",
+      "prefijo": "+238",
+      "grupo": "J",
+      "id": "J1",
+      "confederacion": "CAF",
+      "puntos": 7,
+      "pj": 3,
+      "gf": 11,
+      "gc": 8,
+      "am": 4,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "EE. UU.",
+          "fecha": "23/06/2026",
+          "hora": "20:00",
+          "goles": [
+            4,
+            2
+          ]
+        },
+        {
+          "rival": "Alemania",
+          "fecha": "15/06/2026",
+          "hora": "21:00",
+          "goles": [
+            3,
+            2
+          ]
+        },
+        {
+          "rival": "Países Bajos",
+          "fecha": "21/06/2026",
+          "hora": "12:00",
+          "goles": [
+            4,
+            4
+          ]
+        }
+      ],
+      "plantel": {
+        "Ryan Mendes": {
+          "AM": 1,
+          "RJ": 1
+        },
+        "Steven Moreira": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Patrick Andrade (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Jamiro Monteiro": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "EE. UU.": {
+      "nombre": "EE. UU.",
+      "abreviatura": "EEU",
+      "prefijo": "+1",
+      "grupo": "J",
+      "id": "J2",
+      "confederacion": "CONCACAF",
+      "puntos": 7,
+      "pj": 3,
+      "gf": 5,
+      "gc": 3,
+      "am": 1,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Cabo Verde",
+          "fecha": "23/06/2026",
+          "hora": "20:00",
+          "goles": [
+            4,
+            3
+          ]
+        },
+        {
+          "rival": "Alemania",
+          "fecha": "22/06/2026",
+          "hora": "14:00",
+          "goles": [
+            0,
+            0
+          ]
+        },
+        {
+          "rival": "Países Bajos",
+          "fecha": "23/06/2026",
+          "hora": "12:00",
+          "goles": [
+            1,
+            0
+          ]
+        }
+      ],
+      "plantel": {
+        "Ricardo Pepi (S)": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Alemania": {
+      "nombre": "Alemania",
+      "abreviatura": "ALE",
+      "prefijo": "+49",
+      "grupo": "J",
+      "id": "J3",
+      "confederacion": "UEFA",
+      "puntos": 9,
+      "pj": 3,
+      "gf": 10,
+      "gc": 3,
+      "am": 2,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Cabo Verde",
+          "fecha": "15/06/2026",
+          "hora": "21:00",
+          "goles": [
+            3,
+            1
+          ]
+        },
+        {
+          "rival": "EE. UU.",
+          "fecha": "22/06/2026",
+          "hora": "14:00",
+          "goles": [
+            3,
+            2
+          ]
+        },
+        {
+          "rival": "Países Bajos",
+          "fecha": "13/06/2026",
+          "hora": "16:00",
+          "goles": [
+            4,
+            0
+          ]
+        }
+      ],
+      "plantel": {
+        "Kai Havertz": {
+          "AM": 2,
+          "RJ": 0
+        }
+      }
+    },
+    "Países Bajos": {
+      "nombre": "Países Bajos",
+      "abreviatura": "PAÍ",
+      "prefijo": "+31",
+      "grupo": "J",
+      "id": "J4",
+      "confederacion": "UEFA",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 2,
+      "gc": 7,
+      "am": 5,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Cabo Verde",
+          "fecha": "21/06/2026",
+          "hora": "12:00",
+          "goles": [
+            1,
+            0
+          ]
+        },
+        {
+          "rival": "EE. UU.",
+          "fecha": "23/06/2026",
+          "hora": "12:00",
+          "goles": [
+            0,
+            3
+          ]
+        },
+        {
+          "rival": "Alemania",
+          "fecha": "13/06/2026",
+          "hora": "16:00",
+          "goles": [
+            1,
+            4
+          ]
+        }
+      ],
+      "plantel": {
+        "Matthijs de Ligt (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Denzel Dumfries": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Bart Verbruggen": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Jerdy Schouten": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Stefan de Vrij": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Sudáfrica": {
+      "nombre": "Sudáfrica",
+      "abreviatura": "SUD",
+      "prefijo": "+27",
+      "grupo": "K",
+      "id": "K1",
+      "confederacion": "CAF",
+      "puntos": 4,
+      "pj": 3,
+      "gf": 5,
+      "gc": 5,
+      "am": 4,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Suiza",
+          "fecha": "26/06/2026",
+          "hora": "21:00",
+          "goles": [
+            3,
+            0
+          ]
+        },
+        {
+          "rival": "Curazao",
+          "fecha": "13/06/2026",
+          "hora": "20:00",
+          "goles": [
+            2,
+            2
+          ]
+        },
+        {
+          "rival": "Japón",
+          "fecha": "14/06/2026",
+          "hora": "18:00",
+          "goles": [
+            0,
+            3
+          ]
+        }
+      ],
+      "plantel": {
+        "Ronwen Williams": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Ricardo Goss (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Mothobi Mvala": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Aubrey Modiba": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Percy Tau": {
           "AM": 1,
           "RJ": 0
         }
@@ -2594,58 +2364,392 @@
       "nombre": "Suiza",
       "abreviatura": "SUI",
       "prefijo": "+41",
-      "grupo": "L",
-      "id": "L4",
+      "grupo": "K",
+      "id": "K2",
       "confederacion": "UEFA",
       "puntos": 4,
       "pj": 3,
-      "gf": 7,
-      "gc": 7,
-      "am": 4,
-      "rj": 0,
+      "gf": 5,
+      "gc": 4,
+      "am": 3,
+      "rj": 1,
       "partidos": [
         {
-          "rival": "Marruecos",
-          "fecha": "",
-          "hora": "",
+          "rival": "Sudáfrica",
+          "fecha": "26/06/2026",
+          "hora": "21:00",
           "goles": [
-            2,
-            1
+            4,
+            0
           ]
         },
         {
-          "rival": "Escocia",
-          "fecha": "",
-          "hora": "",
+          "rival": "Curazao",
+          "fecha": "23/06/2026",
+          "hora": "21:00",
           "goles": [
-            3,
+            0,
+            0
+          ]
+        },
+        {
+          "rival": "Japón",
+          "fecha": "23/06/2026",
+          "hora": "21:00",
+          "goles": [
+            1,
             4
-          ]
-        },
-        {
-          "rival": "Haití",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            2
           ]
         }
       ],
       "plantel": {
-        "Denis Zakaria (S)": {
+        "Granit Xhaka": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Ricardo Rodríguez": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Remo Freuler": {
           "AM": 1,
           "RJ": 0
         },
         "Breel Embolo": {
           "AM": 1,
           "RJ": 0
+        }
+      }
+    },
+    "Curazao": {
+      "nombre": "Curazao",
+      "abreviatura": "CUR",
+      "prefijo": "+599",
+      "grupo": "K",
+      "id": "K3",
+      "confederacion": "CONCACAF",
+      "puntos": 4,
+      "pj": 3,
+      "gf": 4,
+      "gc": 4,
+      "am": 3,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Sudáfrica",
+          "fecha": "13/06/2026",
+          "hora": "20:00",
+          "goles": [
+            0,
+            0
+          ]
         },
-        "Xherdan Shaqiri (S)": {
+        {
+          "rival": "Suiza",
+          "fecha": "23/06/2026",
+          "hora": "21:00",
+          "goles": [
+            3,
+            4
+          ]
+        },
+        {
+          "rival": "Japón",
+          "fecha": "22/06/2026",
+          "hora": "20:00",
+          "goles": [
+            1,
+            0
+          ]
+        }
+      ],
+      "plantel": {
+        "Juriën Gaari": {
+          "AM": 2,
+          "RJ": 0
+        },
+        "Justin Ogenia (S)": {
           "AM": 1,
           "RJ": 0
         },
-        "Fabian Schär (S)": {
+        "Vurnon Anita": {
+          "AM": 0,
+          "RJ": 1
+        }
+      }
+    },
+    "Japón": {
+      "nombre": "Japón",
+      "abreviatura": "JAP",
+      "prefijo": "+81",
+      "grupo": "K",
+      "id": "K4",
+      "confederacion": "AFC",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 6,
+      "gc": 10,
+      "am": 2,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Sudáfrica",
+          "fecha": "14/06/2026",
+          "hora": "18:00",
+          "goles": [
+            1,
+            4
+          ]
+        },
+        {
+          "rival": "Suiza",
+          "fecha": "23/06/2026",
+          "hora": "21:00",
+          "goles": [
+            2,
+            4
+          ]
+        },
+        {
+          "rival": "Curazao",
+          "fecha": "22/06/2026",
+          "hora": "20:00",
+          "goles": [
+            3,
+            2
+          ]
+        }
+      ],
+      "plantel": {
+        "Keito Nakamura (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Hiroki Ito": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Túnez": {
+      "nombre": "Túnez",
+      "abreviatura": "TÚN",
+      "prefijo": "+216",
+      "grupo": "L",
+      "id": "L1",
+      "confederacion": "CAF",
+      "puntos": 4,
+      "pj": 3,
+      "gf": 8,
+      "gc": 7,
+      "am": 2,
+      "rj": 2,
+      "partidos": [
+        {
+          "rival": "República Checa",
+          "fecha": "22/06/2026",
+          "hora": "10:00",
+          "goles": [
+            4,
+            4
+          ]
+        },
+        {
+          "rival": "Portugal",
+          "fecha": "19/06/2026",
+          "hora": "12:00",
+          "goles": [
+            2,
+            0
+          ]
+        },
+        {
+          "rival": "Paraguay",
+          "fecha": "23/06/2026",
+          "hora": "12:00",
+          "goles": [
+            2,
+            3
+          ]
+        }
+      ],
+      "plantel": {
+        "Aymen Dahmen (S)": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Anis Ben Slimane (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Montassar Talbi": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Seifeddine Jaziri (S)": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "República Checa": {
+      "nombre": "República Checa",
+      "abreviatura": "REP",
+      "prefijo": "+420",
+      "grupo": "L",
+      "id": "L2",
+      "confederacion": "UEFA",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 9,
+      "gc": 10,
+      "am": 5,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Túnez",
+          "fecha": "22/06/2026",
+          "hora": "10:00",
+          "goles": [
+            3,
+            2
+          ]
+        },
+        {
+          "rival": "Portugal",
+          "fecha": "22/06/2026",
+          "hora": "14:00",
+          "goles": [
+            3,
+            4
+          ]
+        },
+        {
+          "rival": "Paraguay",
+          "fecha": "20/06/2026",
+          "hora": "20:00",
+          "goles": [
+            3,
+            4
+          ]
+        }
+      ],
+      "plantel": {
+        "Robin Hranáč": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Vladimír Coufal": {
+          "AM": 2,
+          "RJ": 0
+        },
+        "Patrik Schick": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Martin Vitík (S)": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Portugal": {
+      "nombre": "Portugal",
+      "abreviatura": "POR",
+      "prefijo": "+351",
+      "grupo": "L",
+      "id": "L3",
+      "confederacion": "UEFA",
+      "puntos": 1,
+      "pj": 3,
+      "gf": 4,
+      "gc": 8,
+      "am": 1,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Túnez",
+          "fecha": "19/06/2026",
+          "hora": "12:00",
+          "goles": [
+            1,
+            4
+          ]
+        },
+        {
+          "rival": "República Checa",
+          "fecha": "22/06/2026",
+          "hora": "14:00",
+          "goles": [
+            2,
+            3
+          ]
+        },
+        {
+          "rival": "Paraguay",
+          "fecha": "23/06/2026",
+          "hora": "18:00",
+          "goles": [
+            1,
+            1
+          ]
+        }
+      ],
+      "plantel": {
+        "Pepe": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Nuno Mendes": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Paraguay": {
+      "nombre": "Paraguay",
+      "abreviatura": "PAR",
+      "prefijo": "+595",
+      "grupo": "L",
+      "id": "L4",
+      "confederacion": "CONMEBOL",
+      "puntos": 4,
+      "pj": 3,
+      "gf": 5,
+      "gc": 3,
+      "am": 1,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Túnez",
+          "fecha": "23/06/2026",
+          "hora": "12:00",
+          "goles": [
+            4,
+            1
+          ]
+        },
+        {
+          "rival": "República Checa",
+          "fecha": "20/06/2026",
+          "hora": "20:00",
+          "goles": [
+            0,
+            1
+          ]
+        },
+        {
+          "rival": "Portugal",
+          "fecha": "23/06/2026",
+          "hora": "18:00",
+          "goles": [
+            1,
+            1
+          ]
+        }
+      ],
+      "plantel": {
+        "Fabián Balbuena (S)": {
           "AM": 1,
           "RJ": 0
         }

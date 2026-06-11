@@ -182,7 +182,27 @@ def proximo_partido_equipo(nombre):
                 "visitante": p["rival"],
                 "grupo": equipo.grupo,
                 "fecha": p.get("fecha", "Sin asignar"),
-                "hora": p.get("hora", "Sin asignar")
+                "hora": p.get("hora", "Sin asignar"),
+                "fase": "grupos"
+            }
+    for p in data_store.partidos_ronda:
+        if p.get("goles") is not None:
+            continue
+        if p["local"] == nombre:
+            return {
+                "local": nombre,
+                "visitante": p["visitante"],
+                "fase": "R32",
+                "fecha": "Sin asignar",
+                "hora": "Sin asignar"
+            }
+        if p["visitante"] == nombre:
+            return {
+                "local": nombre,
+                "visitante": p["local"],
+                "fase": "R32",
+                "fecha": "Sin asignar",
+                "hora": "Sin asignar"
             }
     return None
 
@@ -336,6 +356,27 @@ def _segundos_grupos():
     return res
 
 
+def _asignar_terceros(terceros, cruces_terceros):
+    grupos_a_indices = {}
+    for i, (_, grupos_permitidos) in enumerate(cruces_terceros):
+        for g in grupos_permitidos:
+            grupos_a_indices.setdefault(g, []).append(i)
+
+    terceros_ordenados = sorted(terceros, key=lambda t: len(grupos_a_indices.get(t["grupo"], [])))
+
+    asignados = {}
+    indices_usados = set()
+    for t in terceros_ordenados:
+        opciones = [i for i in grupos_a_indices.get(t["grupo"], []) if i not in indices_usados]
+        if not opciones:
+            return None
+        idx = opciones[0]
+        asignados[idx] = t
+        indices_usados.add(idx)
+
+    return [asignados.get(i) for i in range(len(cruces_terceros))]
+
+
 def generar_ronda32():
     ganadores = _ganadores_grupos()
     segundos = _segundos_grupos()
@@ -344,50 +385,43 @@ def generar_ronda32():
     if len(ganadores) < 12 or len(segundos) < 12 or len(terceros) < 8:
         return None
 
-    pares_terceros = {
-        "A": 0, "B": 1, "D": 2, "E": 3,
-        "G": 4, "I": 5, "K": 6, "L": 7
-    }
+    cruces_terceros = [
+        ("E", {"A","B","C","D","F"}),   # M74
+        ("I", {"C","D","F","G","H"}),   # M77
+        ("A", {"C","E","F","H","I"}),   # M79
+        ("L", {"E","H","I","J","K"}),   # M80
+        ("D", {"B","E","F","I","J"}),   # M81
+        ("G", {"A","E","H","I","J"}),   # M82
+        ("B", {"E","F","G","I","J"}),   # M85
+        ("K", {"D","E","I","J","L"}),   # M87
+    ]
 
-    partidos = []
-    for i, t in enumerate(terceros):
-        grupo_ganador = list(pares_terceros.keys())[i]
-        partidos.append({
-            "local": ganadores[grupo_ganador],
-            "visitante": t["nombre"],
-            "fase": "R32",
-            "goles": None,
-            "ganador": None
-        })
+    terceros_asignados = _asignar_terceros(terceros, cruces_terceros)
+    if terceros_asignados is None:
+        return None
 
-    restantes = ["C", "F", "H", "J"]
-    for g in restantes:
-        if g in segundos:
-            partidos.append({
-                "local": ganadores[g],
-                "visitante": segundos[g],
-                "fase": "R32",
-                "goles": None,
-                "ganador": None
-            })
+    def _partido(local, visitante):
+        return {"local": local, "visitante": visitante,
+                "fase": "R32", "goles": None, "ganador": None}
 
-    segundos_usados = set()
-    for p in partidos:
-        if p["visitante"] in segundos.values():
-            for g, nom in segundos.items():
-                if nom == p["visitante"]:
-                    segundos_usados.add(g)
-
-    segundos_libres = [(g, nom) for g, nom in segundos.items() if g not in segundos_usados]
-    for i in range(0, len(segundos_libres) - 1, 2):
-        if i + 1 < len(segundos_libres):
-            partidos.append({
-                "local": segundos_libres[i][1],
-                "visitante": segundos_libres[i + 1][1],
-                "fase": "R32",
-                "goles": None,
-                "ganador": None
-            })
+    partidos = [
+        _partido(segundos["A"], segundos["B"]),          # M73
+        _partido(ganadores["E"], terceros_asignados[0]["nombre"]),  # M74
+        _partido(ganadores["F"], segundos["C"]),          # M75
+        _partido(ganadores["C"], segundos["F"]),          # M76
+        _partido(ganadores["I"], terceros_asignados[1]["nombre"]),  # M77
+        _partido(segundos["E"], segundos["I"]),           # M78
+        _partido(ganadores["A"], terceros_asignados[2]["nombre"]),  # M79
+        _partido(ganadores["L"], terceros_asignados[3]["nombre"]),  # M80
+        _partido(ganadores["D"], terceros_asignados[4]["nombre"]),  # M81
+        _partido(ganadores["G"], terceros_asignados[5]["nombre"]),  # M82
+        _partido(segundos["K"], segundos["L"]),           # M83
+        _partido(ganadores["H"], segundos["J"]),          # M84
+        _partido(ganadores["B"], terceros_asignados[6]["nombre"]),  # M85
+        _partido(ganadores["J"], segundos["H"]),          # M86
+        _partido(ganadores["K"], terceros_asignados[7]["nombre"]),  # M87
+        _partido(segundos["D"], segundos["G"]),           # M88
+    ]
 
     data_store.ronda_actual = "R32"
     data_store.partidos_ronda = partidos
