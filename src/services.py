@@ -341,6 +341,9 @@ def generar_ronda32():
     segundos = _segundos_grupos()
     terceros = calcular_terceros()
 
+    if len(ganadores) < 12 or len(segundos) < 12 or len(terceros) < 8:
+        return None
+
     pares_terceros = {
         "A": 0, "B": 1, "D": 2, "E": 3,
         "G": 4, "I": 5, "K": 6, "L": 7
@@ -430,6 +433,9 @@ def procesar_resultados_ronda(resultados):
                     p["ganador"] = None
 
     ganadores_ronda = [p["ganador"] for p in data_store.partidos_ronda if p["ganador"]]
+
+    if len(ganadores_ronda) != len(data_store.partidos_ronda):
+        return None
     for g in ganadores_ronda:
         data_store.avances_equipos[g] = data_store.ronda_actual
 

@@ -1,488 +1,45 @@
 {
-  "nombre_torneo": "prueba",
+  "nombre_torneo": "mundial 2026",
   "fecha_inicio": "2026-06-10T00:00:00",
-  "fecha_fin": "2026-07-08T00:00:00",
+  "fecha_fin": "2026-07-15T00:00:00",
   "config_guardada": true,
-  "ronda_actual": "QF",
+  "ronda_actual": "SF",
   "partidos_ronda": [
     {
-      "local": "Nueva Zelanda",
-      "visitante": "Suecia",
-      "fase": "QF",
-      "goles": null,
-      "ganador": null
-    },
-    {
-      "local": "Ghana",
-      "visitante": "Portugal",
-      "fase": "QF",
+      "local": "Sudáfrica",
+      "visitante": "Inglaterra",
+      "fase": "SF",
       "goles": null,
       "ganador": null
     }
   ],
   "avances_equipos": {
-    "Nueva Zelanda": "R16",
-    "Croacia": "R32",
-    "Suecia": "R16",
-    "Escocia": "R32",
-    "Ghana": "R16",
-    "Noruega": "R32",
-    "Portugal": "R16",
-    "Brasil": "R32",
-    "Senegal": "R16",
-    "Qatar": "R32",
-    "Países Bajos": "R32"
+    "Alemania": "R32",
+    "Sudáfrica": "QF",
+    "Bosnia-Herzegovina": "R32",
+    "Francia": "R16",
+    "Irak": "R16",
+    "Turquía": "R32",
+    "Inglaterra": "QF",
+    "Irán": "R32",
+    "Panamá": "R32",
+    "Paraguay": "R16",
+    "Colombia": "R32"
   },
   "tablagral": {
-    "Panamá": {
-      "nombre": "Panamá",
-      "abreviatura": "PAN",
-      "prefijo": "+507",
+    "Alemania": {
+      "nombre": "Alemania",
+      "abreviatura": "ALE",
+      "prefijo": "+49",
       "grupo": "A",
       "id": "A1",
-      "confederacion": "CONCACAF",
-      "puntos": 0,
-      "pj": 3,
-      "gf": 3,
-      "gc": 9,
-      "am": 1,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Colombia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            4
-          ]
-        },
-        {
-          "rival": "Nueva Zelanda",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            3
-          ]
-        },
-        {
-          "rival": "Arabia Saudita",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            2
-          ]
-        }
-      ],
-      "plantel": {
-        "Cecilio Waterman (S)": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Colombia": {
-      "nombre": "Colombia",
-      "abreviatura": "COL",
-      "prefijo": "+57",
-      "grupo": "A",
-      "id": "A2",
-      "confederacion": "CONMEBOL",
-      "puntos": 0,
-      "pj": 3,
-      "gf": 4,
-      "gc": 7,
-      "am": 1,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Panamá",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            2
-          ]
-        },
-        {
-          "rival": "Nueva Zelanda",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            3
-          ]
-        },
-        {
-          "rival": "Arabia Saudita",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            2
-          ]
-        }
-      ],
-      "plantel": {
-        "Richard Ríos": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Jhon Durán (S)": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Nueva Zelanda": {
-      "nombre": "Nueva Zelanda",
-      "abreviatura": "NUE",
-      "prefijo": "+64",
-      "grupo": "A",
-      "id": "A3",
-      "confederacion": "OFC",
-      "puntos": 6,
-      "pj": 3,
-      "gf": 10,
-      "gc": 6,
-      "am": 4,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Panamá",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            1
-          ]
-        },
-        {
-          "rival": "Colombia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            1
-          ]
-        },
-        {
-          "rival": "Arabia Saudita",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            4
-          ]
-        }
-      ],
-      "plantel": {
-        "Marko Stamenic": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Alex Paulsen (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Kosta Barbarouses (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Chris Wood": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Michael Boxall": {
-          "AM": 0,
-          "RJ": 1
-        }
-      }
-    },
-    "Arabia Saudita": {
-      "nombre": "Arabia Saudita",
-      "abreviatura": "ARA",
-      "prefijo": "+966",
-      "grupo": "A",
-      "id": "A4",
-      "confederacion": "AFC",
-      "puntos": 2,
-      "pj": 3,
-      "gf": 3,
-      "gc": 5,
-      "am": 1,
-      "rj": 2,
-      "partidos": [
-        {
-          "rival": "Panamá",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            2
-          ]
-        },
-        {
-          "rival": "Colombia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            1
-          ]
-        },
-        {
-          "rival": "Nueva Zelanda",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            2
-          ]
-        }
-      ],
-      "plantel": {
-        "Faisal Al-Ghamdi (S)": {
-          "AM": 1,
-          "RJ": 1
-        },
-        "Abdullah Alkhaibari": {
-          "AM": 0,
-          "RJ": 1
-        }
-      }
-    },
-    "Marruecos": {
-      "nombre": "Marruecos",
-      "abreviatura": "MAR",
-      "prefijo": "+212",
-      "grupo": "B",
-      "id": "B1",
-      "confederacion": "CAF",
-      "puntos": 4,
-      "pj": 3,
-      "gf": 5,
-      "gc": 4,
-      "am": 1,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Francia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            0
-          ]
-        },
-        {
-          "rival": "Croacia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            1
-          ]
-        },
-        {
-          "rival": "Uruguay",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "Hakim Ziyech": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Francia": {
-      "nombre": "Francia",
-      "abreviatura": "FRA",
-      "prefijo": "+33",
-      "grupo": "B",
-      "id": "B2",
-      "confederacion": "UEFA",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 3,
-      "gc": 5,
-      "am": 1,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Marruecos",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            3
-          ]
-        },
-        {
-          "rival": "Croacia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            0
-          ]
-        },
-        {
-          "rival": "Uruguay",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            2
-          ]
-        }
-      ],
-      "plantel": {
-        "Eduardo Camavinga": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Croacia": {
-      "nombre": "Croacia",
-      "abreviatura": "CRO",
-      "prefijo": "+385",
-      "grupo": "B",
-      "id": "B3",
       "confederacion": "UEFA",
       "puntos": 9,
       "pj": 3,
-      "gf": 10,
-      "gc": 4,
+      "gf": 5,
+      "gc": 1,
       "am": 2,
       "rj": 1,
-      "partidos": [
-        {
-          "rival": "Marruecos",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            1
-          ]
-        },
-        {
-          "rival": "Francia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            2
-          ]
-        },
-        {
-          "rival": "Uruguay",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            1
-          ]
-        }
-      ],
-      "plantel": {
-        "Ante Budimir": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Andrej Kramarić": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Marcelo Brozović": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Uruguay": {
-      "nombre": "Uruguay",
-      "abreviatura": "URU",
-      "prefijo": "+598",
-      "grupo": "B",
-      "id": "B4",
-      "confederacion": "CONMEBOL",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 5,
-      "gc": 9,
-      "am": 4,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Marruecos",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            4
-          ]
-        },
-        {
-          "rival": "Francia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            3
-          ]
-        },
-        {
-          "rival": "Croacia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            2
-          ]
-        }
-      ],
-      "plantel": {
-        "Luis Suárez (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Ronald Araújo": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Facundo Pellistri": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Santiago Mele (S)": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Senegal": {
-      "nombre": "Senegal",
-      "abreviatura": "SEN",
-      "prefijo": "+221",
-      "grupo": "C",
-      "id": "C1",
-      "confederacion": "CAF",
-      "puntos": 4,
-      "pj": 3,
-      "gf": 8,
-      "gc": 9,
-      "am": 1,
-      "rj": 0,
       "partidos": [
         {
           "rival": "Austria",
@@ -490,30 +47,38 @@
           "hora": "",
           "goles": [
             1,
-            3
+            0
           ]
         },
         {
-          "rival": "Bélgica",
+          "rival": "Argentina",
           "fecha": "",
           "hora": "",
           "goles": [
-            4,
-            4
+            2,
+            0
           ]
         },
         {
-          "rival": "Ecuador",
+          "rival": "Argelia",
           "fecha": "",
           "hora": "",
           "goles": [
-            3,
-            2
+            2,
+            1
           ]
         }
       ],
       "plantel": {
-        "Édouard Mendy": {
+        "Joshua Kimmich": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Jonathan Tah": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Maximilian Mittelstädt": {
           "AM": 1,
           "RJ": 0
         }
@@ -523,18 +88,345 @@
       "nombre": "Austria",
       "abreviatura": "AUS",
       "prefijo": "+43",
-      "grupo": "C",
-      "id": "C2",
+      "grupo": "A",
+      "id": "A2",
       "confederacion": "UEFA",
-      "puntos": 2,
+      "puntos": 3,
+      "pj": 3,
+      "gf": 4,
+      "gc": 6,
+      "am": 1,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Alemania",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            1
+          ]
+        },
+        {
+          "rival": "Argentina",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            1,
+            4
+          ]
+        },
+        {
+          "rival": "Argelia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            1
+          ]
+        }
+      ],
+      "plantel": {
+        "Christoph Baumgartner": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Argentina": {
+      "nombre": "Argentina",
+      "abreviatura": "ARG",
+      "prefijo": "+54",
+      "grupo": "A",
+      "id": "A3",
+      "confederacion": "CONMEBOL",
+      "puntos": 3,
       "pj": 3,
       "gf": 5,
-      "gc": 6,
+      "gc": 10,
       "am": 2,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Alemania",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            4
+          ]
+        },
+        {
+          "rival": "Austria",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            2
+          ]
+        },
+        {
+          "rival": "Argelia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            4
+          ]
+        }
+      ],
+      "plantel": {
+        "Julián Álvarez": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Lisandro Martínez (S)": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Argelia": {
+      "nombre": "Argelia",
+      "abreviatura": "ARG",
+      "prefijo": "+213",
+      "grupo": "A",
+      "id": "A4",
+      "confederacion": "CAF",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 3,
+      "gc": 8,
+      "am": 1,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Alemania",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            1
+          ]
+        },
+        {
+          "rival": "Austria",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            4
+          ]
+        },
+        {
+          "rival": "Argentina",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            3
+          ]
+        }
+      ],
+      "plantel": {
+        "Rayan Aït-Nouri": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Sudáfrica": {
+      "nombre": "Sudáfrica",
+      "abreviatura": "SUD",
+      "prefijo": "+27",
+      "grupo": "B",
+      "id": "B1",
+      "confederacion": "CAF",
+      "puntos": 6,
+      "pj": 3,
+      "gf": 7,
+      "gc": 3,
+      "am": 5,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Japón",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            2
+          ]
+        },
+        {
+          "rival": "México",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            1
+          ]
+        },
+        {
+          "rival": "Croacia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            0
+          ]
+        }
+      ],
+      "plantel": {
+        "Zakhele Lepasa (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Themba Zwane": {
+          "AM": 2,
+          "RJ": 0
+        },
+        "Grant Kekana": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Aubrey Modiba": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Japón": {
+      "nombre": "Japón",
+      "abreviatura": "JAP",
+      "prefijo": "+81",
+      "grupo": "B",
+      "id": "B2",
+      "confederacion": "AFC",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 6,
+      "gc": 9,
+      "am": 3,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Sudáfrica",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            1
+          ]
+        },
+        {
+          "rival": "México",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            4
+          ]
+        },
+        {
+          "rival": "Croacia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            4
+          ]
+        }
+      ],
+      "plantel": {
+        "Keisuke Osako (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Yukinari Sugawara": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Zion Suzuki": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "México": {
+      "nombre": "México",
+      "abreviatura": "MÉX",
+      "prefijo": "+52",
+      "grupo": "B",
+      "id": "B3",
+      "confederacion": "CONCACAF",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 6,
+      "gc": 5,
+      "am": 0,
       "rj": 1,
       "partidos": [
         {
-          "rival": "Senegal",
+          "rival": "Sudáfrica",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            0
+          ]
+        },
+        {
+          "rival": "Japón",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            4
+          ]
+        },
+        {
+          "rival": "Croacia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            1
+          ]
+        }
+      ],
+      "plantel": {
+        "Jorge Sánchez": {
+          "AM": 0,
+          "RJ": 1
+        }
+      }
+    },
+    "Croacia": {
+      "nombre": "Croacia",
+      "abreviatura": "CRO",
+      "prefijo": "+385",
+      "grupo": "B",
+      "id": "B4",
+      "confederacion": "UEFA",
+      "puntos": 4,
+      "pj": 3,
+      "gf": 6,
+      "gc": 5,
+      "am": 1,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Sudáfrica",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            1,
+            2
+          ]
+        },
+        {
+          "rival": "Japón",
           "fecha": "",
           "hora": "",
           "goles": [
@@ -543,7 +435,87 @@
           ]
         },
         {
-          "rival": "Bélgica",
+          "rival": "México",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            1
+          ]
+        }
+      ],
+      "plantel": {
+        "Bruno Petković (S)": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Cabo Verde": {
+      "nombre": "Cabo Verde",
+      "abreviatura": "CAB",
+      "prefijo": "+238",
+      "grupo": "C",
+      "id": "C1",
+      "confederacion": "CAF",
+      "puntos": 1,
+      "pj": 3,
+      "gf": 5,
+      "gc": 12,
+      "am": 1,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Panamá",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            4
+          ]
+        },
+        {
+          "rival": "Ecuador",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            4
+          ]
+        },
+        {
+          "rival": "España",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            1,
+            4
+          ]
+        }
+      ],
+      "plantel": {
+        "Pico (S)": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Panamá": {
+      "nombre": "Panamá",
+      "abreviatura": "PAN",
+      "prefijo": "+507",
+      "grupo": "C",
+      "id": "C2",
+      "confederacion": "CONCACAF",
+      "puntos": 7,
+      "pj": 3,
+      "gf": 7,
+      "gc": 1,
+      "am": 2,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Cabo Verde",
           "fecha": "",
           "hora": "",
           "goles": [
@@ -557,73 +529,29 @@
           "hora": "",
           "goles": [
             3,
-            4
-          ]
-        }
-      ],
-      "plantel": {
-        "Philipp Lienhart": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Phillipp Mwene": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Maximilian Wöber (S)": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Bélgica": {
-      "nombre": "Bélgica",
-      "abreviatura": "BÉL",
-      "prefijo": "+32",
-      "grupo": "C",
-      "id": "C3",
-      "confederacion": "UEFA",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 4,
-      "gc": 6,
-      "am": 1,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Senegal",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            3
-          ]
-        },
-        {
-          "rival": "Austria",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
             0
           ]
         },
         {
-          "rival": "Ecuador",
+          "rival": "España",
           "fecha": "",
           "hora": "",
           "goles": [
-            1,
-            3
+            4,
+            1
           ]
         }
       ],
       "plantel": {
-        "Timothy Castagne": {
+        "Yoel Bárcenas": {
           "AM": 0,
           "RJ": 1
         },
-        "Amadou Onana": {
+        "José Luis Rodríguez": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Aníbal Godoy": {
           "AM": 1,
           "RJ": 0
         }
@@ -634,17 +562,66 @@
       "abreviatura": "ECU",
       "prefijo": "+593",
       "grupo": "C",
-      "id": "C4",
+      "id": "C3",
       "confederacion": "CONMEBOL",
-      "puntos": 1,
+      "puntos": 6,
       "pj": 3,
-      "gf": 2,
+      "gf": 9,
+      "gc": 5,
+      "am": 0,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Cabo Verde",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            1
+          ]
+        },
+        {
+          "rival": "Panamá",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            4
+          ]
+        },
+        {
+          "rival": "España",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            0
+          ]
+        }
+      ],
+      "plantel": {
+        "Piero Hincapié": {
+          "AM": 0,
+          "RJ": 1
+        }
+      }
+    },
+    "España": {
+      "nombre": "España",
+      "abreviatura": "ESP",
+      "prefijo": "+34",
+      "grupo": "C",
+      "id": "C4",
+      "confederacion": "UEFA",
+      "puntos": 2,
+      "pj": 3,
+      "gf": 4,
       "gc": 7,
       "am": 4,
       "rj": 0,
       "partidos": [
         {
-          "rival": "Senegal",
+          "rival": "Cabo Verde",
           "fecha": "",
           "hora": "",
           "goles": [
@@ -653,38 +630,299 @@
           ]
         },
         {
-          "rival": "Austria",
+          "rival": "Panamá",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            4
+          ]
+        },
+        {
+          "rival": "Ecuador",
           "fecha": "",
           "hora": "",
           "goles": [
             0,
             3
           ]
+        }
+      ],
+      "plantel": {
+        "Alejandro Grimaldo": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Nico Williams": {
+          "AM": 2,
+          "RJ": 0
+        },
+        "Pedri": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Egipto": {
+      "nombre": "Egipto",
+      "abreviatura": "EGI",
+      "prefijo": "+20",
+      "grupo": "D",
+      "id": "D1",
+      "confederacion": "CAF",
+      "puntos": 1,
+      "pj": 3,
+      "gf": 3,
+      "gc": 6,
+      "am": 3,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Brasil",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            0
+          ]
         },
         {
-          "rival": "Bélgica",
+          "rival": "Irán",
           "fecha": "",
           "hora": "",
           "goles": [
             2,
-            4
+            3
+          ]
+        },
+        {
+          "rival": "Bosnia-Herzegovina",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            1,
+            3
           ]
         }
       ],
       "plantel": {
-        "Alan Franco": {
+        "Omar Marmoush": {
           "AM": 1,
           "RJ": 0
         },
-        "Kendry Páez": {
+        "Hamdi Fathi": {
           "AM": 1,
           "RJ": 0
         },
-        "Angelo Preciado": {
+        "Trezeguet": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Brasil": {
+      "nombre": "Brasil",
+      "abreviatura": "BRA",
+      "prefijo": "+55",
+      "grupo": "D",
+      "id": "D2",
+      "confederacion": "CONMEBOL",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 5,
+      "gc": 3,
+      "am": 4,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Egipto",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            1
+          ]
+        },
+        {
+          "rival": "Irán",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            0
+          ]
+        },
+        {
+          "rival": "Bosnia-Herzegovina",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            1,
+            2
+          ]
+        }
+      ],
+      "plantel": {
+        "Alisson": {
+          "AM": 3,
+          "RJ": 0
+        },
+        "Bremer (S)": {
           "AM": 1,
           "RJ": 0
         },
-        "Kevin Rodríguez (S)": {
+        "Vanderson": {
+          "AM": 0,
+          "RJ": 1
+        }
+      }
+    },
+    "Irán": {
+      "nombre": "Irán",
+      "abreviatura": "IRÁ",
+      "prefijo": "+98",
+      "grupo": "D",
+      "id": "D3",
+      "confederacion": "AFC",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 7,
+      "gc": 9,
+      "am": 1,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Egipto",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            2
+          ]
+        },
+        {
+          "rival": "Brasil",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            1,
+            4
+          ]
+        },
+        {
+          "rival": "Bosnia-Herzegovina",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            3
+          ]
+        }
+      ],
+      "plantel": {
+        "Hossein Kanaanizadegan": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Bosnia-Herzegovina": {
+      "nombre": "Bosnia-Herzegovina",
+      "abreviatura": "BOS",
+      "prefijo": "+387",
+      "grupo": "D",
+      "id": "D4",
+      "confederacion": "UEFA",
+      "puntos": 4,
+      "pj": 3,
+      "gf": 4,
+      "gc": 5,
+      "am": 3,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Egipto",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            1
+          ]
+        },
+        {
+          "rival": "Brasil",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            1,
+            1
+          ]
+        },
+        {
+          "rival": "Irán",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            3
+          ]
+        }
+      ],
+      "plantel": {
+        "Nihad Mujakić (S)": {
+          "AM": 2,
+          "RJ": 0
+        },
+        "Jusuf Gazibegović": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Uruguay": {
+      "nombre": "Uruguay",
+      "abreviatura": "URU",
+      "prefijo": "+598",
+      "grupo": "E",
+      "id": "E1",
+      "confederacion": "CONMEBOL",
+      "puntos": 7,
+      "pj": 3,
+      "gf": 6,
+      "gc": 4,
+      "am": 1,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Túnez",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            1
+          ]
+        },
+        {
+          "rival": "Jordania",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            2
+          ]
+        },
+        {
+          "rival": "Francia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            1,
+            1
+          ]
+        }
+      ],
+      "plantel": {
+        "Nicolás de la Cruz": {
           "AM": 1,
           "RJ": 0
         }
@@ -694,207 +932,147 @@
       "nombre": "Túnez",
       "abreviatura": "TÚN",
       "prefijo": "+216",
-      "grupo": "D",
-      "id": "D1",
+      "grupo": "E",
+      "id": "E2",
       "confederacion": "CAF",
-      "puntos": 4,
+      "puntos": 1,
       "pj": 3,
       "gf": 5,
-      "gc": 5,
-      "am": 2,
-      "rj": 2,
+      "gc": 10,
+      "am": 4,
+      "rj": 0,
       "partidos": [
         {
-          "rival": "Suecia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            2
-          ]
-        },
-        {
-          "rival": "México",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            0
-          ]
-        },
-        {
-          "rival": "Alemania",
+          "rival": "Uruguay",
           "fecha": "",
           "hora": "",
           "goles": [
             3,
             3
           ]
-        }
-      ],
-      "plantel": {
-        "Hamza Rafia": {
-          "AM": 0,
-          "RJ": 1
         },
-        "Yan Valery": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Ali Abdi": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Dylan Bronn (S)": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Suecia": {
-      "nombre": "Suecia",
-      "abreviatura": "SUE",
-      "prefijo": "+46",
-      "grupo": "D",
-      "id": "D2",
-      "confederacion": "UEFA",
-      "puntos": 6,
-      "pj": 3,
-      "gf": 10,
-      "gc": 4,
-      "am": 4,
-      "rj": 1,
-      "partidos": [
         {
-          "rival": "Túnez",
+          "rival": "Jordania",
           "fecha": "",
           "hora": "",
           "goles": [
-            4,
-            0
-          ]
-        },
-        {
-          "rival": "México",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
+            0,
             3
           ]
         },
         {
-          "rival": "Alemania",
+          "rival": "Francia",
           "fecha": "",
           "hora": "",
           "goles": [
-            4,
-            1
+            2,
+            4
           ]
         }
       ],
       "plantel": {
-        "Isak Hien": {
+        "Mohamed Ali Ben Romdhane": {
           "AM": 1,
           "RJ": 0
         },
-        "Robin Olsen": {
+        "Montassar Talbi": {
           "AM": 1,
           "RJ": 0
         },
-        "Ludwig Augustinsson": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Anton Salétros": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Alexander Isak": {
-          "AM": 1,
+        "Aymen Dahmen (S)": {
+          "AM": 2,
           "RJ": 0
         }
       }
     },
-    "México": {
-      "nombre": "México",
-      "abreviatura": "MÉX",
-      "prefijo": "+52",
-      "grupo": "D",
-      "id": "D3",
-      "confederacion": "CONCACAF",
-      "puntos": 4,
+    "Jordania": {
+      "nombre": "Jordania",
+      "abreviatura": "JOR",
+      "prefijo": "+962",
+      "grupo": "E",
+      "id": "E3",
+      "confederacion": "AFC",
+      "puntos": 0,
       "pj": 3,
-      "gf": 8,
-      "gc": 9,
+      "gf": 4,
+      "gc": 10,
       "am": 5,
       "rj": 0,
       "partidos": [
         {
-          "rival": "Túnez",
+          "rival": "Uruguay",
           "fecha": "",
           "hora": "",
           "goles": [
-            3,
+            2,
             3
           ]
         },
         {
-          "rival": "Suecia",
+          "rival": "Túnez",
           "fecha": "",
           "hora": "",
           "goles": [
-            4,
-            2
+            2,
+            3
           ]
         },
         {
-          "rival": "Alemania",
+          "rival": "Francia",
           "fecha": "",
           "hora": "",
           "goles": [
-            1,
+            0,
             4
           ]
         }
       ],
       "plantel": {
-        "Luis Chávez": {
+        "Yazeed Abulaila": {
           "AM": 1,
           "RJ": 0
         },
-        "Orbelín Pineda": {
+        "Ali Olwan": {
           "AM": 1,
           "RJ": 0
         },
-        "Julio González (S)": {
+        "Reziq Bani Hani (S)": {
           "AM": 1,
           "RJ": 0
         },
-        "Jorge Sánchez": {
+        "Mousa Al-Tamari": {
           "AM": 1,
           "RJ": 0
         },
-        "Santiago Giménez": {
+        "Ehsan Haddad": {
           "AM": 1,
           "RJ": 0
         }
       }
     },
-    "Alemania": {
-      "nombre": "Alemania",
-      "abreviatura": "ALE",
-      "prefijo": "+49",
-      "grupo": "D",
-      "id": "D4",
+    "Francia": {
+      "nombre": "Francia",
+      "abreviatura": "FRA",
+      "prefijo": "+33",
+      "grupo": "E",
+      "id": "E4",
       "confederacion": "UEFA",
-      "puntos": 2,
+      "puntos": 7,
       "pj": 3,
       "gf": 7,
-      "gc": 10,
-      "am": 2,
-      "rj": 0,
+      "gc": 3,
+      "am": 1,
+      "rj": 1,
       "partidos": [
+        {
+          "rival": "Uruguay",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            1
+          ]
+        },
         {
           "rival": "Túnez",
           "fecha": "",
@@ -905,292 +1083,95 @@
           ]
         },
         {
-          "rival": "Suecia",
+          "rival": "Jordania",
           "fecha": "",
           "hora": "",
           "goles": [
-            1,
-            4
-          ]
-        },
-        {
-          "rival": "México",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            4
-          ]
-        }
-      ],
-      "plantel": {
-        "Jonathan Tah": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Florian Wirtz": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Curazao": {
-      "nombre": "Curazao",
-      "abreviatura": "CUR",
-      "prefijo": "+599",
-      "grupo": "E",
-      "id": "E1",
-      "confederacion": "CONCACAF",
-      "puntos": 7,
-      "pj": 3,
-      "gf": 4,
-      "gc": 2,
-      "am": 2,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Costa de Marfil",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
+            3,
             0
           ]
-        },
-        {
-          "rival": "Escocia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            1
-          ]
-        },
-        {
-          "rival": "Corea del Sur",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            1
-          ]
         }
       ],
       "plantel": {
-        "Rangelo Janga": {
+        "Brice Samba (S)": {
           "AM": 0,
           "RJ": 1
         },
-        "Tyrick Bodak (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Brandley Kuwas": {
+        "Antoine Griezmann": {
           "AM": 1,
           "RJ": 0
         }
       }
     },
-    "Costa de Marfil": {
-      "nombre": "Costa de Marfil",
-      "abreviatura": "COS",
-      "prefijo": "+225",
-      "grupo": "E",
-      "id": "E2",
+    "Senegal": {
+      "nombre": "Senegal",
+      "abreviatura": "SEN",
+      "prefijo": "+221",
+      "grupo": "F",
+      "id": "F1",
       "confederacion": "CAF",
-      "puntos": 6,
+      "puntos": 3,
       "pj": 3,
-      "gf": 10,
-      "gc": 6,
-      "am": 2,
-      "rj": 3,
-      "partidos": [
-        {
-          "rival": "Curazao",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            0
-          ]
-        },
-        {
-          "rival": "Escocia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            4
-          ]
-        },
-        {
-          "rival": "Corea del Sur",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            2
-          ]
-        }
-      ],
-      "plantel": {
-        "Nicolas Pépé": {
-          "AM": 0,
-          "RJ": 2
-        },
-        "Ibrahim Sangaré (S)": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Badra Ali Sangaré (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Yahia Fofana": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Escocia": {
-      "nombre": "Escocia",
-      "abreviatura": "ESC",
-      "prefijo": "+44",
-      "grupo": "E",
-      "id": "E3",
-      "confederacion": "UEFA",
-      "puntos": 7,
-      "pj": 3,
-      "gf": 10,
+      "gf": 1,
       "gc": 5,
       "am": 2,
       "rj": 0,
       "partidos": [
         {
-          "rival": "Curazao",
+          "rival": "Uzbekistán",
           "fecha": "",
           "hora": "",
           "goles": [
-            2,
-            2
-          ]
-        },
-        {
-          "rival": "Costa de Marfil",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            2
-          ]
-        },
-        {
-          "rival": "Corea del Sur",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            1
-          ]
-        }
-      ],
-      "plantel": {
-        "Andrew Robertson": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Callum McGregor": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Corea del Sur": {
-      "nombre": "Corea del Sur",
-      "abreviatura": "COR",
-      "prefijo": "+82",
-      "grupo": "E",
-      "id": "E4",
-      "confederacion": "AFC",
-      "puntos": 1,
-      "pj": 3,
-      "gf": 2,
-      "gc": 8,
-      "am": 3,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Curazao",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
+            0,
             4
           ]
         },
         {
-          "rival": "Costa de Marfil",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            1
-          ]
-        },
-        {
-          "rival": "Escocia",
+          "rival": "Paraguay",
           "fecha": "",
           "hora": "",
           "goles": [
             0,
-            3
+            1
+          ]
+        },
+        {
+          "rival": "Países Bajos",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            1,
+            0
           ]
         }
       ],
       "plantel": {
-        "Song Bum-keun (S)": {
+        "Formose Mendy": {
           "AM": 1,
           "RJ": 0
         },
-        "Son Heung-min": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Jo Hyeon-woo": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Lee Kang-in": {
+        "Moussa Niakhaté": {
           "AM": 1,
           "RJ": 0
         }
       }
     },
-    "Qatar": {
-      "nombre": "Qatar",
-      "abreviatura": "QAT",
-      "prefijo": "+974",
+    "Uzbekistán": {
+      "nombre": "Uzbekistán",
+      "abreviatura": "UZB",
+      "prefijo": "+998",
       "grupo": "F",
-      "id": "F1",
+      "id": "F2",
       "confederacion": "AFC",
-      "puntos": 7,
+      "puntos": 2,
       "pj": 3,
-      "gf": 8,
-      "gc": 2,
-      "am": 2,
-      "rj": 2,
+      "gf": 2,
+      "gc": 3,
+      "am": 3,
+      "rj": 0,
       "partidos": [
         {
-          "rival": "Haití",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            0
-          ]
-        },
-        {
-          "rival": "Paraguay",
+          "rival": "Senegal",
           "fecha": "",
           "hora": "",
           "goles": [
@@ -1199,78 +1180,34 @@
           ]
         },
         {
-          "rival": "Argelia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            0
-          ]
-        }
-      ],
-      "plantel": {
-        "Hassan Al-Haydos": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Lucas Mendes": {
-          "AM": 2,
-          "RJ": 0
-        },
-        "Pedro Miguel": {
-          "AM": 0,
-          "RJ": 1
-        }
-      }
-    },
-    "Haití": {
-      "nombre": "Haití",
-      "abreviatura": "HAI",
-      "prefijo": "+509",
-      "grupo": "F",
-      "id": "F2",
-      "confederacion": "CONCACAF",
-      "puntos": 7,
-      "pj": 3,
-      "gf": 5,
-      "gc": 3,
-      "am": 2,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Qatar",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            3
-          ]
-        },
-        {
           "rival": "Paraguay",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            0
-          ]
-        },
-        {
-          "rival": "Argelia",
           "fecha": "",
           "hora": "",
           "goles": [
             0,
             0
           ]
+        },
+        {
+          "rival": "Países Bajos",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            1
+          ]
         }
       ],
       "plantel": {
-        "Carl-Fred Sainte": {
+        "Farrukh Sayfiev": {
           "AM": 1,
           "RJ": 0
         },
-        "Mondy Prunier (S)": {
+        "Abdulla Abdullaev (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Abbosbek Fayzullaev": {
           "AM": 1,
           "RJ": 0
         }
@@ -1283,491 +1220,51 @@
       "grupo": "F",
       "id": "F3",
       "confederacion": "CONMEBOL",
-      "puntos": 4,
+      "puntos": 6,
       "pj": 3,
-      "gf": 9,
-      "gc": 6,
-      "am": 1,
-      "rj": 1,
+      "gf": 5,
+      "gc": 3,
+      "am": 4,
+      "rj": 0,
       "partidos": [
         {
-          "rival": "Qatar",
+          "rival": "Senegal",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            1
+          ]
+        },
+        {
+          "rival": "Uzbekistán",
           "fecha": "",
           "hora": "",
           "goles": [
             3,
-            3
+            1
           ]
         },
         {
-          "rival": "Haití",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            0
-          ]
-        },
-        {
-          "rival": "Argelia",
+          "rival": "Países Bajos",
           "fecha": "",
           "hora": "",
           "goles": [
             2,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "Ramón Sosa (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Adam Bareiro": {
-          "AM": 0,
-          "RJ": 1
-        }
-      }
-    },
-    "Argelia": {
-      "nombre": "Argelia",
-      "abreviatura": "ARG",
-      "prefijo": "+213",
-      "grupo": "F",
-      "id": "F4",
-      "confederacion": "CAF",
-      "puntos": 1,
-      "pj": 3,
-      "gf": 2,
-      "gc": 8,
-      "am": 3,
-      "rj": 2,
-      "partidos": [
-        {
-          "rival": "Qatar",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            4
-          ]
-        },
-        {
-          "rival": "Haití",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            3
-          ]
-        },
-        {
-          "rival": "Paraguay",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
             1
           ]
         }
       ],
       "plantel": {
-        "Ramiz Zerrouki": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Aïssa Mandi": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Rayan Aït-Nouri": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Houssem Aouar": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Baghdad Bounedjah": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Irak": {
-      "nombre": "Irak",
-      "abreviatura": "IRA",
-      "prefijo": "+964",
-      "grupo": "G",
-      "id": "G1",
-      "confederacion": "AFC",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 5,
-      "gc": 5,
-      "am": 3,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Ghana",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            0
-          ]
-        },
-        {
-          "rival": "Canadá",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            1
-          ]
-        },
-        {
-          "rival": "Suiza",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            4
-          ]
-        }
-      ],
-      "plantel": {
-        "Ibrahim Bayesh": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Saad Natiq": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Mohanad Ali (S)": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Ghana": {
-      "nombre": "Ghana",
-      "abreviatura": "GHA",
-      "prefijo": "+233",
-      "grupo": "G",
-      "id": "G2",
-      "confederacion": "CAF",
-      "puntos": 7,
-      "pj": 3,
-      "gf": 8,
-      "gc": 3,
-      "am": 3,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Irak",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            0
-          ]
-        },
-        {
-          "rival": "Canadá",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            0
-          ]
-        },
-        {
-          "rival": "Suiza",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "Jojo Wollacott (S)": {
+        "Fabián Balbuena (S)": {
           "AM": 2,
           "RJ": 0
         },
-        "Mohammed Kudus": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Canadá": {
-      "nombre": "Canadá",
-      "abreviatura": "CAN",
-      "prefijo": "+1",
-      "grupo": "G",
-      "id": "G3",
-      "confederacion": "CONCACAF",
-      "puntos": 5,
-      "pj": 3,
-      "gf": 9,
-      "gc": 6,
-      "am": 2,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Irak",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            3
-          ]
-        },
-        {
-          "rival": "Ghana",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            2
-          ]
-        },
-        {
-          "rival": "Suiza",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            1
-          ]
-        }
-      ],
-      "plantel": {
-        "Alistair Johnston": {
+        "Diego Gómez": {
           "AM": 1,
           "RJ": 0
         },
-        "Ismaël Koné": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Moïse Bombito": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Suiza": {
-      "nombre": "Suiza",
-      "abreviatura": "SUI",
-      "prefijo": "+41",
-      "grupo": "G",
-      "id": "G4",
-      "confederacion": "UEFA",
-      "puntos": 2,
-      "pj": 3,
-      "gf": 9,
-      "gc": 10,
-      "am": 2,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Irak",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            4
-          ]
-        },
-        {
-          "rival": "Ghana",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            2
-          ]
-        },
-        {
-          "rival": "Canadá",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            4
-          ]
-        }
-      ],
-      "plantel": {
-        "Granit Xhaka": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Silvan Widmer": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Jordania": {
-      "nombre": "Jordania",
-      "abreviatura": "JOR",
-      "prefijo": "+962",
-      "grupo": "H",
-      "id": "H1",
-      "confederacion": "AFC",
-      "puntos": 0,
-      "pj": 3,
-      "gf": 2,
-      "gc": 7,
-      "am": 1,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Argentina",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            2
-          ]
-        },
-        {
-          "rival": "EE. UU.",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            2
-          ]
-        },
-        {
-          "rival": "Países Bajos",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "Mahmoud Al-Mardi": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Ali Olwan": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Argentina": {
-      "nombre": "Argentina",
-      "abreviatura": "ARG",
-      "prefijo": "+54",
-      "grupo": "H",
-      "id": "H2",
-      "confederacion": "CONMEBOL",
-      "puntos": 0,
-      "pj": 3,
-      "gf": 3,
-      "gc": 7,
-      "am": 1,
-      "rj": 2,
-      "partidos": [
-        {
-          "rival": "Jordania",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            3
-          ]
-        },
-        {
-          "rival": "EE. UU.",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            1
-          ]
-        },
-        {
-          "rival": "Países Bajos",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "Alejandro Garnacho (S)": {
-          "AM": 1,
-          "RJ": 1
-        },
-        "Cristian Romero": {
-          "AM": 0,
-          "RJ": 1
-        }
-      }
-    },
-    "EE. UU.": {
-      "nombre": "EE. UU.",
-      "abreviatura": "EEU",
-      "prefijo": "+1",
-      "grupo": "H",
-      "id": "H3",
-      "confederacion": "CONCACAF",
-      "puntos": 4,
-      "pj": 3,
-      "gf": 9,
-      "gc": 7,
-      "am": 2,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Jordania",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            1
-          ]
-        },
-        {
-          "rival": "Argentina",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            3
-          ]
-        },
-        {
-          "rival": "Países Bajos",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "Folarin Balogun": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Antonee Robinson": {
+        "Ramón Sosa (S)": {
           "AM": 1,
           "RJ": 0
         }
@@ -1777,46 +1274,58 @@
       "nombre": "Países Bajos",
       "abreviatura": "PAÍ",
       "prefijo": "+31",
-      "grupo": "H",
-      "id": "H4",
+      "grupo": "F",
+      "id": "F4",
       "confederacion": "UEFA",
-      "puntos": 4,
+      "puntos": 3,
       "pj": 3,
-      "gf": 5,
-      "gc": 4,
-      "am": 1,
+      "gf": 8,
+      "gc": 8,
+      "am": 4,
       "rj": 0,
       "partidos": [
         {
-          "rival": "Jordania",
+          "rival": "Senegal",
           "fecha": "",
           "hora": "",
           "goles": [
-            0,
-            0
-          ]
-        },
-        {
-          "rival": "Argentina",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
+            4,
             4
           ]
         },
         {
-          "rival": "EE. UU.",
+          "rival": "Uzbekistán",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            1,
+            1
+          ]
+        },
+        {
+          "rival": "Paraguay",
           "fecha": "",
           "hora": "",
           "goles": [
             3,
-            0
+            3
           ]
         }
       ],
       "plantel": {
+        "Jerdy Schouten": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Wout Weghorst (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
         "Donyell Malen": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Ryan Gravenberch (S)": {
           "AM": 1,
           "RJ": 0
         }
@@ -1826,27 +1335,27 @@
       "nombre": "Australia",
       "abreviatura": "AUS",
       "prefijo": "+61",
-      "grupo": "I",
-      "id": "I1",
+      "grupo": "G",
+      "id": "G1",
       "confederacion": "AFC",
-      "puntos": 1,
+      "puntos": 6,
       "pj": 3,
-      "gf": 3,
-      "gc": 5,
+      "gf": 6,
+      "gc": 2,
       "am": 1,
       "rj": 0,
       "partidos": [
         {
-          "rival": "Noruega",
+          "rival": "Portugal",
           "fecha": "",
           "hora": "",
           "goles": [
-            0,
-            1
+            3,
+            0
           ]
         },
         {
-          "rival": "RD Congo",
+          "rival": "República Checa",
           "fecha": "",
           "hora": "",
           "goles": [
@@ -1855,56 +1364,7 @@
           ]
         },
         {
-          "rival": "Brasil",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            2
-          ]
-        }
-      ],
-      "plantel": {
-        "Aziz Behich": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Noruega": {
-      "nombre": "Noruega",
-      "abreviatura": "NOR",
-      "prefijo": "+47",
-      "grupo": "I",
-      "id": "I2",
-      "confederacion": "UEFA",
-      "puntos": 6,
-      "pj": 3,
-      "gf": 6,
-      "gc": 6,
-      "am": 5,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Australia",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            4
-          ]
-        },
-        {
-          "rival": "RD Congo",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            2
-          ]
-        },
-        {
-          "rival": "Brasil",
+          "rival": "EE. UU.",
           "fecha": "",
           "hora": "",
           "goles": [
@@ -1914,19 +1374,463 @@
         }
       ],
       "plantel": {
-        "Julian Ryerson": {
+        "Cameron Burgess (S)": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Portugal": {
+      "nombre": "Portugal",
+      "abreviatura": "POR",
+      "prefijo": "+351",
+      "grupo": "G",
+      "id": "G2",
+      "confederacion": "UEFA",
+      "puntos": 5,
+      "pj": 3,
+      "gf": 12,
+      "gc": 10,
+      "am": 3,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Australia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            4
+          ]
+        },
+        {
+          "rival": "República Checa",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            4
+          ]
+        },
+        {
+          "rival": "EE. UU.",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            2
+          ]
+        }
+      ],
+      "plantel": {
+        "Rafael Leão": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "João Neves (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Gonçalo Inácio (S)": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "República Checa": {
+      "nombre": "República Checa",
+      "abreviatura": "REP",
+      "prefijo": "+420",
+      "grupo": "G",
+      "id": "G3",
+      "confederacion": "UEFA",
+      "puntos": 2,
+      "pj": 3,
+      "gf": 5,
+      "gc": 6,
+      "am": 4,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Australia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            2
+          ]
+        },
+        {
+          "rival": "Portugal",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            4
+          ]
+        },
+        {
+          "rival": "EE. UU.",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            0
+          ]
+        }
+      ],
+      "plantel": {
+        "Patrik Schick": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Mojmír Chytil (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Robin Hranáč": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Lukáš Provod": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "EE. UU.": {
+      "nombre": "EE. UU.",
+      "abreviatura": "EEU",
+      "prefijo": "+1",
+      "grupo": "G",
+      "id": "G4",
+      "confederacion": "CONCACAF",
+      "puntos": 7,
+      "pj": 3,
+      "gf": 6,
+      "gc": 3,
+      "am": 3,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Australia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            2
+          ]
+        },
+        {
+          "rival": "Portugal",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            1,
+            0
+          ]
+        },
+        {
+          "rival": "República Checa",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            1
+          ]
+        }
+      ],
+      "plantel": {
+        "Weston McKennie": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Tim Ream": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Ethan Horvath (S)": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Corea del Sur": {
+      "nombre": "Corea del Sur",
+      "abreviatura": "COR",
+      "prefijo": "+82",
+      "grupo": "H",
+      "id": "H1",
+      "confederacion": "AFC",
+      "puntos": 6,
+      "pj": 3,
+      "gf": 5,
+      "gc": 6,
+      "am": 3,
+      "rj": 2,
+      "partidos": [
+        {
+          "rival": "Colombia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            1,
+            0
+          ]
+        },
+        {
+          "rival": "Bélgica",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            3
+          ]
+        },
+        {
+          "rival": "Nueva Zelanda",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            3
+          ]
+        }
+      ],
+      "plantel": {
+        "Song Bum-keun (S)": {
           "AM": 2,
           "RJ": 0
         },
-        "Martin Ødegaard": {
+        "Seol Young-woo": {
+          "AM": 1,
+          "RJ": 1
+        },
+        "Lee Kang-in": {
+          "AM": 0,
+          "RJ": 1
+        }
+      }
+    },
+    "Colombia": {
+      "nombre": "Colombia",
+      "abreviatura": "COL",
+      "prefijo": "+57",
+      "grupo": "H",
+      "id": "H2",
+      "confederacion": "CONMEBOL",
+      "puntos": 6,
+      "pj": 3,
+      "gf": 7,
+      "gc": 4,
+      "am": 3,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Corea del Sur",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            3
+          ]
+        },
+        {
+          "rival": "Bélgica",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            0
+          ]
+        },
+        {
+          "rival": "Nueva Zelanda",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            1
+          ]
+        }
+      ],
+      "plantel": {
+        "Mateus Uribe (S)": {
           "AM": 1,
           "RJ": 0
         },
-        "Jørgen Strand Larsen (S)": {
+        "Johan Mojica": {
           "AM": 1,
           "RJ": 0
         },
-        "Oscar Bobb": {
+        "Jhon Arias": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Bélgica": {
+      "nombre": "Bélgica",
+      "abreviatura": "BÉL",
+      "prefijo": "+32",
+      "grupo": "H",
+      "id": "H3",
+      "confederacion": "UEFA",
+      "puntos": 6,
+      "pj": 3,
+      "gf": 8,
+      "gc": 8,
+      "am": 4,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Corea del Sur",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            4
+          ]
+        },
+        {
+          "rival": "Colombia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            3
+          ]
+        },
+        {
+          "rival": "Nueva Zelanda",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            1
+          ]
+        }
+      ],
+      "plantel": {
+        "Amadou Onana": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Youri Tielemans (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Matz Sels (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Romelu Lukaku": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Nueva Zelanda": {
+      "nombre": "Nueva Zelanda",
+      "abreviatura": "NUE",
+      "prefijo": "+64",
+      "grupo": "H",
+      "id": "H4",
+      "confederacion": "OFC",
+      "puntos": 6,
+      "pj": 3,
+      "gf": 8,
+      "gc": 5,
+      "am": 2,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Corea del Sur",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            4
+          ]
+        },
+        {
+          "rival": "Colombia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            1
+          ]
+        },
+        {
+          "rival": "Bélgica",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            0
+          ]
+        }
+      ],
+      "plantel": {
+        "Tyler Bindon (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Elijah Just (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Michael Boxall": {
+          "AM": 0,
+          "RJ": 1
+        }
+      }
+    },
+    "Irak": {
+      "nombre": "Irak",
+      "abreviatura": "IRA",
+      "prefijo": "+964",
+      "grupo": "I",
+      "id": "I1",
+      "confederacion": "AFC",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 6,
+      "gc": 6,
+      "am": 1,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "RD Congo",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            1
+          ]
+        },
+        {
+          "rival": "Curazao",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            4
+          ]
+        },
+        {
+          "rival": "Turquía",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            1
+          ]
+        }
+      ],
+      "plantel": {
+        "Aymen Hussein": {
           "AM": 1,
           "RJ": 0
         }
@@ -1937,17 +1841,17 @@
       "abreviatura": "RDC",
       "prefijo": "+243",
       "grupo": "I",
-      "id": "I3",
+      "id": "I2",
       "confederacion": "CAF",
-      "puntos": 4,
+      "puntos": 3,
       "pj": 3,
-      "gf": 8,
-      "gc": 6,
-      "am": 0,
+      "gf": 5,
+      "gc": 8,
+      "am": 3,
       "rj": 1,
       "partidos": [
         {
-          "rival": "Australia",
+          "rival": "Irak",
           "fecha": "",
           "hora": "",
           "goles": [
@@ -1956,61 +1860,64 @@
           ]
         },
         {
-          "rival": "Noruega",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            3
-          ]
-        },
-        {
-          "rival": "Brasil",
+          "rival": "Curazao",
           "fecha": "",
           "hora": "",
           "goles": [
             4,
-            0
+            1
+          ]
+        },
+        {
+          "rival": "Turquía",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            4
           ]
         }
       ],
       "plantel": {
         "Dimitry Bertaud (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Theo Bongonda": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Yoane Wissa": {
           "AM": 0,
           "RJ": 1
+        },
+        "Henoc Inonga": {
+          "AM": 1,
+          "RJ": 0
         }
       }
     },
-    "Brasil": {
-      "nombre": "Brasil",
-      "abreviatura": "BRA",
-      "prefijo": "+55",
+    "Curazao": {
+      "nombre": "Curazao",
+      "abreviatura": "CUR",
+      "prefijo": "+599",
       "grupo": "I",
-      "id": "I4",
-      "confederacion": "CONMEBOL",
-      "puntos": 3,
+      "id": "I3",
+      "confederacion": "CONCACAF",
+      "puntos": 6,
       "pj": 3,
-      "gf": 1,
-      "gc": 3,
-      "am": 1,
+      "gf": 9,
+      "gc": 10,
+      "am": 2,
       "rj": 0,
       "partidos": [
         {
-          "rival": "Australia",
+          "rival": "Irak",
           "fecha": "",
           "hora": "",
           "goles": [
-            0,
-            1
-          ]
-        },
-        {
-          "rival": "Noruega",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            0
+            4,
+            3
           ]
         },
         {
@@ -2018,34 +1925,215 @@
           "fecha": "",
           "hora": "",
           "goles": [
-            0,
-            2
+            1,
+            4
+          ]
+        },
+        {
+          "rival": "Turquía",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            3
           ]
         }
       ],
       "plantel": {
-        "Bruno Guimarães": {
+        "Sherel Floranus": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Kevin Felida (S)": {
           "AM": 1,
           "RJ": 0
         }
       }
     },
-    "Uzbekistán": {
-      "nombre": "Uzbekistán",
-      "abreviatura": "UZB",
-      "prefijo": "+998",
+    "Turquía": {
+      "nombre": "Turquía",
+      "abreviatura": "TUR",
+      "prefijo": "+90",
+      "grupo": "I",
+      "id": "I4",
+      "confederacion": "UEFA",
+      "puntos": 6,
+      "pj": 3,
+      "gf": 5,
+      "gc": 3,
+      "am": 1,
+      "rj": 2,
+      "partidos": [
+        {
+          "rival": "Irak",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            2
+          ]
+        },
+        {
+          "rival": "RD Congo",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            1
+          ]
+        },
+        {
+          "rival": "Curazao",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            0
+          ]
+        }
+      ],
+      "plantel": {
+        "Merih Demiral": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Kenan Yıldız": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Hakan Çalhanoğlu": {
+          "AM": 0,
+          "RJ": 1
+        }
+      }
+    },
+    "Costa de Marfil": {
+      "nombre": "Costa de Marfil",
+      "abreviatura": "COS",
+      "prefijo": "+225",
       "grupo": "J",
       "id": "J1",
-      "confederacion": "AFC",
-      "puntos": 7,
+      "confederacion": "CAF",
+      "puntos": 3,
       "pj": 3,
-      "gf": 7,
-      "gc": 4,
+      "gf": 6,
+      "gc": 7,
       "am": 1,
       "rj": 0,
       "partidos": [
         {
-          "rival": "Egipto",
+          "rival": "Qatar",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            4
+          ]
+        },
+        {
+          "rival": "Noruega",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            2
+          ]
+        },
+        {
+          "rival": "Suecia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            1
+          ]
+        }
+      ],
+      "plantel": {
+        "Wilfried Singo": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Qatar": {
+      "nombre": "Qatar",
+      "abreviatura": "QAT",
+      "prefijo": "+974",
+      "grupo": "J",
+      "id": "J2",
+      "confederacion": "AFC",
+      "puntos": 4,
+      "pj": 3,
+      "gf": 7,
+      "gc": 6,
+      "am": 2,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Costa de Marfil",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            3
+          ]
+        },
+        {
+          "rival": "Noruega",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            3
+          ]
+        },
+        {
+          "rival": "Suecia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            0
+          ]
+        }
+      ],
+      "plantel": {
+        "Pedro Miguel": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Yusuf Abdurisag": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Noruega": {
+      "nombre": "Noruega",
+      "abreviatura": "NOR",
+      "prefijo": "+47",
+      "grupo": "J",
+      "id": "J3",
+      "confederacion": "UEFA",
+      "puntos": 5,
+      "pj": 3,
+      "gf": 5,
+      "gc": 4,
+      "am": 4,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Costa de Marfil",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            0
+          ]
+        },
+        {
+          "rival": "Qatar",
           "fecha": "",
           "hora": "",
           "goles": [
@@ -2054,56 +2142,103 @@
           ]
         },
         {
-          "rival": "España",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            1
-          ]
-        },
-        {
-          "rival": "República Checa",
+          "rival": "Suecia",
           "fecha": "",
           "hora": "",
           "goles": [
             4,
-            2
+            3
           ]
         }
       ],
       "plantel": {
-        "Jamshid Iskanderov (S)": {
+        "David Møller Wolfe": {
+          "AM": 2,
+          "RJ": 0
+        },
+        "Erling Haaland": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Patrick Berg": {
           "AM": 1,
           "RJ": 0
         }
       }
     },
-    "Egipto": {
-      "nombre": "Egipto",
-      "abreviatura": "EGI",
-      "prefijo": "+20",
+    "Suecia": {
+      "nombre": "Suecia",
+      "abreviatura": "SUE",
+      "prefijo": "+46",
       "grupo": "J",
-      "id": "J2",
-      "confederacion": "CAF",
-      "puntos": 3,
+      "id": "J4",
+      "confederacion": "UEFA",
+      "puntos": 1,
       "pj": 3,
-      "gf": 3,
-      "gc": 7,
+      "gf": 1,
+      "gc": 4,
       "am": 3,
-      "rj": 1,
+      "rj": 0,
       "partidos": [
         {
-          "rival": "Uzbekistán",
+          "rival": "Costa de Marfil",
           "fecha": "",
           "hora": "",
           "goles": [
-            2,
-            0
+            1,
+            1
           ]
         },
         {
-          "rival": "España",
+          "rival": "Qatar",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            2
+          ]
+        },
+        {
+          "rival": "Noruega",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            1
+          ]
+        }
+      ],
+      "plantel": {
+        "Viktor Johansson (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Anton Salétros": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Dejan Kulusevski": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Ghana": {
+      "nombre": "Ghana",
+      "abreviatura": "GHA",
+      "prefijo": "+233",
+      "grupo": "K",
+      "id": "K1",
+      "confederacion": "CAF",
+      "puntos": 6,
+      "pj": 3,
+      "gf": 6,
+      "gc": 5,
+      "am": 1,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Arabia Saudita",
           "fecha": "",
           "hora": "",
           "goles": [
@@ -2111,181 +2246,80 @@
             4
           ]
         },
-        {
-          "rival": "República Checa",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "Hamdi Fathi": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Mostafa Fathi (S)": {
-          "AM": 2,
-          "RJ": 0
-        },
-        "Ahmed Hegazi": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "España": {
-      "nombre": "España",
-      "abreviatura": "ESP",
-      "prefijo": "+34",
-      "grupo": "J",
-      "id": "J3",
-      "confederacion": "UEFA",
-      "puntos": 7,
-      "pj": 3,
-      "gf": 7,
-      "gc": 3,
-      "am": 2,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Uzbekistán",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            3
-          ]
-        },
-        {
-          "rival": "Egipto",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            0
-          ]
-        },
-        {
-          "rival": "República Checa",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            0
-          ]
-        }
-      ],
-      "plantel": {
-        "Pedri": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Fabián Ruiz": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "República Checa": {
-      "nombre": "República Checa",
-      "abreviatura": "REP",
-      "prefijo": "+420",
-      "grupo": "J",
-      "id": "J4",
-      "confederacion": "UEFA",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 3,
-      "gc": 3,
-      "am": 1,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Uzbekistán",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            1
-          ]
-        },
-        {
-          "rival": "Egipto",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            0
-          ]
-        },
-        {
-          "rival": "España",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            2
-          ]
-        }
-      ],
-      "plantel": {
-        "Lukáš Provod": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Jan Kuchta": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Cabo Verde": {
-      "nombre": "Cabo Verde",
-      "abreviatura": "CAB",
-      "prefijo": "+238",
-      "grupo": "K",
-      "id": "K1",
-      "confederacion": "CAF",
-      "puntos": 1,
-      "pj": 3,
-      "gf": 7,
-      "gc": 11,
-      "am": 1,
-      "rj": 0,
-      "partidos": [
         {
           "rival": "Inglaterra",
           "fecha": "",
           "hora": "",
           "goles": [
             3,
-            4
+            1
           ]
         },
         {
-          "rival": "Bosnia-Herzegovina",
+          "rival": "Canadá",
           "fecha": "",
           "hora": "",
           "goles": [
-            1,
-            4
+            2,
+            0
+          ]
+        }
+      ],
+      "plantel": {
+        "Antoine Semenyo": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Arabia Saudita": {
+      "nombre": "Arabia Saudita",
+      "abreviatura": "ARA",
+      "prefijo": "+966",
+      "grupo": "K",
+      "id": "K2",
+      "confederacion": "AFC",
+      "puntos": 3,
+      "pj": 3,
+      "gf": 2,
+      "gc": 4,
+      "am": 1,
+      "rj": 1,
+      "partidos": [
+        {
+          "rival": "Ghana",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
+            1
           ]
         },
         {
-          "rival": "Irán",
+          "rival": "Inglaterra",
           "fecha": "",
           "hora": "",
           "goles": [
-            3,
+            2,
+            0
+          ]
+        },
+        {
+          "rival": "Canadá",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            0,
             3
           ]
         }
       ],
       "plantel": {
-        "Ryan Mendes": {
+        "Hassan Al-Tambakti (S)": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Abdullah Alkhaibari": {
           "AM": 1,
           "RJ": 0
         }
@@ -2296,26 +2330,79 @@
       "abreviatura": "ING",
       "prefijo": "+44",
       "grupo": "K",
-      "id": "K2",
+      "id": "K3",
       "confederacion": "UEFA",
-      "puntos": 1,
+      "puntos": 6,
       "pj": 3,
-      "gf": 6,
+      "gf": 10,
+      "gc": 5,
+      "am": 1,
+      "rj": 2,
+      "partidos": [
+        {
+          "rival": "Ghana",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            4
+          ]
+        },
+        {
+          "rival": "Arabia Saudita",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            1
+          ]
+        },
+        {
+          "rival": "Canadá",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            0
+          ]
+        }
+      ],
+      "plantel": {
+        "Cole Palmer": {
+          "AM": 0,
+          "RJ": 2
+        },
+        "Phil Foden": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Canadá": {
+      "nombre": "Canadá",
+      "abreviatura": "CAN",
+      "prefijo": "+1",
+      "grupo": "K",
+      "id": "K4",
+      "confederacion": "CONCACAF",
+      "puntos": 4,
+      "pj": 3,
+      "gf": 9,
       "gc": 10,
-      "am": 0,
+      "am": 3,
       "rj": 1,
       "partidos": [
         {
-          "rival": "Cabo Verde",
+          "rival": "Ghana",
           "fecha": "",
           "hora": "",
           "goles": [
             2,
-            3
+            4
           ]
         },
         {
-          "rival": "Bosnia-Herzegovina",
+          "rival": "Arabia Saudita",
           "fecha": "",
           "hora": "",
           "goles": [
@@ -2324,367 +2411,241 @@
           ]
         },
         {
-          "rival": "Irán",
+          "rival": "Inglaterra",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            2
+          ]
+        }
+      ],
+      "plantel": {
+        "Richie Laryea (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Stephen Eustáquio": {
+          "AM": 0,
+          "RJ": 1
+        },
+        "Alistair Johnston": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Dayne St. Clair (S)": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Marruecos": {
+      "nombre": "Marruecos",
+      "abreviatura": "MAR",
+      "prefijo": "+212",
+      "grupo": "L",
+      "id": "L1",
+      "confederacion": "CAF",
+      "puntos": 1,
+      "pj": 3,
+      "gf": 4,
+      "gc": 8,
+      "am": 1,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Escocia",
           "fecha": "",
           "hora": "",
           "goles": [
             0,
             3
           ]
+        },
+        {
+          "rival": "Haití",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            3
+          ]
+        },
+        {
+          "rival": "Suiza",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            2
+          ]
         }
       ],
       "plantel": {
-        "Phil Foden": {
-          "AM": 0,
-          "RJ": 1
+        "Achraf Dari (S)": {
+          "AM": 1,
+          "RJ": 0
         }
       }
     },
-    "Bosnia-Herzegovina": {
-      "nombre": "Bosnia-Herzegovina",
-      "abreviatura": "BOS",
-      "prefijo": "+387",
-      "grupo": "K",
-      "id": "K3",
+    "Escocia": {
+      "nombre": "Escocia",
+      "abreviatura": "ESC",
+      "prefijo": "+44",
+      "grupo": "L",
+      "id": "L2",
       "confederacion": "UEFA",
+      "puntos": 9,
+      "pj": 3,
+      "gf": 10,
+      "gc": 4,
+      "am": 2,
+      "rj": 0,
+      "partidos": [
+        {
+          "rival": "Marruecos",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            2
+          ]
+        },
+        {
+          "rival": "Haití",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            4,
+            1
+          ]
+        },
+        {
+          "rival": "Suiza",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            2,
+            1
+          ]
+        }
+      ],
+      "plantel": {
+        "Billy Gilmour": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Anthony Ralston": {
+          "AM": 1,
+          "RJ": 0
+        }
+      }
+    },
+    "Haití": {
+      "nombre": "Haití",
+      "abreviatura": "HAI",
+      "prefijo": "+509",
+      "grupo": "L",
+      "id": "L3",
+      "confederacion": "CONCACAF",
       "puntos": 3,
       "pj": 3,
       "gf": 8,
-      "gc": 8,
-      "am": 2,
-      "rj": 3,
-      "partidos": [
-        {
-          "rival": "Cabo Verde",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            3
-          ]
-        },
-        {
-          "rival": "Inglaterra",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            4
-          ]
-        },
-        {
-          "rival": "Irán",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            1
-          ]
-        }
-      ],
-      "plantel": {
-        "Nihad Mujakić (S)": {
-          "AM": 1,
-          "RJ": 1
-        },
-        "Amar Dedić": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Dennis Hadžikadunić": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Ermedin Demirović": {
-          "AM": 0,
-          "RJ": 1
-        }
-      }
-    },
-    "Irán": {
-      "nombre": "Irán",
-      "abreviatura": "IRÁ",
-      "prefijo": "+98",
-      "grupo": "K",
-      "id": "K4",
-      "confederacion": "AFC",
-      "puntos": 4,
-      "pj": 3,
-      "gf": 5,
-      "gc": 8,
-      "am": 3,
+      "gc": 10,
+      "am": 1,
       "rj": 0,
       "partidos": [
         {
-          "rival": "Cabo Verde",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            4
-          ]
-        },
-        {
-          "rival": "Inglaterra",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            4
-          ]
-        },
-        {
-          "rival": "Bosnia-Herzegovina",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            0
-          ]
-        }
-      ],
-      "plantel": {
-        "Milad Mohammadi": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Omid Noorafkan (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Mehdi Taremi": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Turquía": {
-      "nombre": "Turquía",
-      "abreviatura": "TUR",
-      "prefijo": "+90",
-      "grupo": "L",
-      "id": "L1",
-      "confederacion": "UEFA",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 6,
-      "gc": 6,
-      "am": 2,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Japón",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            2
-          ]
-        },
-        {
-          "rival": "Portugal",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            1
-          ]
-        },
-        {
-          "rival": "Sudáfrica",
+          "rival": "Marruecos",
           "fecha": "",
           "hora": "",
           "goles": [
             2,
-            3
+            4
+          ]
+        },
+        {
+          "rival": "Escocia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            4
+          ]
+        },
+        {
+          "rival": "Suiza",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            2
           ]
         }
       ],
       "plantel": {
-        "Salih Özcan (S)": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "Uğurcan Çakır (S)": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Kaan Ayhan": {
+        "Carl-Fred Sainte": {
           "AM": 1,
           "RJ": 0
         }
       }
     },
-    "Japón": {
-      "nombre": "Japón",
-      "abreviatura": "JAP",
-      "prefijo": "+81",
+    "Suiza": {
+      "nombre": "Suiza",
+      "abreviatura": "SUI",
+      "prefijo": "+41",
       "grupo": "L",
-      "id": "L2",
-      "confederacion": "AFC",
-      "puntos": 6,
+      "id": "L4",
+      "confederacion": "UEFA",
+      "puntos": 4,
       "pj": 3,
       "gf": 7,
       "gc": 7,
-      "am": 5,
-      "rj": 0,
-      "partidos": [
-        {
-          "rival": "Turquía",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            4,
-            3
-          ]
-        },
-        {
-          "rival": "Portugal",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            3,
-            1
-          ]
-        },
-        {
-          "rival": "Sudáfrica",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            3
-          ]
-        }
-      ],
-      "plantel": {
-        "Takumi Minamino": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Zion Suzuki": {
-          "AM": 2,
-          "RJ": 0
-        },
-        "Wataru Endo": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Ko Itakura": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Portugal": {
-      "nombre": "Portugal",
-      "abreviatura": "POR",
-      "prefijo": "+351",
-      "grupo": "L",
-      "id": "L3",
-      "confederacion": "UEFA",
-      "puntos": 3,
-      "pj": 3,
-      "gf": 3,
-      "gc": 5,
-      "am": 2,
-      "rj": 1,
-      "partidos": [
-        {
-          "rival": "Turquía",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            3
-          ]
-        },
-        {
-          "rival": "Japón",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            0,
-            2
-          ]
-        },
-        {
-          "rival": "Sudáfrica",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            2,
-            0
-          ]
-        }
-      ],
-      "plantel": {
-        "Vitinha": {
-          "AM": 1,
-          "RJ": 0
-        },
-        "Bernardo Silva": {
-          "AM": 0,
-          "RJ": 1
-        },
-        "João Palhinha": {
-          "AM": 1,
-          "RJ": 0
-        }
-      }
-    },
-    "Sudáfrica": {
-      "nombre": "Sudáfrica",
-      "abreviatura": "SUD",
-      "prefijo": "+27",
-      "grupo": "L",
-      "id": "L4",
-      "confederacion": "CAF",
-      "puntos": 0,
-      "pj": 3,
-      "gf": 5,
-      "gc": 9,
       "am": 4,
       "rj": 0,
       "partidos": [
         {
-          "rival": "Turquía",
+          "rival": "Marruecos",
           "fecha": "",
           "hora": "",
           "goles": [
             2,
-            3
+            1
           ]
         },
         {
-          "rival": "Japón",
+          "rival": "Escocia",
+          "fecha": "",
+          "hora": "",
+          "goles": [
+            3,
+            4
+          ]
+        },
+        {
+          "rival": "Haití",
           "fecha": "",
           "hora": "",
           "goles": [
             2,
-            3
-          ]
-        },
-        {
-          "rival": "Portugal",
-          "fecha": "",
-          "hora": "",
-          "goles": [
-            1,
-            3
+            2
           ]
         }
       ],
       "plantel": {
-        "Khuliso Mudau": {
-          "AM": 2,
-          "RJ": 0
-        },
-        "Zakhele Lepasa (S)": {
+        "Denis Zakaria (S)": {
           "AM": 1,
           "RJ": 0
         },
-        "Mothobi Mvala": {
+        "Breel Embolo": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Xherdan Shaqiri (S)": {
+          "AM": 1,
+          "RJ": 0
+        },
+        "Fabian Schär (S)": {
           "AM": 1,
           "RJ": 0
         }

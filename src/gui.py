@@ -1661,7 +1661,12 @@ class InterfazMundial:
                 if not resp:
                     return
                 reiniciar_eliminatorias()
-            generar_ronda32()
+            if generar_ronda32() is None:
+                messagebox.showerror("Error",
+                    "No se puede generar la Ronda 32.\nAsegurate de tener todos los grupos completos con resultados.",
+                    parent=win)
+                construir_partidos()
+                return
             construir_partidos()
             messagebox.showinfo("Ronda 32",
                                 "Dieciseisavos de final generados.\nIngres\u00e1 los resultados.", parent=win)
@@ -1759,9 +1764,11 @@ class InterfazMundial:
                                          parent=win)
                     return
 
-            if not resultados:
-                messagebox.showwarning("Sin datos",
-                                       "Ingres\u00e1 los resultados antes de avanzar.", parent=win)
+            if len(resultados) != len(match_widgets):
+                faltan = len(match_widgets) - len(resultados)
+                messagebox.showwarning("Resultados incompletos",
+                                       f"Faltan {faltan} partido(s) por completar.\nComplet\u00e1 todos los resultados antes de avanzar.",
+                                       parent=win)
                 return
 
             penales_antes = len(data_store.historial_penales)
@@ -2019,8 +2026,14 @@ class InterfazMundial:
         jugadores_local = _marcar_suplentes(jugadores_por_equipo.get(local, []))
         jugadores_visitante = _marcar_suplentes(jugadores_por_equipo.get(visitante, []))
 
+        salidos_local = set()
+        salidos_visitante = set()
+
         def _titulares(lista):
             return [j for j in lista if "(s)" not in j]
+
+        def _en_campo(lista, salidos):
+            return [j for j in lista if "(s)" not in j and j not in salidos]
 
         cambios_efectuados = [0, 0]
 
@@ -2033,7 +2046,11 @@ class InterfazMundial:
             # Gol
             if random.random() < 0.06:
                 equipo = random.choice([0, 1])
-                jug = random.choice(_titulares([jugadores_local, jugadores_visitante][equipo]))
+                salidos = [salidos_local, salidos_visitante][equipo]
+                en_campo = _en_campo([jugadores_local, jugadores_visitante][equipo], salidos)
+                if not en_campo:
+                    return
+                jug = random.choice(en_campo)
                 goles[equipo] += 1
                 evento = f"{tiempo_minuto[0]:02d}' ⚽ GOL de {jug}"
                 eventos_posibles.append(evento)
@@ -2041,7 +2058,11 @@ class InterfazMundial:
             # Tarjeta amarilla
             elif random.random() < 0.08:
                 equipo = random.choice([0, 1])
-                jug = random.choice(_titulares([jugadores_local, jugadores_visitante][equipo]))
+                salidos = [salidos_local, salidos_visitante][equipo]
+                en_campo = _en_campo([jugadores_local, jugadores_visitante][equipo], salidos)
+                if not en_campo:
+                    return
+                jug = random.choice(en_campo)
                 tarjetas[equipo][0]["AM"] += 1
                 evento = f"{tiempo_minuto[0]:02d}' 🟨 TARJETA AMARILLA: {jug}"
                 eventos_posibles.append(evento)
@@ -2050,10 +2071,15 @@ class InterfazMundial:
             elif random.random() < 0.02:
                 equipo = random.choice([0, 1])
                 jugadores = [jugadores_local, jugadores_visitante][equipo]
-                jug = random.choice(_titulares(jugadores))
+                salidos = [salidos_local, salidos_visitante][equipo]
+                en_campo = _en_campo(jugadores, salidos)
+                if not en_campo:
+                    return
+                jug = random.choice(en_campo)
                 tarjetas[equipo][0]["RJ"] += 1
                 evento = f"{tiempo_minuto[0]:02d}' 🔴 TARJETA ROJA: {jug}"
                 eventos_posibles.append(evento)
+                salidos.add(jug)
 
                 if jug == jugadores[0] and len(jugadores) > 11:
                     arquero_suplente = jugadores[11]
@@ -2063,30 +2089,32 @@ class InterfazMundial:
 
             # Cambio local
             elif random.random() < 0.04 and cambios_efectuados[0] < 3:
-                suplentes = [j for j in jugadores_local if "(s)" in j]
-                titulares = [j for j in jugadores_local if "(s)" not in j]
-                if suplentes and titulares:
-                    jug_sale = random.choice(titulares)
+                en_campo = _en_campo(jugadores_local, salidos_local)
+                suplentes = [j for j in jugadores_local if "(s)" in j and j not in salidos_local]
+                if suplentes and en_campo:
+                    jug_sale = random.choice(en_campo)
                     jug_entra = random.choice(suplentes)
                     idx_sale = jugadores_local.index(jug_sale)
                     idx_entra = jugadores_local.index(jug_entra)
                     jugadores_local[idx_sale] = jug_sale + " (s)"
                     jugadores_local[idx_entra] = jug_entra.replace(" (s)", "")
+                    salidos_local.add(jug_sale)
                     cambios_efectuados[0] += 1
                     evento = f"{tiempo_minuto[0]:02d}' 🔄 CAMBIO {local}: sale {jug_sale}, entra {jug_entra.replace(' (s)', '')}"
                     eventos_posibles.append(evento)
 
             # Cambio visitante
             elif random.random() < 0.04 and cambios_efectuados[1] < 3:
-                suplentes = [j for j in jugadores_visitante if "(s)" in j]
-                titulares = [j for j in jugadores_visitante if "(s)" not in j]
-                if suplentes and titulares:
-                    jug_sale = random.choice(titulares)
+                en_campo = _en_campo(jugadores_visitante, salidos_visitante)
+                suplentes = [j for j in jugadores_visitante if "(s)" in j and j not in salidos_visitante]
+                if suplentes and en_campo:
+                    jug_sale = random.choice(en_campo)
                     jug_entra = random.choice(suplentes)
                     idx_sale = jugadores_visitante.index(jug_sale)
                     idx_entra = jugadores_visitante.index(jug_entra)
                     jugadores_visitante[idx_sale] = jug_sale + " (s)"
                     jugadores_visitante[idx_entra] = jug_entra.replace(" (s)", "")
+                    salidos_visitante.add(jug_sale)
                     cambios_efectuados[1] += 1
                     evento = f"{tiempo_minuto[0]:02d}' 🔄 CAMBIO {visitante}: sale {jug_sale}, entra {jug_entra.replace(' (s)', '')}"
                     eventos_posibles.append(evento)
@@ -2094,7 +2122,11 @@ class InterfazMundial:
             # Falta
             elif random.random() < 0.10:
                 equipo = random.choice([0, 1])
-                jug = random.choice(_titulares([jugadores_local, jugadores_visitante][equipo]))
+                salidos = [salidos_local, salidos_visitante][equipo]
+                en_campo = _en_campo([jugadores_local, jugadores_visitante][equipo], salidos)
+                if not en_campo:
+                    return
+                jug = random.choice(en_campo)
                 evento = f"{tiempo_minuto[0]:02d}' ⚠️  FALTA: {jug}"
                 eventos_posibles.append(evento)
 
