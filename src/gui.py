@@ -641,15 +641,198 @@ class InterfazMundial:
                 data_store.tablagral[e2].partidos.append(
                     {"rival": e1, "fecha": "", "hora": "", "goles": None})
 
-        data_store.config_guardada = True
-        self.torneo_configurado = True
-        self._habilitar_btn2()
         guardar_datos()
-        messagebox.showinfo(
-            "\u00c9xito",
-            f"Torneo '{data_store.nombre_torneo}' configurado.\n48 equipos en 12 grupos, partidos generados.",
-            parent=win)
         win.destroy()
+        self.abrir_calendario_config()
+
+    # ── CALENDARIO DE PARTIDOS (PASO 3 DE CONFIGURACIÓN) ─────
+
+    def abrir_calendario_config(self):
+        win = tk.Toplevel(self.root)
+        win.title("Calendario de Partidos")
+        centrar_ventana(win, 800, 580)
+        win.configure(bg=C["bg"])
+        win.transient(self.root)
+        win.grab_set()
+
+        tk.Label(win, text="CALENDARIO DE PARTIDOS", fg=C["cyan"], bg=C["bg"],
+                font=("Arial", 12, "bold")).pack(pady=(14, 2))
+        tk.Label(win, text="Asigná fecha y hora a cada partido antes de finalizar la configuración",
+                fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(0, 8))
+
+        top = tk.Frame(win, bg=C["bg"])
+        top.pack(fill="x", padx=20, pady=(0, 5))
+        tk.Label(top, text="Grupo:", fg=C["fg"], bg=C["bg"],
+                font=("Arial", 10, "bold")).pack(side="left", padx=(0, 8))
+        cb = ttk.Combobox(top, values=list("ABCDEFGHIJKL"),
+                        state="readonly", width=4, font=("Arial", 10))
+        cb.pack(side="left", padx=(0, 16))
+
+        def _fecha_hora_aleatoria_cal():
+            from datetime import timedelta
+            fi = data_store.fecha_inicio_obj
+            ff = data_store.fecha_fin_obj
+            if fi and ff and ff > fi:
+                delta = (ff - fi).days
+                dia = fi + timedelta(days=random.randint(0, delta))
+                return dia.strftime("%d/%m/%Y"), random.choice(["10:00","12:00","14:00","16:00","18:00","20:00","21:00"])
+            return "", ""
+
+        def randomizar_fechas():
+            for (e_fecha, e_hora) in cal_widgets.values():
+                f, h = _fecha_hora_aleatoria_cal()
+                e_fecha.delete(0, "end")
+                e_fecha.insert(0, f)
+                e_hora.delete(0, "end")
+                e_hora.insert(0, h)
+
+        
+        tk.Button(top, text="🎲 Randomizar grupo", command=randomizar_fechas,
+                bg=C["green"], fg="#000000", font=("Arial", 9, "bold"),
+                bd=0, cursor="hand2", padx=10, pady=4).pack(side="left", padx=(0, 6))
+
+        def randomizar_todo():
+            from datetime import timedelta
+            fi = data_store.fecha_inicio_obj
+            ff = data_store.fecha_fin_obj
+            horas = ["10:00","12:00","14:00","16:00","18:00","20:00","21:00"]
+            procesados = set()
+            for equipo in data_store.tablagral.values():
+                for p in equipo.partidos:
+                    par = tuple(sorted([equipo.nombre, p["rival"]]))
+                    if par not in procesados:
+                        procesados.add(par)
+                        if fi and ff and ff > fi:
+                            delta = (ff - fi).days
+                            dia = fi + timedelta(days=random.randint(0, delta))
+                            fecha_str = dia.strftime("%d/%m/%Y")
+                        else:
+                            fecha_str = ""
+                        hora_str = random.choice(horas)
+                        p["fecha"] = fecha_str
+                        p["hora"] = hora_str
+                        rival = data_store.tablagral.get(p["rival"])
+                        if rival:
+                            for pp in rival.partidos:
+                                if pp["rival"] == equipo.nombre:
+                                    pp["fecha"] = fecha_str
+                                    pp["hora"] = hora_str
+            guardar_datos()
+            mostrar_grupo()
+            messagebox.showinfo("✓ Listo",
+                                "Fechas y horarios asignados a todos los partidos del torneo.",
+                                parent=win)
+
+        tk.Button(top, text="🌍 Randomizar Todo", command=randomizar_todo,
+                bg="#0088FF", fg="#FFFFFF", font=("Arial", 9, "bold"),
+                bd=0, cursor="hand2", padx=10, pady=4).pack(side="left")
+
+        scroll_canvas = tk.Canvas(win, bg=C["bg"], highlightthickness=0)
+        scroll_bar = tk.Scrollbar(win, orient="vertical", command=scroll_canvas.yview)
+        scroll_frame = tk.Frame(scroll_canvas, bg=C["bg"])
+        scroll_frame.bind("<Configure>",
+                        lambda e: scroll_canvas.configure(scrollregion=scroll_canvas.bbox("all")))
+        scroll_canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
+        scroll_canvas.configure(yscrollcommand=scroll_bar.set)
+        scroll_canvas.pack(side="left", fill="both", expand=True, padx=20, pady=5)
+        scroll_bar.pack(side="right", fill="y")
+
+        cal_widgets = {}
+
+        def mostrar_grupo(event=None):
+            for w in scroll_frame.winfo_children():
+                w.destroy()
+            cal_widgets.clear()
+            k = cb.get()
+            if not k:
+                return
+            mostrados = set()
+            equipos = [e for e in data_store.tablagral.values() if e.grupo == k]
+            for e in equipos:
+                for p in e.partidos:
+                    par = tuple(sorted([e.nombre, p["rival"]]))
+                    if par in mostrados:
+                        continue
+                    mostrados.add(par)
+
+                    card = tk.Frame(scroll_frame, bg=C["card"], padx=12, pady=8)
+                    card.pack(fill="x", pady=4)
+
+                    row = tk.Frame(card, bg=C["card"])
+                    row.pack(fill="x")
+                    tk.Label(row, text=e.nombre, fg=C["fg"], bg=C["card"],
+                            font=("Arial", 10, "bold"), width=20, anchor="w").pack(side="left")
+                    tk.Label(row, text="vs", fg=C["cyan"], bg=C["card"],
+                            font=("Arial", 10)).pack(side="left", padx=6)
+                    tk.Label(row, text=p["rival"], fg=C["fg"], bg=C["card"],
+                            font=("Arial", 10, "bold"), width=20, anchor="w").pack(side="left")
+
+                    row2 = tk.Frame(card, bg=C["card"])
+                    row2.pack(fill="x", pady=(4, 0))
+                    tk.Label(row2, text="Fecha (DD/MM/AAAA):", fg=C["disabled"],
+                            bg=C["card"], font=("Arial", 8)).pack(side="left")
+                    e_fecha = tk.Entry(row2, bg=C["input_bg"], fg="white",
+                                    insertbackground="white", relief="flat",
+                                    font=("Arial", 9), width=13, justify="center")
+                    e_fecha.pack(side="left", padx=(4, 14))
+                    tk.Label(row2, text="Hora (HH:MM):", fg=C["disabled"],
+                            bg=C["card"], font=("Arial", 8)).pack(side="left")
+                    e_hora = tk.Entry(row2, bg=C["input_bg"], fg="white",
+                                    insertbackground="white", relief="flat",
+                                    font=("Arial", 9), width=7, justify="center")
+                    e_hora.pack(side="left", padx=(4, 0))
+
+                    if p.get("fecha"):
+                        e_fecha.insert(0, p["fecha"])
+                    if p.get("hora"):
+                        e_hora.insert(0, p["hora"])
+
+                    cal_widgets[par] = (e_fecha, e_hora)
+
+        cb.bind("<<ComboboxSelected>>", mostrar_grupo)
+        cb.set("A")
+        mostrar_grupo()
+
+        def guardar_calendario():
+            for par, (e_fecha, e_hora) in cal_widgets.items():
+                fecha_val = e_fecha.get().strip()
+                hora_val  = e_hora.get().strip()
+                e1n, e2n = par
+                for nom in (e1n, e2n):
+                    team = data_store.tablagral.get(nom)
+                    if not team:
+                        continue
+                    rival = e2n if nom == e1n else e1n
+                    for pp in team.partidos:
+                        if pp["rival"] == rival:
+                            pp["fecha"] = fecha_val
+                            pp["hora"]  = hora_val
+            guardar_datos()
+
+        def finalizar_config():
+            guardar_calendario()
+            data_store.config_guardada = True
+            self.torneo_configurado = True
+            self._habilitar_btn2()
+            guardar_datos()
+            messagebox.showinfo(
+                "✓ Configuración Completa",
+                f"Torneo '{data_store.nombre_torneo}' configurado.\n48 equipos, 12 grupos y calendario guardados.",
+                parent=win)
+            win.destroy()
+
+        btn_frame = tk.Frame(win, bg=C["bg"])
+        btn_frame.pack(fill="x", pady=(4, 12))
+        tk.Button(btn_frame, text="💾 Guardar fechas del grupo",
+                command=guardar_calendario,
+                bg=C["gray"], fg=C["fg"],
+                font=("Arial", 10, "bold"), bd=0, cursor="hand2",
+                padx=14, pady=6).pack(side="left", padx=(20, 10))
+        tk.Button(btn_frame, text="✅ FINALIZAR CONFIGURACIÓN",
+                command=finalizar_config,
+                bg=C["cyan"], fg="#000000",
+                font=("Arial", 10, "bold"), bd=0, cursor="hand2",
+                padx=14, pady=6).pack(side="left")
 
     # ── REGISTRO DE RESULTADOS ────────────────────
 
@@ -685,7 +868,6 @@ class InterfazMundial:
                 messagebox.showwarning("Seleccionar grupo", "Selecciona un grupo.", parent=win)
                 return
             
-            # Llenar campos de goles de forma aleatoria
             for par, (loc, vis, loc_n, vis_n) in match_widgets.items():
                 goles_loc = random.randint(0, 4)
                 goles_vis = random.randint(0, 4)
@@ -693,6 +875,7 @@ class InterfazMundial:
                 vis.delete(0, "end")
                 loc.insert(0, str(goles_loc))
                 vis.insert(0, str(goles_vis))
+                
             
             # Generar tarjetas aleatorias para ambos equipos
             equipos = [e for e in data_store.tablagral.values() if e.grupo == k]
@@ -720,41 +903,64 @@ class InterfazMundial:
                             e.plantel[jug]["RJ"] += 1
                             e.rj += 1
         
+        def _fecha_hora_aleatoria():
+            from datetime import timedelta
+            fi = data_store.fecha_inicio_obj
+            ff = data_store.fecha_fin_obj
+            if fi and ff and ff > fi:
+                delta = (ff - fi).days
+                dia_aleatorio = fi + timedelta(days=random.randint(0, delta))
+                fecha_str = dia_aleatorio.strftime("%d/%m/%Y")
+            else:
+                fecha_str = ""
+            horas = ["10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "21:00"]
+            hora_str = random.choice(horas)
+            return fecha_str, hora_str
+
         def simular_todos():
-            # Generar goles para todos los partidos de todos los grupos
+            procesados = set()
             for equipo in data_store.tablagral.values():
                 for p in equipo.partidos:
-                    if p["goles"] is None:  # Solo si no tiene resultado
+                    par = tuple(sorted([equipo.nombre, p["rival"]]))
+                    if par not in procesados:
+                        procesados.add(par)
+                        fecha_str, hora_str = _fecha_hora_aleatoria()
+                        rival = data_store.tablagral.get(p["rival"])
+                        if rival:
+                            for pp in rival.partidos:
+                                if pp["rival"] == equipo.nombre:
+                                    if not pp.get("fecha"):
+                                        pp["fecha"] = fecha_str
+                                        pp["hora"] = hora_str
+                    if p["goles"] is None:
                         p["goles"] = [random.randint(0, 4), random.randint(0, 4)]
-            
-            # Generar tarjetas aleatorias para todos los equipos
+                    if not p.get("fecha"):
+                        fecha_str, hora_str = _fecha_hora_aleatoria()
+                        p["fecha"] = fecha_str
+                        p["hora"] = hora_str
+
             for e in data_store.tablagral.values():
-                # Limpiar tarjetas previas
                 e.am = 0
                 e.rj = 0
                 e.plantel = {}
-                
-                # Generar jugadores si existen en la base de datos
                 jugadores = jugadores_por_equipo.get(e.nombre, [])
                 if jugadores:
-                    # Asignar tarjetas a jugadores aleatorios
                     num_jugadores_tarjetas = random.randint(1, min(5, len(jugadores)))
                     for _ in range(num_jugadores_tarjetas):
                         jug = random.choice(jugadores)
                         if jug not in e.plantel:
                             e.plantel[jug] = {"AM": 0, "RJ": 0}
-                        
-                        # 80% probabilidad de amarilla, 20% de roja
                         if random.random() < 0.8:
                             e.plantel[jug]["AM"] += 1
                             e.am += 1
                         else:
                             e.plantel[jug]["RJ"] += 1
                             e.rj += 1
-            
-            messagebox.showinfo("✓ Simulación Completada", 
-                              "Se han generado resultados aleatorios para todos los partidos del mundial.",
-                              parent=win)
+
+            guardar_datos()
+            messagebox.showinfo("✓ Simulación Completada",
+                                "Se han generado resultados, fechas y horarios aleatorios para todos los partidos.",
+                                parent=win)
         
         tk.Button(top, text="🎲 Randomizar", command=randomizar_grupo,
                   bg=C["green"], fg="#000000", font=("Arial", 9, "bold"),
@@ -830,8 +1036,14 @@ class InterfazMundial:
                         e_loc.insert(0, str(p["goles"][0]))
                         e_vis.insert(0, str(p["goles"][1]))
 
-                    match_widgets[par] = (e_loc, e_vis, e.nombre, p["rival"])
 
+                    # Mostrar fecha (solo lectura, se edita en configuración)
+                    if p.get("fecha"):
+                        row2 = tk.Frame(card, bg=C["card"])
+                        row2.pack(fill="x", pady=(2, 0))
+                        tk.Label(row2, text=f"📅 {p['fecha']}  🕐 {p.get('hora', '')}",
+                                 fg=C["disabled"], bg=C["card"], font=("Arial", 8)).pack(side="left")
+                    match_widgets[par] = (e_loc, e_vis, e.nombre, p["rival"])
                     tk.Button(row, text="Tarjetas", font=("Arial", 8),
                               command=lambda t1=e.nombre, t2=p["rival"]:
                                   self._asignar_tarjetas_gui(t1, t2),
@@ -849,7 +1061,7 @@ class InterfazMundial:
         def guardar_res():
             k = cb.get()
             if not k:
-                messagebox.showwarning("Seleccionar grupo", "Seleccion\u00e1 un grupo.", parent=win)
+                messagebox.showwarning("Seleccionar grupo", "Seleccioná un grupo.", parent=win)
                 return
             ok = True
             for (e1n, e2n), (loc, vis, loc_n, vis_n) in match_widgets.items():
@@ -861,8 +1073,8 @@ class InterfazMundial:
                     g1n, g2n = int(g1), int(g2)
                 except ValueError:
                     messagebox.showerror("Error",
-                                         f"Goles inv\u00e1lidos en {loc_n} vs {vis_n}. Us\u00e1 n\u00fameros.",
-                                         parent=win)
+                                        f"Goles inválidos en {loc_n} vs {vis_n}. Usá números.",
+                                        parent=win)
                     ok = False
                     break
                 for nom in (loc_n, vis_n):
@@ -1148,42 +1360,83 @@ class InterfazMundial:
 
         # ── TAB 4: Próximo partido ────────────────
         tab4 = tk.Frame(notebook, bg=C["bg"])
-        notebook.add(tab4, text=" Pr\u00f3ximo partido ")
+        notebook.add(tab4, text=" Próximo partido ")
 
-        tk.Label(tab4, text="Ver el pr\u00f3ximo partido pendiente de un equipo",
-                 fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(10, 5))
+        tk.Label(tab4, text="Ver el próximo partido pendiente de un equipo para una fecha dada",
+                fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(10, 5))
 
         top4 = tk.Frame(tab4, bg=C["bg"])
         top4.pack(fill="x", padx=20)
         tk.Label(top4, text="Equipo:", fg=C["fg"], bg=C["bg"],
-                 font=("Arial", 10, "bold")).pack(side="left", padx=(0, 5))
+                font=("Arial", 10, "bold")).pack(side="left", padx=(0, 5))
         cb4 = ttk.Combobox(top4, values=sorted(data_store.tablagral.keys()),
-                           state="readonly", width=25, font=("Arial", 10))
-        cb4.pack(side="left")
+                        state="readonly", width=25, font=("Arial", 10))
+        cb4.pack(side="left", padx=(0, 15))
+
+        tk.Label(top4, text="Fecha (DD/MM/AAAA):", fg=C["fg"], bg=C["bg"],
+                font=("Arial", 10, "bold")).pack(side="left", padx=(0, 5))
+        e_fecha4 = tk.Entry(top4, bg=C["input_bg"], fg="white",
+                            insertbackground="white", relief="flat",
+                            font=("Arial", 10), width=13, justify="center")
+        e_fecha4.pack(side="left")
 
         frame4 = tk.Frame(tab4, bg=C["card"], padx=20, pady=20)
         frame4.pack(fill="both", expand=True, padx=20, pady=20)
 
-        lbl4_info = tk.Label(frame4, text="Seleccion\u00e1 un equipo para ver su pr\u00f3ximo partido.",
-                             fg=C["disabled"], bg=C["card"], font=("Arial", 12), justify="center")
+        lbl4_info = tk.Label(frame4, text="Seleccioná un equipo y una fecha.",
+                            fg=C["disabled"], bg=C["card"], font=("Arial", 12), justify="center")
         lbl4_info.pack(expand=True)
 
         def mostrar_proximo():
             team = cb4.get()
+            fecha_input = e_fecha4.get().strip()
             if not team:
                 return
-            prox = proximo_partido_equipo(team)
-            if prox:
-                texto = (f"Pr\u00f3ximo partido de {team}:\n\n"
-                         f"  vs {prox['visitante']}\n"
-                         f"  Grupo: {prox['grupo']}\n"
-                         f"  Fecha: {prox['fecha']}\n"
-                         f"  Hora: {prox['hora']}")
-                fg_color = C["green"]
+
+            try:
+                fecha_desde = datetime.strptime(fecha_input, "%d/%m/%Y") if fecha_input else None
+            except ValueError:
+                lbl4_info.config(text="Fecha inválida. Usá el formato DD/MM/AAAA.", fg="#FF4444")
+                return
+
+            equipo = data_store.tablagral.get(team)
+            if not equipo:
+                return
+
+            candidatos = []
+            for p in equipo.partidos:
+                if p.get("goles") is not None:
+                    continue
+                if p.get("fecha"):
+                    try:
+                        fecha_partido = datetime.strptime(p["fecha"], "%d/%m/%Y")
+                        if fecha_desde and fecha_partido < fecha_desde:
+                            continue
+                        candidatos.append((fecha_partido, p))
+                    except ValueError:
+                        candidatos.append((datetime.max, p))
+                else:
+                    candidatos.append((datetime.max, p))
+
+            if candidatos:
+                candidatos.sort(key=lambda x: x[0])
+                proximo = candidatos[0][1]
+                fecha_txt = proximo.get("fecha") or "Sin asignar"
+                hora_txt  = proximo.get("hora")  or "Sin asignar"
+                texto = (f"Próximo partido de {team}:\n\n"
+                        f"  vs {proximo['rival']}\n"
+                        f"  Grupo: {equipo.grupo}\n"
+                        f"  Fecha: {fecha_txt}\n"
+                        f"  Hora:  {hora_txt}")
+                lbl4_info.config(text=texto, fg=C["green"])
             else:
-                texto = f"{team} no tiene partidos pendientes.\n\n\u00a1Todos los partidos est\u00e1n jugados!"
-                fg_color = C["cyan"]
-            lbl4_info.config(text=texto, fg=fg_color)
+                lbl4_info.config(
+                    text=f"{team} no tiene partidos pendientes desde esa fecha.\n¡Todos los partidos están jugados!",
+                    fg=C["cyan"])
+
+        tk.Button(tab4, text="Buscar", command=mostrar_proximo,
+                bg=C["cyan"], fg="#000000", font=("Arial", 10, "bold"),
+                bd=0, cursor="hand2", padx=14, pady=5).pack(pady=(0, 5))
 
         cb4.bind("<<ComboboxSelected>>", lambda e: mostrar_proximo())
 
@@ -1200,7 +1453,6 @@ class InterfazMundial:
         scroll5.bind("<Configure>", lambda e: canvas5.configure(scrollregion=canvas5.bbox("all")))
         canvas5.create_window((0, 0), window=scroll5, anchor="nw")
         canvas5.configure(yscrollcommand=sv5.set)
-
         canvas5.pack(side="left", fill="both", expand=True, padx=10)
         sv5.pack(side="right", fill="y")
 
@@ -1370,10 +1622,15 @@ class InterfazMundial:
 
                 if p["goles"] is not None:
                     g1, g2 = p["goles"]
-                    tk.Label(row, text=f"{g1} - {g2}", fg=C["green"], bg=C["card"],
+                    penales = p.get("penales")
+                    if penales:
+                        resultado_txt = f"{g1} - {g2}  (pen {penales[0]}-{penales[1]})"
+                    else:
+                        resultado_txt = f"{g1} - {g2}"
+                    tk.Label(row, text=resultado_txt, fg=C["green"], bg=C["card"],
                              font=("Arial", 11, "bold")).pack(side="left", padx=(15, 0))
                     ganador = p.get("ganador", "")
-                    tk.Label(row, text=f"\u2192 {ganador}", fg=C["cyan"], bg=C["card"],
+                    tk.Label(row, text=f"→ {ganador}", fg=C["cyan"], bg=C["card"],
                              font=("Arial", 10)).pack(side="left", padx=(8, 0))
                 else:
                     tk.Label(row, text="Goles:", fg=C["green"], bg=C["card"],
@@ -1389,7 +1646,6 @@ class InterfazMundial:
                                   font=("Arial", 10), width=4, justify="center")
                     e2.pack(side="left", padx=1)
                     match_widgets[idx] = (e1, e2)
-
         construir_partidos()
 
         # ── Botones de control ──
@@ -1417,24 +1673,112 @@ class InterfazMundial:
                 return
 
             resultados = {}
-            for idx, (e1, e2) in match_widgets.items():
+            for idx, widgets in match_widgets.items():
+                e1, e2 = widgets[0], widgets[1]
                 g1 = e1.get().strip()
                 g2 = e2.get().strip()
-                if g1 and g2:
-                    try:
-                        resultados[idx] = {"local": int(g1), "visitante": int(g2)}
-                    except ValueError:
-                        messagebox.showerror("Error",
-                                             f"Goles inv\u00e1lidos en partido {idx+1}.", parent=win)
-                        return
+                if not g1 or not g2:
+                    continue
+                try:
+                    g1n, g2n = int(g1), int(g2)
+                    resultado = {"local": g1n, "visitante": g2n}
+
+                    if g1n == g2n:
+                        # Popup para ingresar penales
+                        p = data_store.partidos_ronda[idx]
+                        pen_win = tk.Toplevel(win)
+                        pen_win.title("Penales")
+                        centrar_ventana(pen_win, 380, 220)
+                        pen_win.configure(bg=C["bg"])
+                        pen_win.transient(win)
+                        pen_win.grab_set()
+
+                        tk.Label(pen_win,
+                                 text=f"⚽ EMPATE: {p['local']} vs {p['visitante']}",
+                                 fg=C["cyan"], bg=C["bg"],
+                                 font=("Arial", 11, "bold")).pack(pady=(15, 5))
+                        tk.Label(pen_win,
+                                 text=f"Resultado: {g1n} - {g2n}\nIngresá los goles de penales:",
+                                 fg=C["fg"], bg=C["bg"],
+                                 font=("Arial", 10)).pack(pady=(0, 10))
+
+                        row_pen = tk.Frame(pen_win, bg=C["bg"])
+                        row_pen.pack()
+
+                        tk.Label(row_pen, text=p["local"], fg=C["green"], bg=C["bg"],
+                                 font=("Arial", 10, "bold")).pack(side="left", padx=5)
+                        ep1 = tk.Entry(row_pen, bg=C["input_bg"], fg="white",
+                                       insertbackground="white", relief="flat",
+                                       font=("Arial", 12), width=4, justify="center")
+                        ep1.pack(side="left", padx=3)
+                        tk.Label(row_pen, text="-", fg=C["fg"], bg=C["bg"],
+                                 font=("Arial", 12, "bold")).pack(side="left")
+                        ep2 = tk.Entry(row_pen, bg=C["input_bg"], fg="white",
+                                       insertbackground="white", relief="flat",
+                                       font=("Arial", 12), width=4, justify="center")
+                        ep2.pack(side="left", padx=3)
+                        tk.Label(row_pen, text=p["visitante"], fg=C["cyan"], bg=C["bg"],
+                                 font=("Arial", 10, "bold")).pack(side="left", padx=5)
+
+                        penales_resultado = [None]
+                        error_lbl = tk.Label(pen_win, text="", fg="#FF4444", bg=C["bg"],
+                                             font=("Arial", 9))
+                        error_lbl.pack()
+
+                        def confirmar_penales(ep1=ep1, ep2=ep2):
+                            try:
+                                pn1 = int(ep1.get().strip())
+                                pn2 = int(ep2.get().strip())
+                                if pn1 == pn2:
+                                    error_lbl.config(
+                                        text="Los penales no pueden empatar.")
+                                    return
+                                penales_resultado[0] = [pn1, pn2]
+                                pen_win.destroy()
+                            except ValueError:
+                                error_lbl.config(text="Ingresá números válidos.")
+
+                        tk.Button(pen_win, text="✅ Confirmar",
+                                  command=confirmar_penales,
+                                  bg=C["cyan"], fg="#000000",
+                                  font=("Arial", 10, "bold"),
+                                  bd=0, cursor="hand2",
+                                  padx=14, pady=6).pack(pady=10)
+
+                        pen_win.wait_window()
+
+                        if penales_resultado[0] is None:
+                            return  # Cerró el popup sin confirmar
+                        resultado["penales"] = penales_resultado[0]
+
+                    resultados[idx] = resultado
+
+                except ValueError:
+                    messagebox.showerror("Error",
+                                         f"Goles inválidos en partido {idx+1}.",
+                                         parent=win)
+                    return
 
             if not resultados:
                 messagebox.showwarning("Sin datos",
                                        "Ingres\u00e1 los resultados antes de avanzar.", parent=win)
                 return
 
+            penales_antes = len(data_store.historial_penales)
             nuevos = procesar_resultados_ronda(resultados)
             guardar_datos()
+
+            # Mostrar penales nuevos de esta ronda
+            nuevos_penales = data_store.historial_penales[penales_antes:]
+            for p in nuevos_penales:
+                pen = p["penales"]
+                messagebox.showinfo(
+                    "⚽ Desempate por Penales",
+                    f"{p['local']}  vs  {p['visitante']}\n\n"
+                    f"Resultado 90': {p['goles'][0]} - {p['goles'][1]}\n"
+                    f"Penales: {pen[0]} - {pen[1]}\n\n"
+                    f"✅ Avanza: {p['ganador']}",
+                    parent=win)
             if nuevos is None:
                 if not data_store.partidos_ronda:
                     messagebox.showwarning("Error", "No hay partidos en esta ronda.", parent=win)
