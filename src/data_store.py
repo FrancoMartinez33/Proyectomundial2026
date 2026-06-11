@@ -30,6 +30,7 @@ config_guardada = False
 ronda_actual = None
 partidos_ronda = []
 avances_equipos = {}
+historial_penales = []
 
 paises_mundial = []
 prefijos_telefonicos = {}
@@ -52,4 +53,4 @@ try:
                 prefijos_telefonicos[nombre] = prefijo
                 confederaciones[nombre] = confed
 except Exception as e:
-    print(f"Advertencia: No se pudieron cargar los países: {e}")
+    print(f"Advertencia: No se pudieron cargar los países: {e}") {e}")
