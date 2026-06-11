@@ -362,19 +362,28 @@ def _asignar_terceros(terceros, cruces_terceros):
         for g in grupos_permitidos:
             grupos_a_indices.setdefault(g, []).append(i)
 
-    terceros_ordenados = sorted(terceros, key=lambda t: len(grupos_a_indices.get(t["grupo"], [])))
+    ordenados = sorted(
+        enumerate(terceros),
+        key=lambda x: len(grupos_a_indices.get(x[1]["grupo"], []))
+    )
 
-    asignados = {}
-    indices_usados = set()
-    for t in terceros_ordenados:
-        opciones = [i for i in grupos_a_indices.get(t["grupo"], []) if i not in indices_usados]
-        if not opciones:
-            return None
-        idx = opciones[0]
-        asignados[idx] = t
-        indices_usados.add(idx)
+    def _backtrack(idx, asignados, usados):
+        if idx == len(ordenados):
+            return [asignados.get(i) for i in range(len(cruces_terceros))]
+        _, t = ordenados[idx]
+        for slot in grupos_a_indices.get(t["grupo"], []):
+            if slot in usados:
+                continue
+            asignados[slot] = t
+            usados.add(slot)
+            res = _backtrack(idx + 1, asignados, usados)
+            if res is not None:
+                return res
+            usados.remove(slot)
+            del asignados[slot]
+        return None
 
-    return [asignados.get(i) for i in range(len(cruces_terceros))]
+    return _backtrack(0, {}, set())
 
 
 def generar_ronda32():
@@ -442,6 +451,14 @@ def _proxima_fase(fase):
     return None
 
 
+_BRACKET = {
+    "R32": [(0, 2), (1, 4), (3, 5), (6, 7), (10, 11), (8, 9), (13, 15), (12, 14)],
+    "R16": [(0, 1), (4, 5), (2, 3), (6, 7)],
+    "QF": [(0, 1), (2, 3)],
+    "SF": [(0, 1)],
+}
+
+
 def procesar_resultados_ronda(resultados):
     for idx, goles in resultados.items():
         if 0 <= idx < len(data_store.partidos_ronda):
@@ -478,12 +495,16 @@ def procesar_resultados_ronda(resultados):
     if prox_fase is None or len(ganadores_ronda) < 2:
         return None
 
+    pares = _BRACKET.get(fase_actual)
+    if not pares:
+        pares = [(i, i + 1) for i in range(0, len(ganadores_ronda), 2)]
+
     nuevos_partidos = []
-    for i in range(0, len(ganadores_ronda) - 1, 2):
-        if i + 1 < len(ganadores_ronda):
+    for i, j in pares:
+        if i < len(ganadores_ronda) and j < len(ganadores_ronda):
             nuevos_partidos.append({
                 "local": ganadores_ronda[i],
-                "visitante": ganadores_ronda[i + 1],
+                "visitante": ganadores_ronda[j],
                 "fase": prox_fase,
                 "goles": None,
                 "ganador": None
