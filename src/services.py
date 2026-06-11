@@ -409,13 +409,25 @@ def procesar_resultados_ronda(resultados):
     for idx, goles in resultados.items():
         if 0 <= idx < len(data_store.partidos_ronda):
             p = data_store.partidos_ronda[idx]
-            p["goles"] = [goles["local"], goles["visitante"]]
-            if goles["local"] > goles["visitante"]:
+            goles_local = goles["local"]
+            goles_visitante = goles["visitante"]
+
+            if goles_local > goles_visitante:
+                p["goles"] = [goles_local, goles_visitante]
                 p["ganador"] = p["local"]
-            elif goles["visitante"] > goles["local"]:
+            elif goles_visitante > goles_local:
+                p["goles"] = [goles_local, goles_visitante]
                 p["ganador"] = p["visitante"]
             else:
-                p["ganador"] = p["local"]
+                # Empate → penales se cargan desde la GUI
+                p["goles"] = [goles_local, goles_visitante]
+                pen = resultados[idx].get("penales")
+                if pen:
+                    p["penales"] = [pen[0], pen[1]]
+                    p["ganador"] = p["local"] if pen[0] > pen[1] else p["visitante"]
+                else:
+                    p["penales"] = None
+                    p["ganador"] = None
 
     ganadores_ronda = [p["ganador"] for p in data_store.partidos_ronda if p["ganador"]]
     for g in ganadores_ronda:
@@ -436,6 +448,11 @@ def procesar_resultados_ronda(resultados):
                 "goles": None,
                 "ganador": None
             })
+
+    # Guardar partidos con penales antes de reemplazar
+    for p in data_store.partidos_ronda:
+        if p.get("penales"):
+            data_store.historial_penales.append(dict(p))
 
     data_store.ronda_actual = prox_fase
     data_store.partidos_ronda = nuevos_partidos
@@ -472,3 +489,4 @@ def obtener_maximo_avance():
 
     resultados.sort(key=lambda x: -x[2])
     return resultados
+
