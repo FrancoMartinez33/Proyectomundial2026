@@ -53,4 +53,4 @@ try:
                 prefijos_telefonicos[nombre] = prefijo
                 confederaciones[nombre] = confed
 except Exception as e:
-    print(f"Advertencia: No se pudieron cargar los países: {e}") {e}")
+    print(f"Advertencia: No se pudieron cargar los países: {e}")
