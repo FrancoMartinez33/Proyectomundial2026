@@ -183,3 +183,7 @@ cython_debug/
 # Audio personal de la playlist de música
 musica/
 !musica/.gitkeep
+
+# Configuración e instrucciones locales del asistente de IA
+SKILLS.md
+opencode.json
