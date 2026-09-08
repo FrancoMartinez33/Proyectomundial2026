@@ -12,6 +12,7 @@ from datetime import datetime
 # Módulos propios del paquete src/
 from . import data_store 
 from .data_store import confederaciones, jugadores_por_equipo
+from .music import ReproductorMusica
 from .models import Equipo
 from .services import (configuracion, generar_pares_grupo, calcular_tabla_grupo,
                        randomizar_grupos, generar_informe_equipo, guardar_informe_txt,
@@ -43,22 +44,26 @@ class CalendarPopup:
     def _abrir(self):
         self.win = tk.Toplevel(self.parent)
         self.win.title("Seleccionar fecha")
-        centrar_ventana(self.win, 280, 260)
+        centrar_ventana(self.win, 280, 285)
         self.win.configure(bg=C["bg"])
         self.win.resizable(False, False)
         self.win.transient(self.parent)
         self.win.grab_set()
 
+        tk.Frame(self.win, bg=C["cyan"], height=2).pack(fill="x")
+        tk.Label(self.win, text="\U0001f4c5  Seleccion\u00e1 una fecha", fg=C["fg"],
+                 bg=C["bg2"], font=("Segoe UI", 10, "bold"), pady=8).pack(fill="x")
+
         nav = tk.Frame(self.win, bg=C["bg"])
         nav.pack(pady=(10, 5))
 
-        tk.Button(nav, text="\u25c0", command=self._mes_prev,
+        boton(nav, text="\u25c0", command=self._mes_prev,
                   bg=C["gray"], fg=C["fg"], bd=0, width=3,
                   font=("Arial", 10, "bold"), cursor="hand2").pack(side="left", padx=5)
         self.lbl_mes = tk.Label(nav, text="", fg=C["cyan"], bg=C["bg"],
                                 font=("Arial", 11, "bold"), width=20)
         self.lbl_mes.pack(side="left")
-        tk.Button(nav, text="\u25b6", command=self._mes_next,
+        boton(nav, text="\u25b6", command=self._mes_next,
                   bg=C["gray"], fg=C["fg"], bd=0, width=3,
                   font=("Arial", 10, "bold"), cursor="hand2").pack(side="left", padx=5)
 
@@ -84,7 +89,7 @@ class CalendarPopup:
                 if dia == 0:
                     tk.Label(self.grid_frame, text="", bg=C["bg"], width=4).grid(row=r, column=c)
                 else:
-                    btn = tk.Button(self.grid_frame, text=str(dia),
+                    btn = boton(self.grid_frame, text=str(dia),
                                     bg=C["card"], fg=C["fg"], bd=0, width=4,
                                     font=("Arial", 9), cursor="hand2",
                                     activebackground=C["cyan"], activeforeground="#000")
@@ -128,7 +133,7 @@ class DateEntry(tk.Frame):
                                   bg=C["input_bg"], font=("Arial", 10),
                                   anchor="w", padx=8, pady=4, relief="flat")
         self.lbl_fecha.pack(side="left", fill="x", expand=True)
-        tk.Button(row, text="\U0001f4c5", command=self._abrir_calendario,
+        boton(row, text="\U0001f4c5", command=self._abrir_calendario,
                   bg=C["gray"], fg=C["fg"], bd=0, width=3,
                   font=("Arial", 10), cursor="hand2").pack(side="right", padx=(4, 0))
 
@@ -149,15 +154,200 @@ class DateEntry(tk.Frame):
 # ─────────────────────────────────────────────────────────────
 
 C = {
-    "bg": "#0A0A0A",
-    "fg": "#FFFFFF",
-    "cyan": "#00F0FF",
-    "green": "#00FF66",
-    "gray": "#222222",
-    "disabled": "#555555",
-    "card": "#1A1A1A",
-    "input_bg": "#2C2C2C",
+    "bg": "#0C0F16",
+    "bg2": "#1A2231",
+    "fg": "#F3F6FB",
+    "fg_dim": "#A9B4C7",
+    "cyan": "#4FC3F7",
+    "green": "#3DDC97",
+    "gray": "#242936",
+    "disabled": "#5C6474",
+    "card": "#1A202D",
+    "card2": "#212938",
+    "input_bg": "#2A2F3D",
+    "border": "#313B4E",
+    "ring": "#39414F",
+    "ring_on": "#4FC3F7",
 }
+
+
+# ─────────────────────────────────────────────────────────────
+#  Utilidades de diseño – color cálido + botones con hover
+# ─────────────────────────────────────────────────────────────
+
+def _hex_a_rgb(color):
+    try:
+        return int(color[1:3], 16), int(color[3:5], 16), int(color[5:7], 16)
+    except (ValueError, TypeError):
+        return 255, 255, 255
+
+
+def _rgb_a_hex(r, g, b):
+    r = max(0, min(255, int(r)))
+    g = max(0, min(255, int(g)))
+    b = max(0, min(255, int(b)))
+    return f"#{r:02X}{g:02X}{b:02X}"
+
+
+def _mezclar(c1, c2, t):
+    """Mezcla lineal entre dos colores: t=0 → c1, t=1 → c2."""
+    r1, g1, b1 = _hex_a_rgb(c1)
+    r2, g2, b2 = _hex_a_rgb(c2)
+    return _rgb_a_hex(r1 + (r2 - r1) * t, g1 + (g2 - g1) * t, b1 + (b2 - b1) * t)
+
+
+def _mejorar_color(color, factor):
+    """Acerca un color hex hacia el blanco (factor > 0) o el negro (factor < 0)."""
+    try:
+        r, g, b = _hex_a_rgb(color)
+        if factor >= 0:
+            return _rgb_a_hex(r + (255 - r) * factor, g + (255 - g) * factor, b + (255 - b) * factor)
+        f = abs(factor)
+        return _rgb_a_hex(r * (1 - f), g * (1 - f), b * (1 - f))
+    except (ValueError, TypeError):
+        return color
+
+
+def _gradiente(canvas, x1, y1, x2, y2, c_sup, c_inf, pasos=60):
+    """Dibuja un degradado vertical opaco entre dos colores."""
+    for i in range(pasos):
+        t = i / (pasos - 1)
+        y0 = y1 + (y2 - y1) * i / pasos
+        y1b = y1 + (y2 - y1) * (i + 1) / pasos
+        canvas.create_rectangle(x1, y0, x2, y1b, fill=_mezclar(c_sup, c_inf, t), outline="")
+
+
+def _round_rect(canvas, x1, y1, x2, y2, r=0, **kw):
+    """Rectángulo con esquinas redondeadas dibujado sobre un canvas."""
+    if r <= 0:
+        return canvas.create_rectangle(x1, y1, x2, y2, **kw)
+    pts = [x1 + r, y1, x2 - r, y1, x2, y1, x2, y1 + r,
+           x2, y2 - r, x2, y2, x2 - r, y2, x1 + r, y2,
+           x1, y2, x1, y2 - r, x1, y1 + r, x1, y1]
+    return canvas.create_polygon(pts, smooth=True, **kw)
+
+
+def _acortar(texto, max_chars):
+    return texto if len(texto) <= max_chars else texto[: max_chars - 3] + "..."
+
+
+def _luminosidad(color):
+    r, g, b = _hex_a_rgb(color)
+    return 0.299 * r + 0.587 * g + 0.114 * b
+
+
+def boton(parent, *args, **kwargs):
+    """Crea un tk.Button con feedback visual suave al pasar el mouse."""
+    base = kwargs.get("bg", C["gray"])
+    if _luminosidad(base) < 150:
+        hover = _mejorar_color(base, 0.18)
+    else:
+        hover = _mejorar_color(base, -0.15)
+    btn = tk.Button(parent, *args, **kwargs)
+    btn.bind("<Enter>", lambda e: btn.config(bg=hover))
+    btn.bind("<Leave>", lambda e: btn.config(bg=base))
+    return btn
+
+
+# ─────────────────────────────────────────────────────────────
+#  MenuBoton – Botón moderno dibujado sobre canvas
+#  Rounded rect + ícono + texto + feedback hover/press
+# ─────────────────────────────────────────────────────────────
+
+class MenuBoton:
+    def __init__(self, canvas, app, x, y, ancho, alto, icono, fuente_icono, texto, comando):
+        self.canvas = canvas
+        self.app = app
+        self.x, self.y = x, y
+        self.w, self.h = ancho, alto
+        self.icono, self.fuente_icono = icono, fuente_icono
+        self.texto, self.comando = texto, comando
+        self.activo = True
+        self.tag = f"menubtn_{id(self)}"
+        self._dibujar()
+
+    def _dibujar(self):
+        sx, sy = self.app.sx, self.app.sy
+        c = self.canvas
+        r = max(4, int(16 * min(sx, sy)))
+        x0, y0 = int(self.x * sx), int(self.y * sy)
+        w, h = int(self.w * sx), int(self.h * sy)
+        base_r = max(2, int(3 * min(sx, sy)))
+
+        self.fondo = _round_rect(c, x0, y0, x0 + w, y0 + h, r,
+                                 fill=C["card2"], outline=C["border"], width=1, tags=self.tag)
+        self.accent = _round_rect(c, x0, y0 + int(14 * sy), x0 + int(5 * sx), y0 + h - int(14 * sy),
+                                  base_r, fill=C["cyan"], outline="", tags=self.tag)
+        c.itemconfig(self.accent, state="hidden")
+        cy = y0 + h // 2
+        self.id_icono = c.create_text(x0 + int(38 * sx), cy, text=self.icono,
+                                      font=self.fuente_icono, fill=C["cyan"],
+                                      anchor="w", tags=self.tag)
+        self.id_txt = c.create_text(x0 + int(74 * sx), cy, text=self.texto,
+                                    font=("Segoe UI", 11, "bold"), fill=C["fg"],
+                                    anchor="w", tags=self.tag)
+        self.id_arrow = c.create_text(x0 + w - int(20 * sx), cy, text="\u203a",
+                                      font=("Segoe UI Symbol", max(12, int(20 * min(sx, sy))), "bold"),
+                                      fill=C["cyan"], anchor="e", tags=self.tag)
+        c.itemconfig(self.id_arrow, state="hidden")
+
+        for it in (self.fondo, self.id_icono, self.id_txt):
+            c.tag_bind(it, "<Enter>", self._entra)
+            c.tag_bind(it, "<Leave>", self._sale)
+            c.tag_bind(it, "<Button-1>", self._press)
+            c.tag_bind(it, "<ButtonRelease-1>", self._release)
+
+    def _rehacer(self):
+        try:
+            if self.activo:
+                self.canvas.itemconfig(self.fondo, fill=C["card2"], outline=C["border"])
+                self.canvas.itemconfig(self.id_icono, fill=C["cyan"])
+                self.canvas.itemconfig(self.id_txt, fill=C["fg"])
+            else:
+                self.canvas.itemconfig(self.fondo, fill=C["gray"], outline=C["ring"])
+                self.canvas.itemconfig(self.id_icono, fill=C["disabled"])
+                self.canvas.itemconfig(self.id_txt, fill=C["disabled"])
+            self.canvas.itemconfig(self.accent, state="hidden")
+            self.canvas.itemconfig(self.id_arrow, state="hidden")
+        except tk.TclError:
+            pass
+
+    def set_habilitado(self, valor):
+        self.activo = valor
+        self._rehacer()
+
+    def _entra(self, _):
+        if not self.activo:
+            return
+        try:
+            self.canvas.itemconfig(self.fondo, fill=_mezclar(C["card2"], C["cyan"], 0.10), outline=C["cyan"])
+            self.canvas.itemconfig(self.accent, state="normal")
+            self.canvas.itemconfig(self.id_arrow, state="normal")
+            self.canvas.itemconfig(self.id_txt, fill=C["cyan"])
+            self.canvas.config(cursor="hand2")
+        except tk.TclError:
+            pass
+
+    def _sale(self, _):
+        self._rehacer()
+        try:
+            self.canvas.config(cursor="")
+        except tk.TclError:
+            pass
+
+    def _press(self, _):
+        if not self.activo:
+            return
+        try:
+            self.canvas.itemconfig(self.fondo, fill=C["gray"])
+        except tk.TclError:
+            pass
+
+    def _release(self, _):
+        if not self.activo:
+            return
+        self._entra(None)
+        self.comando()
 
 
 # ─────────────────────────────────────────────────────────────
@@ -182,38 +372,42 @@ class InterfazMundial:
     def __init__(self, root):
         self.root = root
         self.root.title("FIFA World Cup 2026 - Sistema de Control")
-        self.root.geometry("1280x720")
+        self.BASE_W, self.BASE_H = 1280, 720
+        self.win_w = self.root.winfo_screenwidth()
+        self.win_h = self.root.winfo_screenheight()
+        self.sx = self.win_w / self.BASE_W
+        self.sy = self.win_h / self.BASE_H
+        self.root.geometry(f"{self.win_w}x{self.win_h}+0+0")
+        self.root.attributes("-fullscreen", True)
         self.root.resizable(False, False)
-        
-        # Paleta de Colores Oficiales (Estilo WE ARE 26)
-        self.COLOR_TEXTO = C["fg"]           # Blanco puro
-        self.COLOR_CIAN = C["cyan"]          # Cian neón (Acento principal)
-        self.COLOR_VERDE = C["green"]        # Verde neón (Acento secundario)
-        self.COLOR_BG = C["bg"]              # Fondo oscuro
+
+        self.mus_vol = 50
 
         self.torneo_configurado = False
         self.disponibles = set()
         self.asignaciones = {}
         self.datos_config = None
-        
+        self.reproductor = ReproductorMusica()
+
         # --- CARGA DE IMÁGENES ---
         self.img_fondo = None
-        self.img_btn_config = None
-        self.img_btn_registro = None
-        self.img_btn_edicion = None
-        self.img_btn_salir = None
         self._cargar_imagenes()
 
-        # --- CANVAS PRINCIPAL ---
-        self.canvas = tk.Canvas(self.root, width=1280, height=720, highlightthickness=0, bg=self.COLOR_BG)
+        # --- CANVAS PRINCIPAL (ocupa toda la pantalla) ---
+        self.canvas = tk.Canvas(self.root, width=self.win_w, height=self.win_h,
+                                highlightthickness=0, bg=C["bg"])
         self.canvas.place(x=0, y=0)
-        
-        # Dibujar fondo si existe
+
+        # Fondo de portada (ya viene encuadrado, oscurecido y con fundidos)
         if self.img_fondo:
             self.canvas.create_image(0, 0, image=self.img_fondo, anchor="nw")
 
         self.crear_zona_titulos()
+        self._decorado()
         self.crear_menu_principal()
+        self.crear_barra_musica()
+
+        self._configurar_tema()
 
         cargar_datos()
         if data_store.config_guardada:
@@ -221,161 +415,239 @@ class InterfazMundial:
             self._habilitar_btn2()
 
         self.root.protocol("WM_DELETE_WINDOW", self._salir_guardando)
+        self.root.bind("<Escape>", self._toggle_fullscreen)
+        self._musica_apertura()
+        self._monitor_musica()
+
+    # ── UTILIDADES DE ESCALA ─────────────────────
+
+    def X(self, v):
+        """Escala un valor horizontal (base 1280 → pantalla real)."""
+        return v * self.sx
+
+    def Y(self, v):
+        """Escala un valor vertical (base 720 → pantalla real)."""
+        return v * self.sy
+
+    def A(self, x, y):
+        """Escala un par de coordenadas (base → pantalla real)."""
+        return x * self.sx, y * self.sy
+
+    def _toggle_fullscreen(self, event=None):
+        fs = self.root.attributes("-fullscreen")
+        self.root.attributes("-fullscreen", not fs)
+
+    def _configurar_tema(self):
+        """Tema oscuro global para widgets ttk (combobox, treeview, notebook, scale)."""
+        estilo = ttk.Style()
+        try:
+            estilo.theme_use("clam")
+        except Exception:
+            pass
+        estilo.configure("TNotebook", background=C["bg"], borderwidth=0)
+        estilo.configure("TNotebook.Tab", background=C["gray"], foreground=C["fg"],
+                         padding=[12, 4], font=("Segoe UI", 9, "bold"))
+        estilo.map("TNotebook.Tab", background=[("selected", C["cyan"])],
+                   foreground=[("selected", "#000000")])
+        estilo.configure("Treeview", background=C["input_bg"], foreground=C["fg"],
+                         fieldbackground=C["input_bg"], rowheight=26)
+        estilo.configure("Treeview.Heading", background=C["gray"], foreground=C["fg"],
+                         relief="flat", padding=[8, 6])
+        estilo.map("Treeview", background=[("selected", C["cyan"])],
+                   foreground=[("selected", "#000000")])
+        estilo.configure("TCombobox", fieldbackground=C["input_bg"], foreground=C["fg"],
+                         background=C["input_bg"], arrowcolor=C["fg"], bordercolor=C["border"],
+                         padding=[4, 4])
+        estilo.map("TCombobox",
+                   fieldbackground=[("readonly", C["input_bg"])],
+                   foreground=[("readonly", C["fg"])],
+                   selectbackground=[("readonly", C["input_bg"])])
+        estilo.configure("Horizontal.TScale", background=C["bg"], troughcolor=C["gray"])
+
+    def _estilizar_popup(self, win, titulo, icono, subtitulo, ancho, alto):
+        """Estiliza una ventana emergente: título, cabecera con degradado e ícono."""
+        win.title(titulo)
+        win.configure(bg=C["bg"])
+        win.resizable(False, False)
+        centrar_ventana(win, ancho, alto)
+        win.transient(self.root)
+        win.grab_set()
+
+        hd = tk.Frame(win, bg=C["bg2"])
+        hd.pack(fill="x")
+        tk.Frame(hd, bg=C["cyan"], height=2).pack(fill="x")
+        cuerpo = tk.Frame(hd, bg=C["bg2"], padx=16, pady=10)
+        cuerpo.pack(fill="x")
+        tk.Label(cuerpo, text=f"{icono}  {titulo}", fg=C["fg"], bg=C["bg2"],
+                 font=("Segoe UI", 12, "bold")).pack(anchor="w")
+        if subtitulo:
+            tk.Label(cuerpo, text=subtitulo, fg=C["fg_dim"], bg=C["bg2"],
+                     font=("Segoe UI", 9)).pack(anchor="w")
+        return win
 
     # ── CARGAR IMÁGENES ────────────────────────
 
     def _cargar_imagenes(self):
         try:
             from pathlib import Path
-            # Buscar en la carpeta src o en Proyecto_Algo 2_Interfaz
-            paths_posibles = [
-                Path(__file__).parent,  # src/
-                Path(__file__).parent.parent / "Proyecto_Algo 2_Interfaz"  # Proyecto_Algo 2_Interfaz/
-            ]
-            
-            img_files = {
-                "fondo.png": None,
-                "Configuracion.png": None,
-                "Registro.png": None,
-                "Emision.png": None,
-                "Salir.png": None
-            }
-            
-            for path in paths_posibles:
-                if not path.exists():
+            bases = [Path(__file__).parent,
+                     Path(__file__).parent.parent / "Proyecto_Algo 2_Interfaz"]
+            candidatos = ["fondo_mundial.png"]
+            for base in bases:
+                if not base.exists():
                     continue
-                for filename in img_files.keys():
-                    img_path = path / filename
-                    if img_path.exists() and img_files[filename] is None:
-                        try:
-                            img = tk.PhotoImage(file=str(img_path))
-                            img_files[filename] = img
-                        except Exception as e:
-                            print(f"No se pudo cargar {filename}: {e}")
-            
-            self.img_fondo = img_files.get("fondo.png")
-            self.img_btn_config = img_files.get("Configuracion.png")
-            self.img_btn_registro = img_files.get("Registro.png")
-            self.img_btn_edicion = img_files.get("Emision.png")
-            self.img_btn_salir = img_files.get("Salir.png")
-            
+                for nombre in candidatos:
+                    candidato = base / nombre
+                    if not candidato.exists():
+                        continue
+                    img = tk.PhotoImage(file=str(candidato))
+                    iw, ih = img.width(), img.height()
+                    fx = (self.win_w + iw - 1) // iw
+                    fy = (self.win_h + ih - 1) // ih
+                    factor = max(1, fx, fy)
+                    if factor > 1:
+                        img = img.zoom(factor, factor)
+                    self.img_fondo = img
+                    return
         except Exception as e:
-            print(f"Advertencia: No se pudieron cargar las imágenes. Continuando sin ellas. ({e})")
+            print(f"Advertencia: No se pudo cargar la imagen de fondo. ({e})")
 
     # ── HEADER ──────────────────────────────────
 
     def crear_zona_titulos(self):
-        # Borde rectangular Cian
-        self.canvas.create_rectangle(25, 20, 1255, 130, outline=self.COLOR_CIAN, width=2)
+        W, H = self.win_w, self.win_h
+        alto_barra = int(70 * self.sy)
 
-        # Textos del encabezado
-        self.canvas.create_text(640, 45, text="Algoritmos y Estructuras de Datos II", 
-                               fill=self.COLOR_TEXTO, font=("Arial", 20, "bold"), justify="center")
-        self.canvas.create_text(640, 75, text="CONTROL DE TORNEO DEPORTIVO", 
-                               fill=self.COLOR_CIAN, font=("Arial", 16, "bold"), justify="center")
-        
-        # Identificador del reloj dinámico para actualizarlo por id
-        self.id_reloj = self.canvas.create_text(640, 105, fill=self.COLOR_VERDE, 
-                                               font=("Consolas", 11), justify="center")
-        
+        # Banda superior con degradado
+        _gradiente(self.canvas, 0, 0, W, alto_barra, "#1A2438", "#111826", 40)
+        self.canvas.create_rectangle(0, alto_barra - 1, W, alto_barra, fill=C["cyan"], outline="")
+
+        # Título (izquierda)
+        self.canvas.create_text(int(30 * self.sx), int(25 * self.sy),
+                                text="\u26bd  FIFA WORLD CUP 2026",
+                                font=("Segoe UI", 18, "bold"), fill=C["fg"], anchor="w")
+        self.canvas.create_text(int(34 * self.sx), int(51 * self.sy),
+                                text="Control de Torneo Deportivo  ·  Algoritmos y Estructuras de Datos II",
+                                font=("Segoe UI", 9), fill=C["fg_dim"], anchor="w")
+
+        # Reloj (derecha)
+        self.id_hora = self.canvas.create_text(W - int(34 * self.sx), int(27 * self.sy),
+                                               text="", fill=C["green"],
+                                               font=("Segoe UI", 14, "bold"), anchor="e")
+        self.id_fecha = self.canvas.create_text(W - int(34 * self.sx), int(50 * self.sy),
+                                                text="", fill=C["fg_dim"],
+                                                font=("Segoe UI", 9), anchor="e")
+
+        # Control de pantalla completa + acceso
+        self.id_fs = self.canvas.create_text(W - int(92 * self.sx), int(27 * self.sy),
+                                             text="\u26f6", fill=C["fg_dim"],
+                                             font=("Segoe UI Symbol", 13), anchor="e")
+        self.canvas.tag_bind(self.id_fs, "<Button-1>", lambda e: self._toggle_fullscreen())
+        self._canvas_hover(self.id_fs, C["fg_dim"])
+        self.canvas.create_text(W - int(124 * self.sx), int(50 * self.sy),
+                                text="ESC \u21bb fullscreen", fill=C["fg_dim"],
+                                font=("Segoe UI", 8), anchor="e")
+
         self.actualizar_reloj()
 
     def actualizar_reloj(self):
         ahora = datetime.now()
-        formato = ahora.strftime("Fecha: %d/%m/%Y   |   Hora: %H:%M:%S")
-        self.canvas.itemconfig(self.id_reloj, text=formato)
+        self.canvas.itemconfig(self.id_hora, text=ahora.strftime("%H:%M:%S"))
+        self.canvas.itemconfig(self.id_fecha, text=ahora.strftime("Fecha: %d/%m/%Y"))
         self.root.after(1000, self.actualizar_reloj)
+
+    def _decorado(self):
+        """Motivos decorativos del lateral derecho (estilo FIFA)."""
+        sx, sy = self.sx, self.sy
+        W, H = self.win_w, self.win_h
+        cx, cy = int(1070 * sx), int(470 * sy)
+
+        # Aros concéntricos
+        for r, ancho in ((170, 1), (250, 1), (330, 2)):
+            self.canvas.create_oval(cx - r, cy - r, cx + r, cy + r,
+                                    outline=C["border"], width=ancho)
+        self.canvas.create_arc(cx - 250, cy - 250, cx + 250, cy + 250,
+                               start=250, extent=100, outline=C["cyan"],
+                               width=2, style="arc")
+
+        # Tipografía gigante "26"
+        self.canvas.create_text(cx, cy, text="26",
+                                font=("Segoe UI", 92, "bold"),
+                                fill=_mezclar(C["bg"], C["border"], 0.35))
+        self.canvas.create_text(cx, cy + int(92 * sy), text="WE ARE 26",
+                                font=("Segoe UI", 11, "bold"), fill=C["fg_dim"])
+
+        # Sello informativo (abajo a la derecha)
+        _round_rect(self.canvas, W - int(360 * sx), H - int(72 * sy), W - 20,
+                    H - int(24 * sy), 14, fill=C["card"], outline=C["border"], width=1)
+        self.canvas.create_text(W - int(190 * sx), H - int(48 * sy),
+                                text="\u26bd Mundial 2026  ·  48 equipos  ·  12 grupos",
+                                font=("Segoe UI", 9, "bold"), fill=C["fg_dim"])
 
     # ── MENÚ PRINCIPAL ───────────────────────────
 
     def crear_menu_principal(self):
-        # Título del Menú
-        self.canvas.create_text(640, 200, text="MENÚ PRINCIPAL", 
-                               fill=self.COLOR_TEXTO, font=("Arial Black", 14, "bold"))
+        # Panel contenedor del menú (lateral izquierdo)
+        _round_rect(self.canvas, int(22 * self.sx), int(88 * self.sy),
+                    int(470 * self.sx), int(self.win_h - 22), 24,
+                    fill=C["card"], outline=C["border"], width=1)
 
-        # Configuración de coordenadas (reducidas para que quepan todos los botones)
-        y_inicial = 250
-        separacion = 70  # Reducido de 85 a 70
-        x_texto = 560
+        # Encabezado del panel
+        self.canvas.create_text(int(46 * self.sx), int(122 * self.sy), text="Menú Principal",
+                                font=("Segoe UI", 24, "bold"), fill=C["fg"], anchor="w")
+        self.canvas.create_text(int(48 * self.sx), int(153 * self.sy),
+                                text="Seleccioná una opción para continuar",
+                                font=("Segoe UI", 10), fill=C["fg_dim"], anchor="w")
+        self.canvas.create_line(int(46 * self.sx), int(172 * self.sy),
+                                int(446 * self.sx), int(172 * self.sy), fill=C["border"], width=1)
 
-        # --- BOTÓN 1: CONFIGURACIÓN ---
-        if self.img_btn_config:
-            self.canvas.create_image(640, y_inicial, image=self.img_btn_config)
-        btn1_txt = self.canvas.create_text(
-            x_texto, y_inicial, 
-            text="1. Configuración del Torneo", 
-            fill=self.COLOR_TEXTO, 
-            font=("Arial", 10, "bold"), 
-            anchor="w"
-        )
-        self.canvas.tag_bind(btn1_txt, "<Button-1>", lambda e: self.abrir_configuracion())
+        items = [
+            ("\u2699", ("Segoe UI Symbol", 15), "1. Configuración del Torneo", self.abrir_configuracion, True),
+            ("\U0001f3c6", ("Segoe UI Emoji", 15), "2. Registro de Resultados", self.abrir_resultados, False),
+            ("\U0001f4c4", ("Segoe UI Emoji", 15), "3. Emisión de Informes", self.abrir_informes, True),
+            ("\u26bd", ("Segoe UI Symbol", 15), "4. Simulador de Partidos", self.abrir_simulador, True),
+            ("\U0001f3df", ("Segoe UI Emoji", 15), "5. Fase Eliminatoria", self.abrir_eliminatorias, True),
+            ("\U0001f3b5", ("Segoe UI Emoji", 15), "6. Playlist de Música", self.abrir_musica, True),
+            ("\u23f9", ("Segoe UI Symbol", 15), "7. Salir", self._salir_guardando, True),
+        ]
 
-        # --- BOTÓN 2: REGISTRO DE RESULTADOS ---
-        if self.img_btn_registro:
-            self.canvas.create_image(640, y_inicial + separacion, image=self.img_btn_registro)
-        self.btn2_txt = self.canvas.create_text(
-            x_texto, y_inicial + separacion, 
-            text="2. Registro de Resultados", 
-            fill="#888888",  
-            font=("Arial", 10, "bold"), 
-            anchor="w"
-        )
-        self.canvas.tag_bind(self.btn2_txt, "<Button-1>", lambda e: self.abrir_resultados())
+        self.menu_botones = []
+        x0, y0 = 46, 188
+        ancho, alto, gap = 396, 56, 12
+        for icono, fuente, texto, comando, hab in items:
+            mb = MenuBoton(self.canvas, self, x0, y0, ancho, alto, icono, fuente, texto, comando)
+            mb.set_habilitado(hab)
+            self.menu_botones.append(mb)
+            y0 += alto + gap
 
-        # --- BOTÓN 3: EMISIÓN DE INFORMES ---
-        if self.img_btn_edicion:
-            self.canvas.create_image(640, y_inicial + (separacion * 2), image=self.img_btn_edicion)
-        btn3_txt = self.canvas.create_text(
-            x_texto, y_inicial + (separacion * 2), 
-            text="3. Emisión de Informes", 
-            fill=self.COLOR_TEXTO, 
-            font=("Arial", 10, "bold"), 
-            anchor="w"
-        )
-        self.canvas.tag_bind(btn3_txt, "<Button-1>", lambda e: self.abrir_informes())
-
-        # --- BOTÓN 4: SIMULADOR ---
-        if self.img_btn_edicion:
-            self.canvas.create_image(640, y_inicial + (separacion * 3), image=self.img_btn_edicion)
-        btn4_txt = self.canvas.create_text(
-            x_texto, y_inicial + (separacion * 3), 
-            text="4. Simulador de Partidos", 
-            fill=self.COLOR_TEXTO, 
-            font=("Arial", 10, "bold"), 
-            anchor="w"
-        )
-        self.canvas.tag_bind(btn4_txt, "<Button-1>", lambda e: self.abrir_simulador())
-
-        # --- BOTÓN 5: FASE ELIMINATORIA ---
-        if self.img_btn_edicion:
-            self.canvas.create_image(640, y_inicial + (separacion * 4), image=self.img_btn_edicion)
-        btn5_txt = self.canvas.create_text(
-            x_texto, y_inicial + (separacion * 4), 
-            text="5. Fase Eliminatoria", 
-            fill=self.COLOR_TEXTO, 
-            font=("Arial", 10, "bold"), 
-            anchor="w"
-        )
-        self.canvas.tag_bind(btn5_txt, "<Button-1>", lambda e: self.abrir_eliminatorias())
-
-        # --- BOTÓN 6: SALIR ---
-        if self.img_btn_salir:
-            self.canvas.create_image(640, y_inicial + (separacion * 5), image=self.img_btn_salir)
-        
-        btn6_txt = self.canvas.create_text(
-            640, y_inicial + (separacion * 5), 
-            text="6. Salir", 
-            fill=self.COLOR_TEXTO, 
-            font=("Arial", 10, "bold")
-        )
-        self.canvas.tag_bind(btn6_txt, "<Button-1>", lambda e: self._salir_guardando())
+        self.btn2_menu = self.menu_botones[1]
+        self.btn2_menu.set_habilitado(self.torneo_configurado)
 
     def _salir_guardando(self):
+        self.reproductor.detener()
         guardar_datos()
         self.root.quit()
 
+    def _reiniciar_torneo(self):
+        data_store.tablagral.clear()
+        data_store.nombre_torneo = ""
+        data_store.fecha_inicio_obj = None
+        data_store.fecha_fin_obj = None
+        data_store.config_guardada = False
+        data_store.ronda_actual = None
+        data_store.partidos_ronda = []
+        data_store.avances_equipos = {}
+        data_store.historial_penales = []
+        self.torneo_configurado = False
+        self.disponibles = set()
+        self.asignaciones = {}
+        self.datos_config = None
+        self.btn2_menu.set_habilitado(False)
+        guardar_datos()
+
     def _habilitar_btn2(self):
-        self.canvas.itemconfig(self.btn2_txt, fill=self.COLOR_TEXTO)
+        if hasattr(self, "btn2_menu"):
+            self.btn2_menu.set_habilitado(True)
 
     def _estilo_boton(self, **kw):
         base = {"fg": C["fg"], "bg": C["gray"],
@@ -385,26 +657,368 @@ class InterfazMundial:
         base.update(kw)
         return base
 
+    # ── PLAYLIST DE MÚSICA ───────────────────────
+
+    def crear_barra_musica(self):
+        """Mini-reproductor compacto arriba a la derecha (estilo FIFA, sobre la pantalla)."""
+        sx, sy = self.sx, self.sy
+        y0, y1 = int(78 * sy), int(134 * sy)
+        cy = y0 + (y1 - y0) // 2
+
+        # Contenedor redondeado
+        _round_rect(self.canvas, int(780 * sx), y0, int(1256 * sx), y1, 14,
+                    fill=C["card"], outline=C["border"], width=1, tags="musbar")
+        # Acento superior cian
+        self.canvas.create_rectangle(int(780 * sx), y0, int(1256 * sx), y0 + int(2 * sy),
+                                     fill=C["cyan"], outline="", tags="musbar")
+
+        # Icono de música
+        self.mus_icono_id = self.canvas.create_text(
+            int(804 * sx), cy, text="\u266a", fill=C["cyan"],
+            font=("Segoe UI Symbol", 13, "bold"))
+
+        # Anterior
+        self.mus_prev_id = self.canvas.create_text(
+            int(840 * sx), cy, text="\u23ee", fill=C["fg"],
+            font=("Segoe UI Symbol", 12, "bold"))
+        self.canvas.tag_bind(self.mus_prev_id, "<Button-1>", lambda e: self._header_musica_prev())
+        self._canvas_hover(self.mus_prev_id, C["fg"])
+
+        # Play / Pausa (anillo)
+        cxp, cyp = int(880 * sx), cy
+        self.mus_ring = self.canvas.create_oval(
+            cxp - int(14 * min(sx, sy)), cyp - int(14 * min(sx, sy)),
+            cxp + int(14 * min(sx, sy)), cyp + int(14 * min(sx, sy)),
+            outline=C["cyan"], width=2)
+        self.mus_play_text = self.canvas.create_text(
+            cxp, cyp, text="\u25b8", fill="#0A1116",
+            font=("Segoe UI Symbol", 12, "bold"))
+        for it in (self.mus_ring, self.mus_play_text):
+            self.canvas.tag_bind(it, "<Button-1>", lambda e: self._header_musica_toggle())
+        self._canvas_hover(self.mus_ring, C["cyan"], attr="outline")
+
+        # Siguiente
+        self.mus_next_id = self.canvas.create_text(
+            int(920 * sx), cy, text="\u23ed", fill=C["fg"],
+            font=("Segoe UI Symbol", 12, "bold"))
+        self.canvas.tag_bind(self.mus_next_id, "<Button-1>", lambda e: self._header_musica_next())
+        self._canvas_hover(self.mus_next_id, C["fg"])
+
+        # Separador
+        self.canvas.create_line(int(944 * sx), y0 + int(12 * sy), int(944 * sx), y1 - int(12 * sy),
+                                fill=C["ring"], width=1)
+
+        # Nombre de canción (clic abre la playlist)
+        self.mus_label = self.canvas.create_text(
+            int(960 * sx), cy, text="Playlist \u2014 clic para abrir", fill=C["fg"],
+            font=("Segoe UI", 9, "bold"), anchor="w")
+        self.canvas.tag_bind(self.mus_label, "<Button-1>", lambda e: self.abrir_musica())
+        self._canvas_hover(self.mus_label, C["fg"])
+
+        # Ecualizador (3 barras animadas)
+        self.eq_bars = []
+        ex0 = 1142
+        for i, ancho_gap in enumerate((5, 5, 5)):
+            bx = int((ex0 + i * 10) * sx)
+            bar = self.canvas.create_rectangle(
+                bx, cy - int(3 * sy), bx + int(4 * sx), cy + int(3 * sy),
+                fill=C["disabled"], outline="")
+            self.eq_bars.append((bar, bx, cy))
+
+        # Controles de volumen
+        self.mus_vol_minus = self.canvas.create_text(
+            int(1190 * sx), cy, text="\u2212", fill=C["fg"], font=("Segoe UI", 12, "bold"))
+        self.mus_vol_pct = self.canvas.create_text(
+            int(1216 * sx), cy, text="Vol 50", fill=C["disabled"],
+            font=("Segoe UI", 8, "bold"), anchor="e")
+        self.mus_vol_plus = self.canvas.create_text(
+            int(1240 * sx), cy, text="+", fill=C["fg"], font=("Segoe UI", 12, "bold"))
+        self.canvas.tag_bind(self.mus_vol_minus, "<Button-1>", lambda e: self._header_vol_down())
+        self.canvas.tag_bind(self.mus_vol_plus, "<Button-1>", lambda e: self._header_vol_up())
+        self._canvas_hover(self.mus_vol_minus, C["fg"])
+        self._canvas_hover(self.mus_vol_plus, C["fg"])
+
+    def _canvas_hover(self, item_id, base, attr="fill"):
+        """Feedback de hover para elementos del canvas (texto, anillos)."""
+        hover = _mejorar_color(base, 0.25) if attr == "outline" else C["cyan"]
+
+        def entrar(_):
+            try:
+                self.canvas.itemconfig(item_id, **{attr: hover})
+                self.canvas.config(cursor="hand2")
+            except tk.TclError:
+                pass
+
+        def salir(_):
+            try:
+                self.canvas.itemconfig(item_id, **{attr: base})
+                self.canvas.config(cursor="")
+            except tk.TclError:
+                pass
+
+        self.canvas.tag_bind(item_id, "<Enter>", entrar)
+        self.canvas.tag_bind(item_id, "<Leave>", salir)
+
+    def _guardar_canvas(self, fn, *args):
+        """Ejecuta un cambio sobre el canvas tolerando widgets borrados."""
+        try:
+            return fn(*args)
+        except tk.TclError:
+            return None
+
+    def _header_musica_toggle(self):
+        rep = self.reproductor
+        if rep.pausado:
+            rep.reanudar()
+        elif rep.reproduciendo:
+            rep.pausar()
+        elif not rep.reproducir_aleatoria() and rep.disponible:
+            self._sin_musica()
+        self._actualizar_musica_menu()
+
+    def _header_musica_next(self):
+        if self.reproductor.pistas:
+            self.reproductor.siguiente()
+            self._actualizar_musica_menu()
+
+    def _header_musica_prev(self):
+        if self.reproductor.pistas:
+            self.reproductor.anterior()
+            self._actualizar_musica_menu()
+
+    def _header_vol_up(self):
+        self.mus_vol = min(100, self.mus_vol + 10)
+        self.reproductor.set_volumen(self.mus_vol / 100.0)
+        self._actualizar_musica_menu()
+
+    def _header_vol_down(self):
+        self.mus_vol = max(0, self.mus_vol - 10)
+        self.reproductor.set_volumen(self.mus_vol / 100.0)
+        self._actualizar_musica_menu()
+
+    def _monitor_musica(self):
+        """Pasa a una canción aleatoria cuando termina la actual,
+        anima el mini-reproductor y mantiene la barra al día."""
+        try:
+            rep = self.reproductor
+            if rep.terminada() and rep.reproducir_aleatoria():
+                self._actualizar_musica_menu()
+            self._pulso_musica()
+        except Exception:
+            pass
+        self.root.after(1000, self._monitor_musica)
+
+    def _pulso_musica(self):
+        """Pulso del anillo y ecualizador mientras suena la música."""
+        if not hasattr(self, "mus_ring"):
+            return
+        try:
+            tocando = self.reproductor.reproduciendo and not self.reproductor.pausado
+            if tocando:
+                toggler = getattr(self, "_mus_pulso", False)
+                self._mus_pulso = not toggler
+                self.canvas.itemconfig(self.mus_ring, outline=C["green"] if toggler else C["ring_on"])
+            else:
+                self.canvas.itemconfig(self.mus_ring, outline=C["cyan"])
+        except tk.TclError:
+            return
+
+        if hasattr(self, "eq_bars"):
+            try:
+                for bar, bx, cy in self.eq_bars:
+                    if tocando:
+                        h = random.randint(4, 14)
+                        fill = random.choice((C["cyan"], C["green"], C["ring_on"]))
+                    else:
+                        h, fill = 3, C["disabled"]
+                    self.canvas.coords(bar, bx, cy - int(h * self.sy), bx + int(4 * self.sx), cy + int(h * self.sy))
+                    self.canvas.itemconfig(bar, fill=fill)
+            except tk.TclError:
+                return
+
+    def _musica_apertura(self):
+        """Arranca una canción al azar al abrir la aplicación."""
+        rep = self.reproductor
+        if rep.reproducir_aleatoria():
+            rep.set_volumen(self.mus_vol / 100.0)
+        self._actualizar_musica_menu()
+
+    def _actualizar_musica_menu(self):
+        try:
+            rep = self.reproductor
+            nom = rep.nombre_actual()
+            if nom:
+                self.canvas.itemconfig(self.mus_play_text, text="\u23f8" if rep.pausado else "\u25b8")
+                self.canvas.itemconfig(self.mus_label, text=_acortar(nom, 28))
+            else:
+                self.canvas.itemconfig(self.mus_play_text, text="\u25b8")
+                self.canvas.itemconfig(self.mus_label, text="Playlist \u2014 clic para abrir")
+            self.canvas.itemconfig(self.mus_vol_pct, text=f"Vol {self.mus_vol}")
+        except tk.TclError:
+            pass
+
+    def _musica_refrescar(self):
+        rep = self.reproductor
+        rep._refrescar_pistas()
+        self.lbox_musica.delete(0, "end")
+        if not rep.pistas:
+            self.lbox_musica.insert("end", "(No hay canciones en la carpeta)")
+        else:
+            for i, p in enumerate(rep.pistas, 1):
+                marca = "\u266a " if i - 1 == rep.actual else "   "
+                self.lbox_musica.insert("end", f"{marca}{i:02d}. {p.name}")
+        if 0 <= rep.actual < len(rep.pistas):
+            self.lbox_musica.selection_clear(0, "end")
+            self.lbox_musica.selection_set(rep.actual)
+            self.lbox_musica.activate(rep.actual)
+            self.lbox_musica.see(rep.actual)
+
+    def _musica_doble_click(self, event=None):
+        sel = self.lbox_musica.curselection()
+        if sel:
+            self._musica_play(sel[0])
+
+    def _musica_play(self, idx=None):
+        rep = self.reproductor
+        if idx is None:
+            if rep.pausado:
+                rep.reanudar()
+                self._actualizar_musica_menu()
+                self._musica_refrescar()
+                return
+            sel = self.lbox_musica.curselection()
+            if sel:
+                idx = sel[0]
+            elif rep.actual >= 0:
+                idx = rep.actual
+            elif self.lbox_musica.size() > 0 and self.lbox_musica.get(0).startswith("("):
+                self._sin_musica()
+                return
+            else:
+                idx = 0
+        ok = rep.reproducir(idx)
+        if not ok:
+            self._sin_musica()
+            return
+        self._actualizar_musica_menu()
+        self._musica_refrescar()
+
+    def _musica_next(self):
+        rep = self.reproductor
+        if rep.siguiente():
+            self._actualizar_musica_menu()
+            self._musica_refrescar()
+        else:
+            self._sin_musica()
+
+    def _musica_prev(self):
+        rep = self.reproductor
+        if rep.anterior():
+            self._actualizar_musica_menu()
+            self._musica_refrescar()
+        else:
+            self._sin_musica()
+
+    def _musica_pausa(self):
+        rep = self.reproductor
+        if rep.reproduciendo:
+            rep.pausar()
+        else:
+            rep.reanudar()
+        self._actualizar_musica_menu()
+        self._musica_refrescar()
+
+    def _musica_stop(self):
+        self.reproductor.detener()
+        self._actualizar_musica_menu()
+        self._musica_refrescar()
+
+    def _musica_volumen(self, val):
+        self.mus_vol = int(val)
+        self.reproductor.set_volumen(self.mus_vol / 100.0)
+        self._actualizar_musica_menu()
+
+    def _sin_musica(self, parent=None):
+        messagebox.showwarning(
+            "Sin m\u00fasica",
+            "No hay canciones en la carpeta 'musica' del proyecto.\n"
+            "Agreg\u00e1 archivos .mp3 / .wav / .ogg y actualiz\u00e1 la lista.",
+            parent=parent or self.root)
+
+    def abrir_musica(self):
+        win = tk.Toplevel(self.root)
+        self._estilizar_popup(win, "Playlist de M\u00fasica", "\u266a",
+                              "Doble clic para reproducir una canci\u00f3n", 500, 500)
+        tk.Label(win, text=f"Carpeta: {self.reproductor.carpeta}",
+                 fg=C["disabled"], bg=C["bg"], font=("Consolas", 8)).pack(pady=(10, 2))
+
+        frame = tk.Frame(win, bg=C["bg"])
+        frame.pack(fill="both", expand=True, padx=20)
+
+        self.lbox_musica = tk.Listbox(frame, bg=C["input_bg"], fg="white",
+                                      selectbackground=C["cyan"], selectforeground="#000000",
+                                      relief="flat", font=("Consolas", 10))
+        self.lbox_musica.pack(side="left", fill="both", expand=True)
+        sd = tk.Scrollbar(frame, command=self.lbox_musica.yview)
+        sd.pack(side="right", fill="y")
+        self.lbox_musica.config(yscrollcommand=sd.set)
+        self.lbox_musica.bind("<Double-Button-1>", self._musica_doble_click)
+
+        ctrl = tk.Frame(win, bg=C["bg"])
+        ctrl.pack(fill="x", padx=20, pady=10)
+        boton(ctrl, text="\u23ee", command=self._musica_prev,
+                  bg=C["gray"], fg=C["fg"], bd=0, width=4,
+                  font=("Arial", 11, "bold"), cursor="hand2").pack(side="left", padx=3)
+        boton(ctrl, text="\u25b6", command=self._musica_play,
+                  bg=C["cyan"], fg="#000000", bd=0, width=4,
+                  font=("Arial", 11, "bold"), cursor="hand2").pack(side="left", padx=3)
+        boton(ctrl, text="\u23f8", command=self._musica_pausa,
+                  bg=C["gray"], fg=C["fg"], bd=0, width=4,
+                  font=("Arial", 11, "bold"), cursor="hand2").pack(side="left", padx=3)
+        boton(ctrl, text="\u23ed", command=self._musica_next,
+                  bg=C["gray"], fg=C["fg"], bd=0, width=4,
+                  font=("Arial", 11, "bold"), cursor="hand2").pack(side="left", padx=3)
+        boton(ctrl, text="\u23f9", command=self._musica_stop,
+                  bg=C["gray"], fg=C["fg"], bd=0, width=4,
+                  font=("Arial", 11, "bold"), cursor="hand2").pack(side="left", padx=3)
+
+        vol_row = tk.Frame(win, bg=C["bg"])
+        vol_row.pack(fill="x", padx=20, pady=(0, 8))
+        tk.Label(vol_row, text="Volumen:", fg=C["fg"], bg=C["bg"],
+                 font=("Arial", 9)).pack(side="left", padx=(0, 8))
+        self.sc_volumen = tk.Scale(vol_row, from_=0, to=100, orient="horizontal",
+                                   bg=C["bg"], fg=C["fg"], highlightthickness=0,
+                                   troughcolor=C["gray"], command=self._musica_volumen)
+        self.sc_volumen.set(self.mus_vol)
+        self.sc_volumen.pack(side="left", fill="x", expand=True)
+
+        boton(win, text="\u21bb Actualizar lista", command=self._musica_refrescar,
+                  bg=C["gray"], fg=C["fg"], font=("Arial", 9, "bold"),
+                  bd=0, cursor="hand2", padx=12, pady=5).pack(pady=(0, 12))
+
+        self._musica_refrescar()
+        self._actualizar_musica_menu()
+
+        win.protocol("WM_DELETE_WINDOW", win.destroy)
+
     # ── CONFIGURACIÓN DEL TORNEO ─────────────────
 
     def abrir_configuracion(self):
         if data_store.config_guardada:
-            messagebox.showwarning(
-                "Acceso Denegado",
-                "La configuraci\u00f3n del torneo ya fue finalizada.\nNo se puede modificar.")
-            return
+            respuesta = messagebox.askyesno(
+                "Reconfigurar Torneo",
+                "Ya existe una configuración guardada.\n"
+                "¿Desea reiniciar y reconfigurar el torneo?\n\n"
+                "Se borrarán todos los datos actuales (resultados, informes, eliminatorias).")
+            if not respuesta:
+                return
+            self._reiniciar_torneo()
         win = tk.Toplevel(self.root)
-        win.title("Configuraci\u00f3n del Torneo")
-        centrar_ventana(win, 440, 400)
-        win.configure(bg=C["bg"])
-        win.transient(self.root)
-        win.grab_set()
+        self._estilizar_popup(win, "Configuraci\u00f3n del Torneo", "\u2699",
+                              "Defin\u00ed los datos generales del mundial", 440, 430)
 
         card = tk.Frame(win, bg=C["card"], padx=20, pady=20)
         card.pack(pady=15, padx=20, fill="both", expand=True)
-
-        tk.Label(card, text="CONFIGURACI\u00d3N DEL TORNEO", fg=C["cyan"], bg=C["card"],
-                 font=("Arial", 12, "bold")).pack(pady=(0, 18))
 
         e_nombre = tk.Entry(card, bg=C["input_bg"], fg="white",
                             insertbackground="white", relief="flat", font=("Arial", 10))
@@ -437,25 +1051,16 @@ class InterfazMundial:
 
         btn_frame = tk.Frame(win, bg=C["bg"])
         btn_frame.pack(pady=(0, 12))
-        tk.Button(btn_frame, text="Guardar y Asignar Grupos",
+        boton(btn_frame, text="Guardar y Asignar Grupos",
                   command=guardar, **self._estilo_boton(width=28)).pack()
 
     # ── ASIGNACIÓN DE EQUIPOS A GRUPOS ───────────
 
     def abrir_asignacion_grupos(self):
         win = tk.Toplevel(self.root)
-        win.title("Asignaci\u00f3n de Equipos a Grupos")
-        centrar_ventana(win, 780, 580)
-        win.configure(bg=C["bg"])
-        win.transient(self.root)
-        win.grab_set()
-
-        tk.Label(win, text="ASIGNACI\u00d3N DE EQUIPOS A GRUPOS", fg=C["cyan"], bg=C["bg"],
-                 font=("Arial", 12, "bold")).pack(pady=(15, 2))
-        tk.Label(win, text="Seleccion\u00e1 un pa\u00eds disponible y agregalo a un grupo (4 por grupo)",
-                 fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(0, 2))
-        tk.Label(win, text="Regla: m\u00e1x 2 UEFA por grupo; otras confederaciones no pueden repetirse",
-                 fg=C["cyan"], bg=C["bg"], font=("Arial", 8)).pack(pady=(0, 8))
+        self._estilizar_popup(win, "Asignaci\u00f3n de Equipos a Grupos", "\U0001f3df",
+                              "4 equipos por grupo \u00b7 m\u00e1x 2 UEFA \u00b7 otras confederaciones no se repiten",
+                              780, 620)
 
         main = tk.Frame(win, bg=C["bg"])
         main.pack(fill="both", expand=True, padx=15, pady=5)
@@ -507,21 +1112,21 @@ class InterfazMundial:
 
         btn_row = tk.Frame(right, bg=C["bg"])
         btn_row.pack(fill="x", pady=10)
-        tk.Button(btn_row, text="\u2192 Agregar", command=self._agregar,
+        boton(btn_row, text="\u2192 Agregar", command=self._agregar,
                   **self._estilo_boton(width=13, bg=C["cyan"], fg="#000000")).pack(side="left", padx=3)
-        tk.Button(btn_row, text="Quitar \u2190", command=self._quitar,
+        boton(btn_row, text="Quitar \u2190", command=self._quitar,
                   **self._estilo_boton(width=13)).pack(side="right", padx=3)
 
         self._refrescar_asig()
 
-        tk.Button(right, text="\U0001f3b2 Randomizar", command=self._randomizar,
+        boton(right, text="\U0001f3b2 Randomizar", command=self._randomizar,
                   **self._estilo_boton(width=13, bg=C["green"], fg="#000000")).pack(pady=(0, 6))
 
         self.lbl_status = tk.Label(win, text="", fg=C["green"], bg=C["bg"], font=("Consolas", 9))
         self.lbl_status.pack(pady=(0, 5))
         self._actualizar_status()
 
-        tk.Button(win, text="FINALIZAR CONFIGURACI\u00d3N",
+        boton(win, text="FINALIZAR CONFIGURACI\u00d3N",
                   command=lambda: self._finalizar(win),
                   bg=C["cyan"], fg="#000000",
                   **{k: v for k, v in self._estilo_boton(width=30).items()
@@ -649,16 +1254,9 @@ class InterfazMundial:
 
     def abrir_calendario_config(self):
         win = tk.Toplevel(self.root)
-        win.title("Calendario de Partidos")
-        centrar_ventana(win, 800, 580)
-        win.configure(bg=C["bg"])
-        win.transient(self.root)
-        win.grab_set()
-
-        tk.Label(win, text="CALENDARIO DE PARTIDOS", fg=C["cyan"], bg=C["bg"],
-                font=("Arial", 12, "bold")).pack(pady=(14, 2))
-        tk.Label(win, text="Asigná fecha y hora a cada partido antes de finalizar la configuración",
-                fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(0, 8))
+        self._estilizar_popup(win, "Calendario de Partidos", "\U0001f4c5",
+                              "Asign\u00e1 fecha y hora a cada partido antes de finalizar la configuraci\u00f3n",
+                              800, 620)
 
         top = tk.Frame(win, bg=C["bg"])
         top.pack(fill="x", padx=20, pady=(0, 5))
@@ -687,7 +1285,7 @@ class InterfazMundial:
                 e_hora.insert(0, h)
 
         
-        tk.Button(top, text="🎲 Randomizar grupo", command=randomizar_fechas,
+        boton(top, text="🎲 Randomizar grupo", command=randomizar_fechas,
                 bg=C["green"], fg="#000000", font=("Arial", 9, "bold"),
                 bd=0, cursor="hand2", padx=10, pady=4).pack(side="left", padx=(0, 6))
 
@@ -723,7 +1321,7 @@ class InterfazMundial:
                                 "Fechas y horarios asignados a todos los partidos del torneo.",
                                 parent=win)
 
-        tk.Button(top, text="🌍 Randomizar Todo", command=randomizar_todo,
+        boton(top, text="🌍 Randomizar Todo", command=randomizar_todo,
                 bg="#0088FF", fg="#FFFFFF", font=("Arial", 9, "bold"),
                 bd=0, cursor="hand2", padx=10, pady=4).pack(side="left")
 
@@ -823,12 +1421,12 @@ class InterfazMundial:
 
         btn_frame = tk.Frame(win, bg=C["bg"])
         btn_frame.pack(fill="x", pady=(4, 12))
-        tk.Button(btn_frame, text="💾 Guardar fechas del grupo",
+        boton(btn_frame, text="💾 Guardar fechas del grupo",
                 command=guardar_calendario,
                 bg=C["gray"], fg=C["fg"],
                 font=("Arial", 10, "bold"), bd=0, cursor="hand2",
                 padx=14, pady=6).pack(side="left", padx=(20, 10))
-        tk.Button(btn_frame, text="✅ FINALIZAR CONFIGURACIÓN",
+        boton(btn_frame, text="✅ FINALIZAR CONFIGURACIÓN",
                 command=finalizar_config,
                 bg=C["cyan"], fg="#000000",
                 font=("Arial", 10, "bold"), bd=0, cursor="hand2",
@@ -843,16 +1441,9 @@ class InterfazMundial:
             return
 
         win = tk.Toplevel(self.root)
-        win.title("Registro de Resultados")
-        centrar_ventana(win, 760, 540)
-        win.configure(bg=C["bg"])
-        win.transient(self.root)
-        win.grab_set()
-
-        tk.Label(win, text="REGISTRO DE RESULTADOS", fg=C["cyan"], bg=C["bg"],
-                 font=("Arial", 12, "bold")).pack(pady=(18, 2))
-        tk.Label(win, text="Seleccion\u00e1 un grupo y carg\u00e1 los goles de cada partido",
-                 fg=C["green"], bg=C["bg"], font=("Arial", 9)).pack(pady=(0, 12))
+        self._estilizar_popup(win, "Registro de Resultados", "\U0001f3c6",
+                              "Seleccion\u00e1 un grupo y carg\u00e1 los goles de cada partido",
+                              760, 580)
 
         top = tk.Frame(win, bg=C["bg"])
         top.pack(fill="x", padx=20, pady=(10, 5))
@@ -962,11 +1553,11 @@ class InterfazMundial:
                                 "Se han generado resultados, fechas y horarios aleatorios para todos los partidos.",
                                 parent=win)
         
-        tk.Button(top, text="🎲 Randomizar", command=randomizar_grupo,
+        boton(top, text="🎲 Randomizar", command=randomizar_grupo,
                   bg=C["green"], fg="#000000", font=("Arial", 9, "bold"),
                   bd=0, cursor="hand2", padx=10, pady=4).pack(side="left", padx=(0, 5))
         
-        tk.Button(top, text="🌍 Simular Todo", command=simular_todos,
+        boton(top, text="🌍 Simular Todo", command=simular_todos,
                   bg="#0088FF", fg="#FFFFFF", font=("Arial", 9, "bold"),
                   bd=0, cursor="hand2", padx=10, pady=4).pack(side="left")
 
@@ -1044,7 +1635,7 @@ class InterfazMundial:
                         tk.Label(row2, text=f"📅 {p['fecha']}  🕐 {p.get('hora', '')}",
                                  fg=C["disabled"], bg=C["card"], font=("Arial", 8)).pack(side="left")
                     match_widgets[par] = (e_loc, e_vis, e.nombre, p["rival"])
-                    tk.Button(row, text="Tarjetas", font=("Arial", 8),
+                    boton(row, text="Tarjetas", font=("Arial", 8),
                               command=lambda t1=e.nombre, t2=p["rival"]:
                                   self._asignar_tarjetas_gui(t1, t2),
                               bg=C["disabled"], fg=C["fg"], bd=0,
@@ -1091,7 +1682,7 @@ class InterfazMundial:
         btn_frame = tk.Frame(win, bg=C["bg"])
         btn_frame.pack(fill="x", pady=(5, 12))
         
-        tk.Button(btn_frame, text="Guardar Resultados",
+        boton(btn_frame, text="Guardar Resultados",
                   command=guardar_res,
                   bg=C["cyan"], fg="#000000",
                   **{k: v for k, v in self._estilo_boton(width=20).items()
@@ -1101,14 +1692,8 @@ class InterfazMundial:
 
     def _asignar_tarjetas_gui(self, local, visit):
         win = tk.Toplevel(self.root)
-        win.title("Tarjetas")
-        centrar_ventana(win, 480, 400)
-        win.configure(bg=C["bg"])
-        win.transient(self.root)
-        win.grab_set()
-
-        tk.Label(win, text="ASIGNAR TARJETAS", fg=C["cyan"], bg=C["bg"],
-                 font=("Arial", 11, "bold")).pack(pady=(12, 8))
+        self._estilizar_popup(win, "Tarjetas", "\U0001f533",
+                              f"Registrar tarjetas de {local} y {visit}", 480, 430)
 
         main = tk.Frame(win, bg=C["bg"], padx=15, pady=5)
         main.pack(fill="both", expand=True)
@@ -1156,42 +1741,22 @@ class InterfazMundial:
                 cb_jug.set("")
                 lbl_feedback.config(text=f"{jug} ({cb_tipo.get()}) \u2192 {team_name}")
 
-            tk.Button(row, text="+", command=agregar,
+            boton(row, text="+", command=agregar,
                       bg=C["cyan"], fg="#000000", bd=0,
                       font=("Arial", 9, "bold"), cursor="hand2", width=3).pack(side="left", padx=5)
 
         seccion(local)
         seccion(visit)
 
-        tk.Button(win, text="Cerrar", command=win.destroy,
+        boton(win, text="Cerrar", command=win.destroy,
                   **self._estilo_boton(width=20)).pack(pady=(10, 12))
 
     # ── EMISIÓN DE INFORMES (5 TABS) ─────────────
 
     def abrir_informes(self):
         win = tk.Toplevel(self.root)
-        win.title("Emisi\u00f3n de Informes")
-        centrar_ventana(win, 850, 620)
-        win.configure(bg=C["bg"])
-        win.transient(self.root)
-        win.grab_set()
-
-        tk.Label(win, text="EMISI\u00d3N DE INFORMES", fg=C["cyan"], bg=C["bg"],
-                 font=("Arial", 12, "bold")).pack(pady=(10, 2))
-
-        # Estilo oscuro para el Notebook
-        style = ttk.Style()
-        style.theme_use("clam")
-        style.configure("TNotebook", background=C["bg"], borderwidth=0)
-        style.configure("TNotebook.Tab", background=C["gray"], foreground="white",
-                        padding=[12, 4], font=("Arial", 9, "bold"))
-        style.map("TNotebook.Tab", background=[("selected", C["cyan"])],
-                  foreground=[("selected", "#000000")])
-        style.configure("Treeview", background=C["input_bg"], foreground="white",
-                        fieldbackground=C["input_bg"], rowheight=26)
-        style.configure("Treeview.Heading", background=C["gray"], foreground="white", relief="flat")
-        style.map("Treeview", background=[("selected", C["cyan"])],
-                  foreground=[("selected", "#000000")])
+        self._estilizar_popup(win, "Emisi\u00f3n de Informes", "\U0001f4c4",
+                              "Gener\u00e1 y export\u00e1 los informes del torneo", 850, 660)
 
         notebook = ttk.Notebook(win)
         notebook.pack(fill="both", expand=True, padx=15, pady=(5, 15))
@@ -1246,7 +1811,7 @@ class InterfazMundial:
                 tree1.insert("", "end", values=(r["local"], r["visitante"],
                                                 r["grupo"], r["hora"], r["resultado"]))
 
-        tk.Button(tab1, text="Buscar", command=buscar_partidos,
+        boton(tab1, text="Buscar", command=buscar_partidos,
                   **self._estilo_boton(width=15, bg=C["cyan"], fg="#000000")).pack(pady=(0, 5))
 
         # ── TAB 2: Tabla de un grupo ──────────────
@@ -1351,7 +1916,7 @@ class InterfazMundial:
 
             btn_frame3 = tk.Frame(tab3, bg=C["bg"])
             btn_frame3.pack(fill="x", padx=20, pady=(0, 5))
-            tk.Button(btn_frame3, text="\U0001f4c4 Generar Informe .txt", command=guardar,
+            boton(btn_frame3, text="\U0001f4c4 Generar Informe .txt", command=guardar,
                       **self._estilo_boton(width=22, bg=C["cyan"], fg="#000000")).pack()
 
         cb3.bind("<<ComboboxSelected>>", lambda e: mostrar_resultados())
@@ -1456,7 +2021,7 @@ class InterfazMundial:
                             text=f"{team} no clasificó a la fase eliminatoria.",
                             fg="#FF4444")
 
-        tk.Button(tab4, text="Buscar", command=mostrar_proximo,
+        boton(tab4, text="Buscar", command=mostrar_proximo,
                 bg=C["cyan"], fg="#000000", font=("Arial", 10, "bold"),
                 bd=0, cursor="hand2", padx=14, pady=5).pack(pady=(0, 5))
 
@@ -1514,7 +2079,7 @@ class InterfazMundial:
             messagebox.showinfo("Informe completo",
                                 f"Informe completo guardado en:\n{archivo}", parent=win)
 
-        tk.Button(botom_frame, text="\U0001f4c4 Generar Informe Completo .txt",
+        boton(botom_frame, text="\U0001f4c4 Generar Informe Completo .txt",
                   command=generar_completo,
                   bg=C["green"], fg="#000000",
                   **{k: v for k, v in self._estilo_boton(width=28).items()
@@ -1566,7 +2131,7 @@ class InterfazMundial:
         # Botón para refrescar
         btn6_frame = tk.Frame(tab6, bg=C["bg"])
         btn6_frame.pack(fill="x", padx=20, pady=5)
-        tk.Button(btn6_frame, text="🔄 Actualizar", command=actualizar_terceros,
+        boton(btn6_frame, text="🔄 Actualizar", command=actualizar_terceros,
                   bg=C["cyan"], fg="#000000", font=("Arial", 9, "bold"),
                   bd=0, cursor="hand2", padx=10, pady=4).pack()
 
@@ -1584,18 +2149,12 @@ class InterfazMundial:
             return
 
         win = tk.Toplevel(self.root)
-        win.title("Fase Eliminatoria")
-        centrar_ventana(win, 850, 640)
-        win.configure(bg=C["bg"])
-        win.transient(self.root)
-        win.grab_set()
-
-        tk.Label(win, text="FASE ELIMINATORIA", fg=C["cyan"], bg=C["bg"],
-                 font=("Arial", 12, "bold")).pack(pady=(12, 2))
+        self._estilizar_popup(win, "Fase Eliminatoria", "\U0001f3df",
+                              "Desarroll\u00e1 y gestion\u00e1 las rondas finales", 850, 680)
 
         lbl_ronda = tk.Label(win, text="", fg=C["green"], bg=C["bg"],
-                             font=("Arial", 11, "bold"))
-        lbl_ronda.pack(pady=(0, 5))
+                             font=("Segoe UI", 11, "bold"))
+        lbl_ronda.pack(pady=(8, 5))
 
         frame = tk.Frame(win, bg=C["bg"])
         frame.pack(fill="both", expand=True, padx=15, pady=5)
@@ -1714,18 +2273,12 @@ class InterfazMundial:
                         # Popup para ingresar penales
                         p = data_store.partidos_ronda[idx]
                         pen_win = tk.Toplevel(win)
-                        pen_win.title("Penales")
-                        centrar_ventana(pen_win, 380, 220)
-                        pen_win.configure(bg=C["bg"])
-                        pen_win.transient(win)
-                        pen_win.grab_set()
+                        self._estilizar_popup(pen_win, "Penales", "\u26bd",
+                                              f"Empate: {p['local']} vs {p['visitante']}",
+                                              380, 240)
 
                         tk.Label(pen_win,
-                                 text=f"⚽ EMPATE: {p['local']} vs {p['visitante']}",
-                                 fg=C["cyan"], bg=C["bg"],
-                                 font=("Arial", 11, "bold")).pack(pady=(15, 5))
-                        tk.Label(pen_win,
-                                 text=f"Resultado: {g1n} - {g2n}\nIngresá los goles de penales:",
+                                 text=f"Resultado: {g1n} - {g2n}\nIngres\u00e1 los goles de penales:",
                                  fg=C["fg"], bg=C["bg"],
                                  font=("Arial", 10)).pack(pady=(0, 10))
 
@@ -1765,7 +2318,7 @@ class InterfazMundial:
                             except ValueError:
                                 error_lbl.config(text="Ingresá números válidos.")
 
-                        tk.Button(pen_win, text="✅ Confirmar",
+                        boton(pen_win, text="✅ Confirmar",
                                   command=confirmar_penales,
                                   bg=C["cyan"], fg="#000000",
                                   font=("Arial", 10, "bold"),
@@ -1837,14 +2390,8 @@ class InterfazMundial:
         def mostrar_avances():
             avances = obtener_maximo_avance()
             av_win = tk.Toplevel(win)
-            av_win.title("M\u00e1ximo Avance de Equipos")
-            centrar_ventana(av_win, 600, 500)
-            av_win.configure(bg=C["bg"])
-            av_win.transient(win)
-            av_win.grab_set()
-
-            tk.Label(av_win, text="M\u00c1XIMO AVANCE DE EQUIPOS", fg=C["cyan"], bg=C["bg"],
-                     font=("Arial", 12, "bold")).pack(pady=(15, 10))
+            self._estilizar_popup(av_win, "M\u00e1ximo Avance de Equipos", "\U0001f3c6",
+                                  "Detalle del avance de cada equipo en el torneo", 600, 540)
 
             av_frame = tk.Frame(av_win, bg=C["bg"])
             av_frame.pack(fill="both", expand=True, padx=20)
@@ -1873,25 +2420,19 @@ class InterfazMundial:
             for nom, ronda, nivel in sorted(avances, key=lambda x: -x[2]):
                 av_tree.insert("", "end", values=(nom, ronda, nivel))
 
-        tk.Button(btn_frame, text="\U0001f3b2 Generar Ronda 32", command=generar_r32,
+        boton(btn_frame, text="\U0001f3b2 Generar Ronda 32", command=generar_r32,
                   **self._estilo_boton(width=18, bg=C["cyan"], fg="#000000")).pack(side="left", padx=3)
-        tk.Button(btn_frame, text="\u25b6 Guardar y Avanzar", command=guardar_y_avanzar,
+        boton(btn_frame, text="\u25b6 Guardar y Avanzar", command=guardar_y_avanzar,
                   **self._estilo_boton(width=18, bg=C["green"], fg="#000000")).pack(side="left", padx=3)
-        tk.Button(btn_frame, text="\U0001f4ca M\u00e1ximo Avance", command=mostrar_avances,
+        boton(btn_frame, text="\U0001f4ca M\u00e1ximo Avance", command=mostrar_avances,
                   **self._estilo_boton(width=18)).pack(side="right", padx=3)
 
     # ── SIMULADOR DE PARTIDOS ───────────────────
 
     def abrir_simulador(self):
         win = tk.Toplevel(self.root)
-        win.title("Simulador de Partidos")
-        centrar_ventana(win, 600, 400)
-        win.configure(bg=C["bg"])
-        win.transient(self.root)
-        win.grab_set()
-
-        tk.Label(win, text="SIMULADOR DE PARTIDOS", fg=C["cyan"], bg=C["bg"],
-                 font=("Arial", 12, "bold")).pack(pady=(15, 10))
+        self._estilizar_popup(win, "Simulador de Partidos", "\u26bd",
+                              "Seleccion\u00e1 dos equipos y simul\u00e1 el encuentro", 600, 430)
 
         # Obtener lista de países disponibles en el mundial
         paises_disp = sorted(data_store.paises_mundial)
@@ -1946,7 +2487,7 @@ class InterfazMundial:
 
         btn_frame = tk.Frame(win, bg=C["bg"])
         btn_frame.pack(fill="x", pady=(20, 15))
-        tk.Button(btn_frame, text="▶ Iniciar Simulación",
+        boton(btn_frame, text="▶ Iniciar Simulación",
                   command=iniciar_simulacion,
                   bg=C["cyan"], fg="#000000", font=("Arial", 11, "bold"),
                   bd=0, cursor="hand2", padx=20, pady=8).pack()
@@ -1955,11 +2496,8 @@ class InterfazMundial:
 
         # Crear ventana principal del simulador
         win_sim = tk.Toplevel(self.root)
-        win_sim.title(f"SIMULACIÓN: {local} vs {visitante}")
-        centrar_ventana(win_sim, 1000, 700)
-        win_sim.configure(bg=C["bg"])
-        win_sim.transient(self.root)
-        win_sim.grab_set()
+        self._estilizar_popup(win_sim, f"Simulaci\u00f3n: {local} vs {visitante}", "\u26bd",
+                              "Partido simulado en tiempo real", 1000, 720)
 
         # Variables de control
         tiempo_minuto = [0]  # Minuto actual (0-90)
@@ -2025,16 +2563,16 @@ class InterfazMundial:
         def finalizar():
             win_sim.destroy()
 
-        btn_play = tk.Button(frame_btn, text="⏸ Pausar", command=toggle_simulacion,
+        btn_play = boton(frame_btn, text="⏸ Pausar", command=toggle_simulacion,
                            bg=C["green"], fg="#000000", font=("Arial", 10, "bold"),
                            bd=0, cursor="hand2", padx=12, pady=6)
         btn_play.pack(side="left", padx=5)
 
-        tk.Button(frame_btn, text="⏩ Skip", command=skip_evento,
+        boton(frame_btn, text="⏩ Skip", command=skip_evento,
                  bg=C["cyan"], fg="#000000", font=("Arial", 10, "bold"),
                  bd=0, cursor="hand2", padx=12, pady=6).pack(side="left", padx=5)
 
-        tk.Button(frame_btn, text="❌ Finalizar", command=finalizar,
+        boton(frame_btn, text="❌ Finalizar", command=finalizar,
                  bg="#FF3333", fg="white", font=("Arial", 10, "bold"),
                  bd=0, cursor="hand2", padx=12, pady=6).pack(side="left", padx=5)
 

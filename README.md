@@ -17,6 +17,7 @@
 | **Eliminación directa** | Octavos, cuartos, semis, final con bracket visual |
 | **Mejores terceros** | Ranking de los 8 mejores terceros que avanzan |
 | **Simulador aleatorio** | Generación automática de resultados |
+| **Playlist de música** | Reproductor en el menú (play/pausa/siguiente/anterior/volumen) con la carpeta `musica/` |
 | **Reportes exportables** | Exportación a `.txt` |
 | **Doble interfaz** | GUI (Tkinter) y CLI |
 
@@ -97,6 +98,9 @@ mundial-2026/
 # Clonar el repositorio
 git clone git@github.com:eyymaanu/proyecMundial2026.git
 cd proyecMundial2026
+
+# Instalar dependencias (audio para la playlist del menú)
+pip install pygame-ce
 
 # Ejecutar con interfaz gráfica (por defecto)
 python src/main.py
